@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String
+  role          String   @default("user")
+  status        String   @default("active")
+  first_name    String?
+  last_name     String?
+  address       String?
+  phone         String?
+  refresh_token String?
+  profile_image String?
+  last_update   DateTime @updatedAt
+  create_date   DateTime @default(now())
+  Order         Order[]
+  Cart          Cart[]
+}
+
+model Product {
+  id           String        @id @default(uuid())
+  product_name String
+  price        Int
+  sold         Int           @default(0) // ยอดรวมที่ขายได้
+  cost         Int // ต้นทุน
+  description  String?
+  stock        Int
+  status       String        @default("active") // active inactive deleted
+  last_update  DateTime      @updatedAt
+  create_date  DateTime      @default(now())
+  category_id  String
+  Category     Category      @relation(fields: [category_id], references: [id])
+  Image        Image[]
+  OrderDetail  OrderDetail[]
+  CartDetail   CartDetail[]
+}
+
+model Category {
+  id            String    @id @default(uuid())
+  category_name String
+  status        String    @default("active") // active deactive deleted
+  last_update   DateTime  @updatedAt
+  create_date   DateTime  @default(now())
+  Product       Product[]
+}
+
+model Image {
+  id          String   @id @default(uuid())
+  image_name  String
+  position    Int // ตำแหน่งลำดับของรูปภาพที่ต้องการจะแสดง
+  url         String
+  asset_id    String
+  public_id   String
+  secure_url  String
+  create_date DateTime @default(now())
+  product_id  String
+  Product     Product  @relation(fields: [product_id], references: [id])
+}
+
+model Order {
+  id               String          @id @default(uuid())
+  user_id          String
+  User             User            @relation(fields: [user_id], references: [id])
+  total_order      Int // ยอดรวม
+  customer_name    String
+  customer_address String
+  customer_phone   String
+  status           String          @default("pending") // pending confirmed shipping completed canceled
+  tracking_no      String?
+  last_update      DateTime        @updatedAt
+  create_date      DateTime        @default(now())
+  OrderDetail      OrderDetail[]
+  StripePayment    StripePayment[]
+}
+
+model StripePayment {
+  id            String   @id @default(uuid()) // same stripe id
+  order_id      String
+  Order         Order    @relation(fields: [order_id], references: [id])
+  amount        Int      @default(0)
+  currency      String?
+  pay_date      String? //เก็บเป็น timestamp
+  create_date   DateTime @default(now())
+  status        String?
+  client_secret String?
+}
+
+model OrderDetail {
+  id                String  @id @default(uuid())
+  price             Int
+  cost              Int
+  quantity          Int
+  total_orderDetail Int // ยอดรวม price*quantity
+  product_id        String
+  Product           Product @relation(fields: [product_id], references: [id])
+  order_id          String
+  Order             Order   @relation(fields: [order_id], references: [id])
+}
+
+model Cart {
+  id          String       @id @default(uuid()) // same user's id
+  user_id     String
+  User        User         @relation(fields: [user_id], references: [id])
+  total_cart  Int          @default(0)
+  last_update DateTime     @updatedAt
+  create_date DateTime     @default(now())
+  CartDetail  CartDetail[]
+}
+
+model CartDetail {
+  id          String   @id @default(uuid()) // same product's id
+  product_id  String
+  Product     Product  @relation(fields: [product_id], references: [id])
+  quantity    Int
+  cart_id     String
+  Cart        Cart     @relation(fields: [cart_id], references: [id])
+  create_date DateTime @default(now())
+}

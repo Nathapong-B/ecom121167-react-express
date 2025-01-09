@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "StripePayment" ALTER COLUMN "create_date" SET DEFAULT CURRENT_TIMESTAMP;
