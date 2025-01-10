@@ -86,14 +86,16 @@ export default function ListCategoriesInactive() {
                                 <tr key={i} className="tb-tr-hover">
                                     {/* <td className="ps-4">{e.category_name}</td> */}
 
-                                    <td className="px-4 flex gap-2">
-                                        <div>
-                                            {e.category_name}
+                                    <td className="px-4 cursor-pointer" onClick={() => hdlClickforEdit(i, e.category_name)}>
+                                        <div className="relative w-max">
+                                            <div>
+                                                {e.category_name}
+                                            </div>
+                                            <div className="absolute top-0 -right-5 h-4 bg-yellow-200 flex items-center px-1 text-8px border border-orange-300 rounded-full">{e.Product.length}</div>
                                         </div>
-                                        <div className="h-4 bg-yellow-200 flex items-center px-1 text-8px border border-orange-300 rounded-full">{e.Product.length}</div>
                                     </td>
 
-                                    <td className="text-center">
+                                    <td className="text-center py-2">
                                         <button className="bo-btn-add bg-gray-500" onClick={() => hdlUpdateStatusCategory(e)}>Inactive</button>
                                         <button className="bo-btn-add bg-red-500 ms-2" onClick={() => hdlRemoveCategory(e)}>Delete</button>
                                     </td>

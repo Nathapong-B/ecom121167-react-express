@@ -23,7 +23,7 @@
 
   /* table */
   .bo-tb{
-    @apply w-full table-fixed;
+    @apply w-full table-fixed text-sm;
   }
   .bo-tb thead{
     @apply bg-gray-300;
@@ -38,7 +38,7 @@
     @apply bg-gray-100 hover:font-medium hover:bg-gray-50;
   }
   .tb-tr-hover td{
-    @apply text-ellipsis overflow-hidden border-2;
+    @apply text-ellipsis overflow-hidden;
   }
   /* table */
 

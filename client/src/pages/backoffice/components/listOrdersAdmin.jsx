@@ -9,11 +9,11 @@ import OrderInfo from "./orders/orderInfo";
 
 export default function ListOrdersAdmin() {
     const token = useAuthStore(s => s.token);
-    const { callListOrder, updateTracking,removeOrder } = useEcomStore(
+    const { callListOrder, updateTracking, removeOrder } = useEcomStore(
         useShallow(s => ({
             callListOrder: s.actionCalllistOrdersAdmin,
             updateTracking: s.actionUpdateTrackingOrder,
-            removeOrder:s.actionRemoveOrder,
+            removeOrder: s.actionRemoveOrder,
         }))
     );
     const [listOrders, setListOrders] = useState();
@@ -92,12 +92,6 @@ export default function ListOrdersAdmin() {
         return arrList;
     };
 
-    const hdlOrderlistClick = (i) => {
-        const el = document.querySelector(`#ol_orderlist${i}.h-auto`);
-
-        el ? el.classList.remove('h-auto') : document.getElementById(`ol_orderlist${i}`).classList.add('h-auto');
-    };
-
     const hdlPrintPDF = (data) => {
         printPDF(data);
     };
@@ -106,16 +100,27 @@ export default function ListOrdersAdmin() {
         setInfo(data);
     };
 
-    const hdlRemoveOrder = async(e) => {
-        const {id}=e;
+    const hdlRemoveOrder = async (e) => {
+        const { id } = e;
 
-        const res=await removeOrder(id,token);
+        const eventSwal = await Swal.fire({
+            title: 'Confirm cancel order',
+            text: 'Order Id : ' + id,
+            icon: 'warning',
+            showCancelButton: true,
+        });
 
-        if (res.status === 200) {
-            await hdlCallListOrders();
-            toast.success(`${res.data.message}`);
-        } else if (res.error) {
-            toast.error(`${res.error.message}`);
+        if (!eventSwal?.isConfirmed) {
+            return false;
+        } else {
+            const res = await removeOrder(id, token);
+
+            if (res.status === 200) {
+                await hdlCallListOrders();
+                toast.success(`${res.data.message}`);
+            } else if (res.error) {
+                toast.error(`${res.error.message}`);
+            };
         };
     };
 
@@ -134,9 +139,7 @@ export default function ListOrdersAdmin() {
         <div>
             {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
 
-            {info ?
-                <OrderInfo data={info} close={hdlOrderInfo} />
-                : <></>}
+            {info ? <OrderInfo data={info} close={hdlOrderInfo} /> : <></>}
 
             <div>
                 <table className="bo-tb">
@@ -163,11 +166,16 @@ export default function ListOrdersAdmin() {
                                                 {e.customer_name}
                                             </div>
                                         </td>
-                                        <td className="ps-2 text-sm cursor-pointer" onClick={() => hdlOrderlistClick(i)}>
-                                            <ol id={`ol_orderlist` + i} className="h-auto">
-                                                {hdlOrderList(e).map((el, inx) => (
-                                                    <li key={inx} className="text-ellipsis overflow-hidden">{(inx + 1) + '. ' + el}</li>
-                                                ))}
+                                        <td className="ps-2 py-1 text-xs cursor-pointer" onClick={() => hdlOrderInfo(e)}>
+                                            <ol id={`ol_orderlist` + i} className="max-h-8">
+                                                {/* <ol id={`ol_orderlist` + i} className={e.OrderDetail.length > 1 ? "h-8" : "h-4"}> */}
+                                                {e.OrderDetail.map((el, inx) => {
+                                                    if (inx > 0 && e.OrderDetail.length > 1) {
+                                                        return <li key={inx}>...[more]</li>
+                                                    } else {
+                                                        return <li key={inx} className="text-ellipsis overflow-hidden">{(inx + 1) + '. ' + el.Product.product_name}</li>
+                                                    }
+                                                })}
                                             </ol>
                                         </td>
                                         <td className="text-end pe-2">{e.total_order.toLocaleString('th-TH')}</td>
@@ -189,15 +197,19 @@ export default function ListOrdersAdmin() {
                                                 {e.customer_name}
                                             </div>
                                         </td>
-                                        <td className="ps-2 text-sm cursor-pointer" onClick={() => hdlOrderlistClick(i)}>
-                                            <ol id={`ol_orderlist` + i} className="h-6">
-                                                {hdlOrderList(e).map((el, inx) => (
-                                                    <li key={inx} className="text-ellipsis overflow-hidden">{(inx + 1) + '. ' + el}</li>
-                                                ))}
+                                        <td className="ps-2 py-1 text-xs cursor-pointer" onClick={() => hdlOrderInfo(e)}>
+                                            <ol id={`ol_orderlist` + i} className={e.OrderDetail.length > 1 ? "h-8" : "h-4"}>
+                                                {e.OrderDetail.map((el, inx) => {
+                                                    if (inx > 0 && e.OrderDetail.length > 1) {
+                                                        return <li key={inx}>...[more]</li>
+                                                    } else {
+                                                        return <li key={inx} className="text-ellipsis overflow-hidden">{(inx + 1) + '. ' + el.Product.product_name}</li>
+                                                    }
+                                                })}
                                             </ol>
                                         </td>
                                         <td className="text-end pe-2">{e.total_order.toLocaleString('th-TH')}</td>
-                                        <td className="ps-2 cursor-text" onClick={() => hdlClickEditTracking(i, e.tracking_no)}>{e.tracking_no}</td>
+                                        <td className="ps-2 cursor-pointer" onClick={() => hdlClickEditTracking(i, e.tracking_no)}>{e.tracking_no}</td>
                                         <td className="text-center ps-2">
                                             <button className={`${setCssStatus(e.status)}`}>{e.status}</button>
                                         </td>

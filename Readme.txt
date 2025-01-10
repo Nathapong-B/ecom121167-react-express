@@ -63,7 +63,6 @@ import zxcvbn from "zxcvbn"; //ใช้เพื่อดูค่าควา�
 npm i axios
 npm install zustand
 npm i jwt-decode
-npm i dotenv
 
 npm install sweetalert2
 npm i react-toastify
@@ -84,3 +83,8 @@ npm i dayjs
 // console.log(date, '/', month, '/', year)
 // console.log(all.toLocaleString('th-TH'))
 // return res.send()
+
+
+**React รองรับ environment variables ตั้งแต่ react-scripts@0.5.0. ดังนั้นจึงไม่จำเป็นต้องติดตั้งแพ็คเกจอื่นเพิ่มเติม
+โปรเจค react ใช้ process.env.REACT_APP_SOMEKEY ในไฟล์ .env ต้องนำหน้าคีย์ด้วย REACT_APP_
+โปรเจค react ที่ติดตั้งด้วย vite ใช้ import.meta.env.VITE_API_SOMEKEY ในไฟล์ .env ต้องนำหน้าคีย์ด้วย VITE_
