@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function LoadingCover({ loading, title = 'loading.' }) {
+export default function LoadingCover({ isLoading, title = 'loading.' }) {
     const [count, setCount] = useState(0);
 
     const runInterval = () => {
@@ -12,7 +12,7 @@ export default function LoadingCover({ loading, title = 'loading.' }) {
                 return prev + 1;
             });
 
-            if (!loading) return clearInterval(interval);
+            if (!isLoading) return clearInterval(interval);
         }, 1000);
     };
 
@@ -28,12 +28,19 @@ export default function LoadingCover({ loading, title = 'loading.' }) {
         );
     };
 
-    return (
-        <div className="h-screen w-screen bg-gray-500/50 flex justify-center items-center">
-            <div className="w-full flex bg-white py-2">
-                <div className="flex-1 text-end font-bold">{title}</div>
-                <div className="flex-1 font-bold">{mapDot()}</div>
+    // return
+    if (isLoading) {
+        return (
+            <div className="absolute top-0 left-0 z-50">
+                <div className="h-screen w-screen bg-gray-500/50 flex justify-center items-center">
+                    <div className="w-full flex bg-white py-2">
+                        <div className="flex-1 text-end font-bold">{title}</div>
+                        <div className="flex-1 font-bold">{mapDot()}</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return <></>;
+    }
 };

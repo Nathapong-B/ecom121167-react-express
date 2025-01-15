@@ -21,7 +21,7 @@ export default function ListProducts(props) {
             const res = await callListProducts(6);
 
             if (res.status === 200) {
-                console.log(res)
+                // console.log(res)
             } else if (res.error) {
                 toast.error(res.error.message)
                 console.log(res)
@@ -53,11 +53,17 @@ export default function ListProducts(props) {
     };
 
     useEffect(() => {
-        callDataListProducts();
+        if (!dataProducts) {
+            callDataListProducts();
+        }
     }, []);
 
     const hdlClickProduct = (e) => {
         props.data(e);
+    };
+
+    const sortArrImages = (arrImgs) => {
+        return arrImgs.sort((a, b) => (a.position - b.position));
     };
 
     return (
@@ -80,12 +86,13 @@ export default function ListProducts(props) {
                     {dataProducts
                         ? dataProducts.map((e, i) => (
                             <tr key={i} className="tb-tr-hover">
-                                <td className="p-1 cursor-pointer" onClick={() => hdlClickProduct(e)}>
+                                <td className="cursor-pointer" onClick={() => hdlClickProduct(e)}>
                                     {/* {e.Image[0]?.url} */}
-                                    <img src={e.Image[0]?.url} className="img-list"></img>
+                                    {/* <img src={e.Image[0]?.url} className="img-list"></img> */}
+                                    <img src={sortArrImages(e.Image)[0]?.url} className="img-list"></img>
                                 </td>
-                                <td className="ps-2 cursor-pointer" onClick={() => hdlClickProduct(e)}>{e.product_name}</td>
-                                <td className="pe-2 text-end">{e.price.toLocaleString('th-TH')}</td>
+                                <td className="cursor-pointer" onClick={() => hdlClickProduct(e)}>{e.product_name}</td>
+                                <td className="text-end">{e.price.toLocaleString('th-TH')}</td>
                                 <td className="text-center">{e.stock}</td>
                                 <td className="text-center">{e.sold}</td>
                                 <td className="text-center">

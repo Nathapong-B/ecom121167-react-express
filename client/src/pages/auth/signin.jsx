@@ -25,7 +25,6 @@ export default function Signin() {
         e.preventDefault();
         try {
             const res = await actionSignin(dataForm);
-            console.log(res)
 
             navigate('/redirect');
 

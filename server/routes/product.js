@@ -22,6 +22,6 @@ router.get('/product/:limit/:sort', listProductBy);
 // router.get('/product/:limit/:skip/:cursor', listProducts); // test
 
 // test
-router.post('/testapi/', testApi);
+// router.post('/testapi/', testApi);
 
 module.exports = router;

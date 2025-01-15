@@ -60,7 +60,7 @@ exports.searchCategory = async (data) => {
     };
 };
 
-exports.uploadImagesToCloud = async (files) => {
+exports.uploadImagesToCloud = async (files, fileName, folderName) => {
     try {
         // multiple upload
         let result = [];
@@ -72,9 +72,12 @@ exports.uploadImagesToCloud = async (files) => {
             const dataURI = "data:" + el.mimetype + ";base64," + b64;
 
             const eachResult = await cloudinary.uploader.upload(dataURI, {
-                public_id: `${Date.now()}`,
+                public_id: `${fileName}`,
                 resource_type: 'auto',
-                folder: 'TestUpload',
+                folder: `${folderName}`,
+                // public_id: `${Date.now()}`,
+                // resource_type: 'auto',
+                // folder: 'TestUpload',
             });
 
             eachResult.originalname = el.originalname; // เพิ่มชื่อเดิมเข้าไปใน obj เพื่อใช้ในการตรวจสอบภายหลัง

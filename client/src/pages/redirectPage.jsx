@@ -13,8 +13,8 @@ export default function redirectPage() {
     const permission = searchParmas.get('permission');
 
     const redirectTo = () => {
-        if (user.role === 'user' || permission) { return <Navigate to={'/'} /> };
-        if (user.role === 'admin') { return <Navigate to={'/backoffice'} /> };
+        if (user?.role === 'user' || permission) { return <Navigate to={'/'} /> };
+        if (user?.role === 'admin') { return <Navigate to={'/backoffice'} /> };
     };
 
     const runInterval = () => {
@@ -47,7 +47,7 @@ export default function redirectPage() {
 
     return (
         <>
-            {user.role === 'user' || permission
+            {user?.role === 'user' || permission
                 ?
                 <div className="w-full h-screen flex justify-center items-center">
                     <div>

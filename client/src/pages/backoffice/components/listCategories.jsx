@@ -70,7 +70,9 @@ export default function ListCategories() {
     };
 
     useEffect(() => {
-        callListCategories('active', token);
+        if (!categories) {
+            callListCategories('active', token);
+        }
     }, [])
 
     const debug = () => {
@@ -109,17 +111,17 @@ export default function ListCategories() {
                                     <tr key={i} className="tb-tr-hover">
                                         {/* <tr key={i} className="bg-gray-100 hover:font-medium hover:bg-gray-50"> */}
 
-                                        <td className="ps-4 font-normal">
+                                        <td className="font-normal">
                                             <input type="text" value={nameEdit} onChange={el => hdlEditName(el)} className="frm-input py-0" autoFocus></input>
                                         </td>
-                                        <td className="text-center py-2">
+                                        <td className="text-center">
                                             <button className="bo-btn-add bg-sky-500" onClick={() => hdlSaveEdit(e)}>Save</button>
                                             <button className="bo-btn-add bg-gray-500 ms-2" onClick={hdlCancelEdit}>Cancel</button>
                                         </td>
                                     </tr>
                                     :
                                     <tr key={i} className="tb-tr-hover">
-                                        <td className="px-4 cursor-pointer" onClick={() => hdlClickforEdit(i, e.category_name)}>
+                                        <td className="cursor-pointer" onClick={() => hdlClickforEdit(i, e.category_name)}>
                                             <div className="relative w-max">
                                                 <div>
                                                     {e.category_name}
@@ -127,7 +129,7 @@ export default function ListCategories() {
                                                 <div className="absolute top-0 -right-5 h-4 bg-yellow-200 flex items-center px-1 text-8px border border-orange-300 rounded-full">{e.Product.length}</div>
                                             </div>
                                         </td>
-                                        <td className="text-center py-2">
+                                        <td className="text-center">
                                             <button className="bo-btn-add bg-green-500" onClick={() => hdlUpdateStatusCategory(e)}>Active</button>
                                         </td>
 

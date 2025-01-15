@@ -6,8 +6,8 @@ exports.addProduct = async (req, res) => {
         const { product_name, price, cost, description, stock, category_id, image } = JSON.parse(req.body.data);
         const { addImages } = image[0];
 
-        // upload images
-        const resImages = await uploadImagesToCloud(req.files);
+        // upload images (files, fileName, folderName)
+        const resImages = await uploadImagesToCloud(req.files, Date.now(), 'TestUpload');
 
         // นำข้อมูลที่รีเทิร์นจาก cloud มาเพิ่มคีย์ position เพื่อเตรียมบันทึกลง db
         for (let i of resImages) {
@@ -57,9 +57,9 @@ exports.updateProduct = async (req, res) => {
         // #1 - ลบรูปจาก cloud {removeImages}
         if (removeImages.length > 0) await removeImageInCloud(removeImages);
 
-        // #2 - อัพโหลดรูปใหม่ไปที่ cloud (fileImages)
+        // #2 - อัพโหลดรูปใหม่ไปที่ cloud (fileImages, filesName, folderName)
         if (fileImages || fileImages.length > 0) {
-            const uploadToCloud = await uploadImagesToCloud(fileImages);
+            const uploadToCloud = await uploadImagesToCloud(fileImages, Date.now(), 'TestUpload');
             // uploadToCloud ข้อมูลที่รีเทิร์นจาก fn จะมีข้อมูลจาก cloudinary และชื่อ originalname จากนั้นนำมาเปรียบเทียบเพิ่มคีย์ position เพื่อเตรียมบันทึกลง db
             for (let i of uploadToCloud) {
                 const indexName = addImages.findIndex(el => el.image_name === i.originalname);

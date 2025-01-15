@@ -12,10 +12,7 @@ export default function Register() {
 
     const onSubmit = async (data) => {
         try {
-
             const res = await userRegister(data);
-
-            console.log(res)
 
             if (res.status === 200) console.log('Please login..');
         } catch (err) {

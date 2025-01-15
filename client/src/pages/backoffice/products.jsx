@@ -6,7 +6,6 @@ import AddNUpdateProduct from "./components/addNupdateProduct";
 export default function Products() {
     const [openaddNupdateProduct, setOpenaddNupdateProduct] = useState(false);
     const [dataToUpdate, setDataToUpdate] = useState();
-    const [dataImg, setDataImg] = useState();
     const [showActivePage, setShowActivePage] = useState(true);
 
     const hdlAddNUpdateSuccess = () => {
@@ -29,8 +28,8 @@ export default function Products() {
     const hdlShowActivePage = (item) => {
         const btnName = item.target.name;
 
-        if (btnName === 'active') setShowActivePage(true)
-        if (btnName === 'inactive') setShowActivePage(false)
+        if (btnName === 'active') return setShowActivePage(true);
+        if (btnName === 'inactive') return setShowActivePage(false);
     };
 
     return (

@@ -1,20 +1,23 @@
 import { useAuthStore } from "../../ecomStore/authStore";
 import { tokenExpire, tokenValidateRole } from "../auth/components/jwtValidate";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function AdminGuard({ element }) {
     const token = useAuthStore(s => s.token);
 
     const jwtValidate = () => {
+        if (!token) return { permission: false, path: '/redirect', search: '?permission=false' };
+
         const tokenExp = tokenExpire(token);
         const role = tokenValidateRole(token);
 
         if (tokenExp.expIn > 0 && role === 'admin') {
-            return true;
+            return { permission: true };
         };
 
-        return false;
+        return { permission: false, path: '/redirect', search: '?permission=false' };
     };
 
-    return jwtValidate() ? element : <Navigate to={{ pathname: '/redirect', search: '?permission=false' }} />;
+    return jwtValidate().permission ? element : <Navigate to={{ pathname: jwtValidate().path, search: jwtValidate().search }} />;
+    // return jwtValidate() ? element : <Navigate to={{ pathname: '/redirect', search: '?permission=false' }} />;
 };

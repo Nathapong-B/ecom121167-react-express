@@ -9,14 +9,15 @@ import OrderInfo from "./orders/orderInfo";
 
 export default function ListOrdersAdmin() {
     const token = useAuthStore(s => s.token);
-    const { callListOrder, updateTracking, removeOrder } = useEcomStore(
+    const { callListOrder, updateTracking, removeOrder, ordersList } = useEcomStore(
         useShallow(s => ({
+            ordersList: s.orders,
             callListOrder: s.actionCalllistOrdersAdmin,
             updateTracking: s.actionUpdateTrackingOrder,
             removeOrder: s.actionRemoveOrder,
         }))
     );
-    const [listOrders, setListOrders] = useState();
+    const [listOrders, setListOrders] = useState(ordersList ? ordersList : null);
     const [onEdit, setOnEdit] = useState();
     const [newTracking, setNewTracking] = useState('');
     const [info, setInfo] = useState(false);
@@ -125,7 +126,9 @@ export default function ListOrdersAdmin() {
     };
 
     useEffect(() => {
-        hdlCallListOrders();
+        if (!ordersList) {
+            hdlCallListOrders();
+        }
     }, []);
 
     const debug = () => {
@@ -161,28 +164,27 @@ export default function ListOrdersAdmin() {
                                 onEdit === i
                                     ?
                                     <tr key={i} className="tb-tr-hover">
-                                        <td className="ps-2">
+                                        <td>
                                             <div className="h-6 text-ellipsis overflow-hidden" >
                                                 {e.customer_name}
                                             </div>
                                         </td>
-                                        <td className="ps-2 py-1 text-xs cursor-pointer" onClick={() => hdlOrderInfo(e)}>
+                                        <td className="text-xs cursor-pointer" onClick={() => hdlOrderInfo(e)}>
                                             <ol id={`ol_orderlist` + i} className="max-h-8">
-                                                {/* <ol id={`ol_orderlist` + i} className={e.OrderDetail.length > 1 ? "h-8" : "h-4"}> */}
                                                 {e.OrderDetail.map((el, inx) => {
                                                     if (inx > 0 && e.OrderDetail.length > 1) {
-                                                        return <li key={inx}>...[more]</li>
+                                                        return <li key={inx}>{(inx + 1)} ...<span className="text-10px">[more]</span></li>
                                                     } else {
                                                         return <li key={inx} className="text-ellipsis overflow-hidden">{(inx + 1) + '. ' + el.Product.product_name}</li>
                                                     }
                                                 })}
                                             </ol>
                                         </td>
-                                        <td className="text-end pe-2">{e.total_order.toLocaleString('th-TH')}</td>
+                                        <td className="text-end">{e.total_order.toLocaleString('th-TH')}</td>
                                         <td>
                                             <input className="frm-input w-full h-full p-0" value={newTracking} onChange={(el) => hdlInputTracking(el)} autoFocus></input>
                                         </td>
-                                        <td className="text-center ps-2">
+                                        <td className="text-center">
                                             <button className={`${setCssStatus(e.status)}`}>{e.status}</button>
                                         </td>
                                         <td className="text-center">
@@ -192,25 +194,25 @@ export default function ListOrdersAdmin() {
                                     </tr>
                                     :
                                     <tr key={i} className="tb-tr-hover">
-                                        <td className="ps-2">
+                                        <td>
                                             <div className="h-6 text-ellipsis overflow-hidden" >
                                                 {e.customer_name}
                                             </div>
                                         </td>
-                                        <td className="ps-2 py-1 text-xs cursor-pointer" onClick={() => hdlOrderInfo(e)}>
+                                        <td className="text-xs cursor-pointer" onClick={() => hdlOrderInfo(e)}>
                                             <ol id={`ol_orderlist` + i} className={e.OrderDetail.length > 1 ? "h-8" : "h-4"}>
                                                 {e.OrderDetail.map((el, inx) => {
                                                     if (inx > 0 && e.OrderDetail.length > 1) {
-                                                        return <li key={inx}>...[more]</li>
+                                                        if (inx === 1) return <li key={inx}>{(inx + 1)} ...<span className="text-10px">[more]</span></li>
                                                     } else {
                                                         return <li key={inx} className="text-ellipsis overflow-hidden">{(inx + 1) + '. ' + el.Product.product_name}</li>
                                                     }
                                                 })}
                                             </ol>
                                         </td>
-                                        <td className="text-end pe-2">{e.total_order.toLocaleString('th-TH')}</td>
-                                        <td className="ps-2 cursor-pointer" onClick={() => hdlClickEditTracking(i, e.tracking_no)}>{e.tracking_no}</td>
-                                        <td className="text-center ps-2">
+                                        <td className="text-end">{e.total_order.toLocaleString('th-TH')}</td>
+                                        <td className="cursor-pointer" onClick={() => hdlClickEditTracking(i, e.tracking_no)}>{e.tracking_no}</td>
+                                        <td className="text-center">
                                             <button className={`${setCssStatus(e.status)}`}>{e.status}</button>
                                         </td>
                                         <td className="text-center">

@@ -18,10 +18,9 @@ export default function ListProductsInactive() {
 
     const callInactive = async () => {
         const res = await callInactiveData(6, token)
-        console.log(res)
 
         if (res.status === 200) {
-            console.log(res)
+            // console.log(res)
         } else if (res.error) {
             toast.error(res.error.message)
             console.log(res)
@@ -70,7 +69,9 @@ export default function ListProductsInactive() {
     };
 
     useEffect(() => {
-        callInactive();
+        if (!inactiveProducts) {
+            callInactive();
+        }
     }, []);
 
     return (
@@ -93,11 +94,11 @@ export default function ListProductsInactive() {
                     {inactiveProducts
                         ? inactiveProducts.map((e, i) => (
                             <tr key={i} className="tb-tr-hover">
-                                <td className="px-2">
+                                <td>
                                     {/* {e.Image[0]?.url} */}
                                     <img src={e.Image[0]?.url} className="img-list"></img>
                                 </td>
-                                <td className="ps-2">{e.product_name}</td>
+                                <td>{e.product_name}</td>
                                 <td className="text-center">{e.stock}</td>
                                 <td className="text-center">{e.sold}</td>
                                 <td className="text-center">

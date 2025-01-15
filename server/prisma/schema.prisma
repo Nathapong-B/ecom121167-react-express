@@ -8,21 +8,33 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
-  password      String
-  role          String   @default("user")
-  status        String   @default("active")
-  first_name    String?
-  last_name     String?
-  address       String?
-  phone         String?
-  refresh_token String?
-  profile_image String?
-  last_update   DateTime @updatedAt
-  create_date   DateTime @default(now())
-  Order         Order[]
-  Cart          Cart[]
+  id              String        @id @default(uuid())
+  email           String        @unique
+  password        String
+  role            String        @default("user")
+  status          String        @default("active")
+  first_name      String?
+  last_name       String?
+  address         String?
+  phone           String?
+  refresh_token   String?
+  last_update     DateTime      @updatedAt
+  create_date     DateTime      @default(now())
+  Order           Order[]
+  Cart            Cart[]
+  profileImage_id String?
+  ProfileImage    ProfileImage? @relation(fields: [profileImage_id], references: [id])
+}
+
+model ProfileImage {
+  id          String   @id @default(uuid())
+  image_name  String
+  url         String
+  asset_id    String
+  public_id   String
+  secure_url  String
+  create_date DateTime @default(now())
+  User        User[]
 }
 
 model Product {
@@ -82,13 +94,13 @@ model Order {
 }
 
 model StripePayment {
-  id            String   @id @default(uuid()) // same stripe id
+  id            String    @id @default(uuid()) // same stripe id
   order_id      String
-  Order         Order    @relation(fields: [order_id], references: [id])
-  amount        Int      @default(0)
+  Order         Order     @relation(fields: [order_id], references: [id])
+  amount        Int       @default(0)
   currency      String?
-  pay_date      String? //เก็บเป็น timestamp
-  create_date   DateTime @default(now())
+  pay_date      DateTime?
+  create_date   DateTime  @default(now())
   status        String?
   client_secret String?
 }

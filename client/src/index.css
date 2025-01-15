@@ -2,65 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-  .active-menu-sidebar{
+@layer components {
+  .active-menu-sidebar {
     @apply hover:text-gray-50 hover:border-r-gray-50 p-2 ps-6 text-gray-200 bg-gray-700 rounded-l-2xl border-r-4 border-r-gray-200;
   }
-  .menu-sidebar{
+
+  .menu-sidebar {
     @apply hover:text-gray-50 p-2;
   }
 
-  .bo-title{
+  .bo-title {
     @apply text-2xl font-bold mb-10;
   }
-  .bo-btn-add{
+
+  .bo-btn-add {
     @apply bg-green-500 px-4 rounded font-bold text-gray-200 hover:text-gray-50 h-full;
   }
 
-  .frm-input{
+  .frm-input {
     @apply rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500;
   }
 
   /* table */
-  .bo-tb{
+  .bo-tb {
     @apply w-full table-fixed text-sm;
   }
-  .bo-tb thead{
+
+  .bo-tb thead {
     @apply bg-gray-300;
   }
-  .bo-tb tbody tr{
+
+  .bo-tb tbody tr {
     @apply bg-gray-100;
   }
-  .bo-tb tbody tr td{
-    @apply text-ellipsis overflow-hidden border-2;
+
+  .bo-tb tbody tr td {
+    @apply text-ellipsis overflow-hidden border-2 p-2;
   }
-  .tb-tr-hover{
+
+  .tb-tr-hover {
     @apply bg-gray-100 hover:font-medium hover:bg-gray-50;
   }
-  .tb-tr-hover td{
+
+  .tb-tr-hover td {
     @apply text-ellipsis overflow-hidden;
   }
+
   /* table */
 
-  .label-input-animate{
+  .label-input-animate {
     @apply absolute cursor-text text-gray-500 left-2 transition-all duration-700;
   }
 
-  .img-list{
+  .img-list {
     @apply w-16 h-auto object-contain rounded m-auto;
   }
 
-  .text-8px{
-    font-size:8px;
+  .text-8px {
+    font-size: 8px;
   }
 
-  .text-stroke{
+  .text-10px {
+    font-size: 10px;
+  }
+
+  .text-stroke {
     -webkit-text-stroke: 1px #0ea5e9;
     /* text-stroke: 2px red; */
   }
 
-  .box-shadow{
+  .box-shadow {
     box-shadow: 0 0 25px skyblue;
+  }
+
+  .box-shadow-white{
+    box-shadow: 0 0 3px rgb(0, 0, 0);
   }
 }
 

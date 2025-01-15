@@ -92,9 +92,9 @@ exports.confirmPayment = async (req, res) => {
     try {
         // ชำระเงินเสร็จสิ้น อัพเดท tb stripepayment บันทึก pay_date, status เปลี่ยน status เป็น confirmed ที่ tb order 
 
-        // const { id } = req.params;
         const status = 'confirmed';
         const { paymentIntent } = req.body;
+        const paydate = new Date(parseInt(paymentIntent.created) * 1000);
 
         // ตัวอย่างการแปลง timestamp เป็นวันที่
         // const time = paymentIntent.created;
@@ -109,7 +109,7 @@ exports.confirmPayment = async (req, res) => {
         const result = await prisma.stripePayment.update({
             where: { id: paymentIntent.id },
             data: {
-                pay_date: paymentIntent.created,
+                pay_date: paydate,
                 status: paymentIntent.status,
 
                 Order: {
@@ -221,3 +221,35 @@ exports.updateOrder = async (req, res) => {
         res.status(500).send({ message: 'Internal Server Error' });
     };
 };
+
+
+
+// test paydate
+exports.testPaydate = async (req, res) => {
+    try {
+        const { paydate } = req.body;
+
+        const date = new Date(parseInt(paydate) * 1000);
+        // console.log(date)
+        // console.log(date.toLocaleString('th-TH'))
+
+        // const timedb = await prisma.stripePayment.findFirst({
+        //     where: {
+        //         create_date: {
+        //             // not: {},
+        //             gte: new Date("2025-01-05T04:22:12.892Z"),
+        //             lte: new Date("2025-01-06T04:22:12.892Z")
+        //         },
+        //     },
+        // })
+
+        console.log(new Date().toLocaleString())
+        // console.log(timedb)
+        // console.log(new Date(timedb.create_date).getTime())
+        // console.log((timedb.create_date).toLocaleString('th-TH'))
+
+        res.send({ message: 'ok', })
+    } catch (err) {
+        console.log(err)
+    }
+}

@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { userSignin } from '../api/userApi';
+import { changeStatusUser, listUsers, updateProfile, userSignin } from '../api/userApi';
 import { jwtDecode } from 'jwt-decode';
 
 const authStore = (set, get) => ({
     token: null,
     user: null,
+    profile: null,
 
     actionSignin: async (payload) => {
         const res = await userSignin(payload);
@@ -14,9 +15,59 @@ const authStore = (set, get) => ({
         set({
             token: res.data.token,
             user: decoded,
+            profile: res.data.profile,
         });
 
         return res;
+    },
+
+    actionListUsers: async (statusby, count, token) => {
+        try {
+            const res = await listUsers(statusby, count, token);
+
+            if (res.status === 200) {
+                return res;
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err)
+            return { error: { message: err.response.data.message } };
+        }
+    },
+
+    actionChangeStatusUser: async (id, status, token) => {
+        try {
+            const data = status === 'active' ? { status: 'inactive' } : { status: 'active' };
+
+            const res = await changeStatusUser(id, data, token);
+
+            if (res.status === 200) {
+                return res;
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err)
+            return { error: { message: err.response.data.message } };
+        }
+    },
+
+    actionUpdateProfile: async (payload, token) => {
+        try {
+            const res = await updateProfile(payload, token);
+
+            if (res.status === 200) {
+                set({ profile: res.data.result, });
+
+                return res;
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err)
+            return { error: { message: err.response.data.message } };
+        }
     },
 });
 

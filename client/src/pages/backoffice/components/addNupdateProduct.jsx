@@ -20,7 +20,7 @@ export default function AddNUpdateProduct(props) {
             updateProduct: s.actionUpdateProduct
         }))
     );
-    const [loadingCoverPage, setLoadingCoverPage] = useState(false);
+    const [isLoadingCoverPage, setIsLoadingCoverPage] = useState(false);
 
     const hdlReturnImg = (imgs) => {
         setDataImg({ ...imgs }); // ข้อมูลรูปภาพ
@@ -52,17 +52,17 @@ export default function AddNUpdateProduct(props) {
         const productDetail = hdlSettingDataProduct(data, dataImg);
         const formData = hdlSettingFormData(productDetail, imgFile);
 
-        setLoadingCoverPage(true);
+        setIsLoadingCoverPage(true);
 
         if (eventAdd) {
             const res = await addProduct(formData, token);
 
             if (res.status === 200) {
-                setLoadingCoverPage(false);
+                setIsLoadingCoverPage(false);
                 toast.success(`${res.data.message}`);
                 hdlSuccess();
             } else if (res.error) {
-                setLoadingCoverPage(false);
+                setIsLoadingCoverPage(false);
                 toast.error(`${res.error.message}`);
                 console.log(res.error.message)
             };
@@ -71,11 +71,11 @@ export default function AddNUpdateProduct(props) {
             const res = await updateProduct(productId, formData, token);
 
             if (res.status === 200) {
-                setLoadingCoverPage(false);
+                setIsLoadingCoverPage(false);
                 toast.success(`${res.data.message}`);
                 hdlSuccess();
             } else if (res.error) {
-                setLoadingCoverPage(false);
+                setIsLoadingCoverPage(false);
                 toast.error(`${res.error.message}`);
                 console.log(res.error.message)
             };
@@ -89,21 +89,11 @@ export default function AddNUpdateProduct(props) {
         props.processDone()
     };
 
-    // const debug = () => {
-    //     setLoadingCoverPage(!loadingCoverPage)
-    // }
-
     return (
         <div className="flex flex-col items-center">
-            {loadingCoverPage
-                ?
-                <div className="absolute top-0 left-0 z-50">
-                    <LoadingCover title={'Creating please wait.'} loading={loadingCoverPage} />
-                </div>
-                : <></>
-            }
 
-            {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
+            {/* loadingpage */}
+            <LoadingCover title={'Creating please wait.'} isLoading={isLoadingCoverPage} />
 
             <div className="pb-4 font-medium">
                 {props.data ? <div>Update product</div> : <div>Add new product</div>}

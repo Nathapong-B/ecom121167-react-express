@@ -59,7 +59,9 @@ export default function ListCategoriesInactive() {
     };
 
     useEffect(() => {
-        callListCategories('inactive', token);
+        if (!inactiveCategories) {
+            callListCategories('inactive', token);
+        }
     }, [])
 
     return (
@@ -83,10 +85,8 @@ export default function ListCategoriesInactive() {
 
                         {inactiveCategories
                             ? inactiveCategories.map((e, i) => (
-                                <tr key={i} className="tb-tr-hover">
-                                    {/* <td className="ps-4">{e.category_name}</td> */}
-
-                                    <td className="px-4 cursor-pointer" onClick={() => hdlClickforEdit(i, e.category_name)}>
+                                <tr key={i} className="tb-tr">
+                                    <td>
                                         <div className="relative w-max">
                                             <div>
                                                 {e.category_name}
@@ -95,7 +95,7 @@ export default function ListCategoriesInactive() {
                                         </div>
                                     </td>
 
-                                    <td className="text-center py-2">
+                                    <td className="text-center">
                                         <button className="bo-btn-add bg-gray-500" onClick={() => hdlUpdateStatusCategory(e)}>Inactive</button>
                                         <button className="bo-btn-add bg-red-500 ms-2" onClick={() => hdlRemoveCategory(e)}>Delete</button>
                                     </td>

@@ -1,39 +1,11 @@
 import { useEffect, useState } from "react"
 import { useEcomStore } from "../../../../ecomStore/useEcomStore";
+import { hdlClickInput, hdlInputOnBlur, cssSetting } from "../../../util/animateInputForm";
 
 export default function FormProduct(props) {
     const [data, setData] = useState(props.data ? props.data : null);
     const categories = useEcomStore(s => s.categories);
-
-    const cssTopNag = '-translate-y-6';
-    const cssTopNagDes = '-translate-y-5';
-    const cssFontSky = 'text-sky-600';
-
-    const hdlClickInput = (e) => {
-        e.preventDefault();
-
-        const name = e.target?.name;
-        const el = document.getElementsByName(name);
-
-        el[1].focus();
-        el[0].classList.add(name === 'description' ? cssTopNagDes : cssTopNag, cssFontSky);
-        return;
-    }
-
-    const hdlInputOnBlur = (e) => {
-        e.preventDefault();
-
-        const name = e.target?.name;
-        const value = e.target.value;
-        const el = document.getElementsByName(name);
-
-        if (!value) {
-            el[0].classList.remove(name === 'description' ? cssTopNagDes : cssTopNag, cssFontSky);
-        } else {
-            el[0].classList.remove(cssFontSky);
-        }
-        return;
-    };
+    const { cssTopNag, cssTopNagDes } = cssSetting;
 
     const hdlInputChange = (e) => {
         const name = e.target.name;

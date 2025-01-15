@@ -75,14 +75,17 @@ npm i dayjs
 
 
 // ตัวอย่างการแปลง timestamp เป็นวันที่
-// const time = paymentIntent.created;
-// const all = new Date(parseInt(time) * 1000)
+// const time = timestamp;
+// const DateTime = new Date(parseInt(time) * 1000)
 // const date = new Date(parseInt(time) * 1000).getDate()
 // const month = (new Date(parseInt(time) * 1000).getMonth()) + 1
 // const year = new Date(parseInt(time) * 1000).getFullYear()
 // console.log(date, '/', month, '/', year)
 // console.log(all.toLocaleString('th-TH'))
-// return res.send()
+
+// แปลงวันที่ (string) เป็น timestamp
+// const DateTime = timeString
+// const timestamp = new Date(DateTime).getTime()
 
 
 **React รองรับ environment variables ตั้งแต่ react-scripts@0.5.0. ดังนั้นจึงไม่จำเป็นต้องติดตั้งแพ็คเกจอื่นเพิ่มเติม

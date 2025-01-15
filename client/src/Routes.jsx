@@ -1,4 +1,5 @@
 // import React from "react"
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 import Homepage from "./pages/homepage/homepage"
@@ -14,6 +15,7 @@ import Products from "./pages/backoffice/products"
 import Orders from "./pages/backoffice/orders"
 import Users from "./pages/backoffice/users"
 import Categories from "./pages/backoffice/categories"
+import Profile from "./pages/backoffice/profileAccount";
 
 const router = createBrowserRouter([
     { path: '/', element: <Homepage /> },
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
             { path: 'product', element: <Products /> },
             { path: 'order', element: <Orders /> },
             { path: 'user', element: <Users /> },
+            {path:'profile',element:<Profile />}
         ]
     }, {
         path: '/testpath', element: <TestPath />
@@ -43,6 +46,47 @@ const router = createBrowserRouter([
 ])
 
 export default function Routes() {
+    
+    // let intervalId = 0;
+
+    // const showText = () => {
+    //     console.log('interval')
+    // }
+
+    // const runInterval = () => {
+    //     intervalId = setInterval(showText, 1000);
+    // }
+
+    // const clearIntervalAll = (id) => {
+    //     for (let i = id; i > 0; i--) {
+    //         clearInterval(i);
+    //     }
+    // }
+
+    // useEffect(() => {
+
+    //     runInterval()
+
+    //     window.onclick = (e) => {
+    //         clearIntervalAll(intervalId)
+
+
+    //         // runInterval()
+    //         console.log('onclick')
+    //     };
+    //     window.onscroll = () => {
+    //         clearIntervalAll(intervalId)
+
+    //         // runInterval()
+    //         console.log('onscroll')
+    //     };
+
+    //     window.onblur = () => {
+    //         console.log('onblue')
+    //         clearIntervalAll(intervalId)
+    //     };
+    // }, []);
+
     return (
         <>
             <ToastContainer />

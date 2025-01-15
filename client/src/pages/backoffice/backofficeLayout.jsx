@@ -5,9 +5,22 @@ import SideBar from "./sidebar";
 export default function BackOfficeLayout() {
     const navigate = useNavigate();
 
+    const hdlUnloadPage = () => {
+        // console.log('unload');
+        localStorage.removeItem('ecomStore-121167');
+    };
+
     useEffect(() => {
-        navigate('dashboard')
+        const path = window.location.pathname;
+        const backoffice = ['/backoffice', '/backoffice/'];
+
+        // หาก pathname มีค่าเท่ากับ backoffice ให้ไปที่หน้า dashboard หากไม่ใช่ เมื่อทำการรีเฟรซ ให้อยู่ที่ path เดิม
+        if (backoffice.includes(path)) navigate('dashboard');
+
+        window.addEventListener('beforeunload', hdlUnloadPage)
     }, []);
+
+    // console.log('back office')
 
     return (
         <div className="flex bg-gray-200 gap-0">

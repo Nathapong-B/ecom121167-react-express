@@ -7,7 +7,7 @@ exports.validate_Email_Pwd = (req, res, next) => {
 };
 
 exports.validate_Profile = (req, res, next) => {
-    const { first_name, last_name, address, phone } = req.body;
+    const { first_name, last_name, address, phone } = req.body.data ? JSON.parse(req.body.data) : req.body;
 
     if (!first_name || !last_name || !address || !phone) return res.status(400).send({ message: "Incomplete data" });
 
@@ -47,7 +47,7 @@ exports.validate_Product_data = (req, res, next) => {
 exports.validate_Images = (req, res, next) => {
     const type = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
-    if (req.files.length === 0 || !req.files) return res.status(400).send({ message: 'Missing file images' });
+    if (req.files?.length === 0 || !req.files) return res.status(400).send({ message: 'Missing file images' });
 
     for (let el of req.files) {
         if (!type.includes(el.mimetype)) return res.status(400).send({ message: 'ประเภทไฟล์ถูกปฏิเสธ' });
@@ -61,7 +61,7 @@ exports.validate_Images = (req, res, next) => {
 exports.validate_Images_size = (req, res, next) => {
     const type = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
-    if (req.files.length === 0 || !req.files) return next();
+    if (req.files?.length === 0 || !req.files) return next();
 
     for (let el of req.files) {
         if (!type.includes(el.mimetype)) return res.status(400).send({ message: 'ประเภทไฟล์ถูกปฏิเสธ' });

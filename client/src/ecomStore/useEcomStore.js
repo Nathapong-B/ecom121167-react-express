@@ -9,6 +9,7 @@ const ecomStore = (set, get) => ({
     inactiveCategories: null,
     products: null,
     inactiveProducts: null,
+    orders: null,
 
     actionCallListCategories: async (statusby, token) => {
         try {
@@ -209,6 +210,7 @@ const ecomStore = (set, get) => ({
             const res = await listOrdersAdmin(count, token);
 
             if (res.status === 200) {
+                set({ orders: res.data.result });
                 return res;
             } else {
                 return { error: { message: 'Somthing wrong' } };
@@ -224,6 +226,10 @@ const ecomStore = (set, get) => ({
             const res = await updateOrder(id, data, token);
 
             if (res.status === 200) {
+                const resList = await listOrdersAdmin(count, token);
+
+                set({ orders: resList.data.result });
+
                 return res;
             } else {
                 return { error: { message: 'Somthing wrong' } };
@@ -239,6 +245,9 @@ const ecomStore = (set, get) => ({
             const res = await removeOrder(id, token);
 
             if (res.status === 200) {
+                const resList = await listOrdersAdmin(count, token);
+
+                set({ orders: resList.data.result });
                 return res;
             } else {
                 return { error: { message: 'Somthing wrong' } };
