@@ -94,7 +94,9 @@ exports.confirmPayment = async (req, res) => {
 
         const status = 'confirmed';
         const { paymentIntent } = req.body;
-        const paydate = new Date(parseInt(paymentIntent.created) * 1000);
+
+        const payInt = parseInt(paymentIntent.created);
+        const paydate = new Date(payInt * 1000); // milliseconds
 
         // ตัวอย่างการแปลง timestamp เป็นวันที่
         // const time = paymentIntent.created;
@@ -243,8 +245,10 @@ exports.testPaydate = async (req, res) => {
         //     },
         // })
 
-        console.log(new Date().toLocaleString())
-        // console.log(timedb)
+        const timedb = await prisma.stripePayment.findFirst({ where: { id: "pi_3Qd8KVK9yWLzWzwq173igLg0" } })
+
+        // console.log(new Date().toLocaleString())
+        console.log(timedb.pay_date.toLocaleString())
         // console.log(new Date(timedb.create_date).getTime())
         // console.log((timedb.create_date).toLocaleString('th-TH'))
 

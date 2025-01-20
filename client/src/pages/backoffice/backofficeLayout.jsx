@@ -6,7 +6,6 @@ export default function BackOfficeLayout() {
     const navigate = useNavigate();
 
     const hdlUnloadPage = () => {
-        // console.log('unload');
         localStorage.removeItem('ecomStore-121167');
     };
 
@@ -23,7 +22,7 @@ export default function BackOfficeLayout() {
     // console.log('back office')
 
     return (
-        <div className="flex bg-gray-200 gap-0">
+        <div className="flex bg-main gap-0">
             {/* side bar */}
             <div className="bg-gray-900 w-1/5 min-w-min text-center pt-5 h-screen">
                 <SideBar />

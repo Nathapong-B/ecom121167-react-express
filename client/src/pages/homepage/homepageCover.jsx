@@ -1,23 +1,30 @@
 import { Link } from "react-router-dom";
 
-export default function HomepageCover() {
+export default function HomepageCover(props) {
 
     const onHover = () => {
         const el = document.querySelector('#elLine.top-full');
-        el.classList.remove('top-full');
-        el.classList.add('-top-full');
+        // el.classList.remove('top-full');
+        // el.classList.add('-top-full');
+        el.classList.replace('top-full', '-top-full');
     };
 
     const onOut = () => {
         const el = document.querySelector('#elLine.-top-full');
-        el.classList.remove('-top-full');
-        el.classList.add('top-full');
+        // el.classList.remove('-top-full');
+        // el.classList.add('top-full');
+        el.classList.replace('-top-full', 'top-full');
     };
 
     const onSlideCover = () => {
         const el = document.querySelector('#elCover.top-0');
-        el.classList.remove('top-0');
-        el.classList.add('-top-full');
+        // el.classList.remove('top-0');
+        // el.classList.add('-top-full');
+        el.classList.replace('top-0', '-top-full');
+
+        setTimeout(() => {
+            props.close(true);
+        }, 1000);
     };
 
     return (

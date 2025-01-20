@@ -79,7 +79,7 @@ exports.listCategory = async (req, res) => {
 
         const result = await prisma.category.findMany({
             where: {
-                status: statusby,
+                status: statusby ?? "active",
             },
             orderBy: {
                 last_update: 'desc'
@@ -91,6 +91,7 @@ exports.listCategory = async (req, res) => {
 
         res.send({ message: 'Call list category success', result });
     } catch (err) {
+        console.log(err)
         res.status(500).send({ message: 'Internal Server Error' });
     };
 };

@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { addCategory, callListCategories, changeStatusCategory, removeCategory, updateCategory } from "../api/categoryApi";
+import { addCategory, callListCategories, callListCategoriesHome, changeStatusCategory, removeCategory, updateCategory } from "../api/categoryApi";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { addProduct, changeStatusProduct, listInactiveProducts, listProducts, removeProduct, updateProduct } from "../api/productApi";
+import { addProduct, changeStatusProduct, listInactiveProducts, listProducts, listProductsBy, removeProduct, updateProduct } from "../api/productApi";
 import { listOrdersAdmin, removeOrder, updateOrder } from "../api/orderApi";
 
 const ecomStore = (set, get) => ({
@@ -10,6 +10,26 @@ const ecomStore = (set, get) => ({
     products: null,
     inactiveProducts: null,
     orders: null,
+    pNewArrival: null,
+    pBestSeller: null,
+
+    // categories
+    actionCallListCategoriesOnHome: async () => {
+        try {
+            const res = await callListCategoriesHome();
+
+            if (res.status === 200) {
+                set({ categories: res.data.result });
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+
+            return res;
+        } catch (err) {
+            if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
+            return { error: { message: err.response.data.message } };
+        }
+    },
 
     actionCallListCategories: async (statusby, token) => {
         try {
@@ -108,6 +128,8 @@ const ecomStore = (set, get) => ({
         }
     },
 
+
+    // products
     actionCallListProduct: async (count) => {
         try {
             const res = await listProducts(count);
@@ -116,7 +138,8 @@ const ecomStore = (set, get) => ({
 
             return res;
         } catch (err) {
-            // console.log(err)
+            console.log(err)
+            if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
             return { error: { message: err.response.data.message } };
         }
     },
@@ -205,6 +228,43 @@ const ecomStore = (set, get) => ({
         }
     },
 
+    actionListProductsBy: async (count, sort) => {
+        try {
+            let keyName;
+            let sortBy;
+            switch (sort) {
+                case 'newarrival':
+                    // pNewArrival
+                    keyName = 'pNewArrival';
+                    sortBy = 'create_date';
+                    break;
+                case 'bestseller':
+                    // pBestSeller
+                    keyName = 'pBestSeller';
+                    sortBy = 'sold'
+                    break;
+                default:
+                //else
+            };
+
+            const res = await listProductsBy(count, sortBy);
+
+            if (res.status === 200) {
+                set({ [keyName]: res.data.result });
+
+                return res;
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err)
+            if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
+            return { error: { message: err.response.data.message } };
+        }
+    },
+
+
+    // orders
     actionCalllistOrdersAdmin: async (count, token) => {
         try {
             const res = await listOrdersAdmin(count, token);

@@ -31,3 +31,7 @@ export const removeCategory = async (id, token) => {
 
     return axios.delete(config.categoryPath + '/remove/' + id, headers);
 };
+
+export const callListCategoriesHome = async () => {
+    return axios.get(config.categoryPath + '/list');
+};

@@ -29,3 +29,7 @@ export const removeProduct = async (id, token) => {
     const headers = configHeaders(token);
     return axios.delete(config.productPath + '/remove/' + id, headers);
 };
+
+export const listProductsBy = async (count, sort) => {
+    return axios.get(config.productPath + '/' + count + '/' + sort);
+};

@@ -1,28 +1,35 @@
-import { createSearchParams, Link } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import { tokenExpire, tokenValidateRole } from "../auth/components/jwtValidate"
-import { useAuthStore } from "../../ecomStore/authStore"
-import LoadingCover from "../loadingCover";
-import { useRef, useState } from "react";
-import HomepageCover from "./components/homepageCover";
-
+import { useState } from "react";
+import HomepageCover from "./homepageCover";
 
 export default function Homepage() {
-    // const token = useAuthStore(s => s.token);
-    // const debug = () => {
-    //     const res = tokenExpire(token);
-    //     console.log(res)
-    //     console.log(typeof (tokenValidateRole(token)))
-    // };
-    // const [isLoadingCoverPage, setIsLoadingCoverPage] = useState(false);
+    const path = window.location.pathname;
+    const [homeCoverClose, setHomeCoverClose] = useState(false);
+
+    const hdlCoverClose = (data) => {
+        setHomeCoverClose(data);
+
+    };
+
+    const coverHidden = () => {
+        if (homeCoverClose) return "hidden";
+        return "";
+    };
 
     return (
-        <div className="relative">
+        <div className="relative w-full flex flex-col bg-main">
 
-            <HomepageCover />
+            {path === '/'
+                ?
+                <div className={`h-screen w-full fixed top-0 z-50 ${coverHidden()}`}>
+                    <HomepageCover close={hdlCoverClose} />
+                </div>
+                : <></>
+            }
 
-            {/* contents */}
-            <div>
-                <div className="w-full h-screen">Contents Page</div>
+            <div className="z-10">
+                <Outlet />
             </div>
 
         </div>

@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer components {
+
+  .bg-main{
+    @apply bg-gray-200;
+  }
+
   .active-menu-sidebar {
     @apply hover:text-gray-50 hover:border-r-gray-50 p-2 ps-6 text-gray-200 bg-gray-700 rounded-l-2xl border-r-4 border-r-gray-200;
   }
@@ -16,7 +21,7 @@
   }
 
   .bo-btn-add {
-    @apply bg-green-500 px-4 rounded font-bold text-gray-200 hover:text-gray-50 h-full;
+    @apply cursor-pointer px-4 rounded font-bold text-gray-200 hover:text-gray-50 h-full;
   }
 
   .frm-input {
@@ -78,6 +83,73 @@
   .box-shadow-white{
     box-shadow: 0 0 3px rgb(0, 0, 0);
   }
+  .text-shadow{
+    text-shadow: 0 0 10px #000000;
+  }
+
+  .navbar .text-nav{
+    @apply cursor-pointer hover:text-gray-50;
+  }
+
+  .card{
+    @apply bg-gray-200 border border-gray-300 rounded overflow-hidden;
+  }
+
+  .card-title{
+    @apply font-bold px-2;
+  }
+
+  .card-body{
+    @apply px-2 text-ellipsis overflow-hidden;
+  }
+
+  .card-footer{
+    @apply px-2;
+  }
+
+  .card-box-shadow{
+    box-shadow: 0 0 5px #9ca3af;
+  }
+
+  .text-overflow{
+    @apply text-ellipsis overflow-hidden;
+  }
+
+  .block-display{
+    @apply w-full lg:w-11/12 ps-4 overflow-hidden;
+  }
+
+  .block-title{
+    @apply w-40 ps-4 text-xl font-bold;
+  }
+  
+  .block-grid{
+    @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+  }
+
+  .block-grid-rows{
+    @apply grid grid-rows-2 grid-flow-col;
+  }
+}
+
+
+
+:root{
+  --percentVh:0;
+  --hscreen:0px;
+  --stickyTop:0px;
+}
+
+.opacity-header{
+  opacity: var(--percentVh);
+}
+
+.pt-hscreen{
+  padding-top: var(--hscreen);
+}
+
+.sticky-top{
+  padding-top: var(--stickyTop);
 }
 
 

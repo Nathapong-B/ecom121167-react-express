@@ -16,9 +16,16 @@ import Orders from "./pages/backoffice/orders"
 import Users from "./pages/backoffice/users"
 import Categories from "./pages/backoffice/categories"
 import Profile from "./pages/backoffice/profileAccount";
+import MainPage from "./pages/homepage/mainPage";
 
 const router = createBrowserRouter([
-    { path: '/', element: <Homepage /> },
+    {
+        path: '/', element: <Homepage />,
+        children: [
+            { index: true, element: <MainPage /> },
+            { path: 'main', element: <MainPage /> },
+        ]
+    },
     {
         path: 'auth',
         element: <AuthLayout />,
@@ -38,7 +45,7 @@ const router = createBrowserRouter([
             { path: 'product', element: <Products /> },
             { path: 'order', element: <Orders /> },
             { path: 'user', element: <Users /> },
-            {path:'profile',element:<Profile />}
+            { path: 'profile', element: <Profile /> }
         ]
     }, {
         path: '/testpath', element: <TestPath />
@@ -46,7 +53,7 @@ const router = createBrowserRouter([
 ])
 
 export default function Routes() {
-    
+
     // let intervalId = 0;
 
     // const showText = () => {

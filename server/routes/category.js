@@ -4,6 +4,9 @@ const { addCategory, updateCategory, changeStatusCategory, listCategory, removeC
 const { adminValidate } = require('../middlewares/authService');
 const { validate_Status } = require('../middlewares/pre-check-data');
 
+router.get('/category/list', listCategory);
+
+// admin
 router.post('/category/add', adminValidate, addCategory);
 router.put('/category/update/:id', adminValidate, updateCategory);
 router.put('/category/change-status/:id', adminValidate, validate_Status, changeStatusCategory);
