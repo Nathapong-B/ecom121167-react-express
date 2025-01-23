@@ -210,6 +210,36 @@ exports.listUsers = async (req, res) => {
 };
 
 
+// exports.callProfile = async (req, res) => {
+//     try {
+//         const { sub } = req.decoded;
+
+//         const result = await prisma.user.findUnique({
+//             where: { id: sub },
+//             select: {
+//                 id: true,
+//                 email: true,
+//                 role: true,
+//                 status: true,
+//                 first_name: true,
+//                 last_name: true,
+//                 address: true,
+//                 phone: true,
+//                 last_update: true,
+//                 create_date: true,
+//                 ProfileImage: true,
+//             }
+//         });
+
+//         res.send({ message: 'Call profile done', result });
+//     } catch (err) {
+//         console.log(err)
+//         res.status(500).send({ message: 'Internal Server Error' });
+//     };
+// };
+
+
+
 
 // test
 exports.testApi = async (req, res) => {

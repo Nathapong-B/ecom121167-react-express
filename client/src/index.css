@@ -92,7 +92,8 @@
   }
 
   .card{
-    @apply bg-gray-200 border border-gray-300 rounded overflow-hidden;
+    /* @apply bg-gray-200 border border-gray-300 rounded overflow-hidden; */
+    @apply bg-white rounded overflow-hidden;
   }
 
   .card-title{
@@ -129,6 +130,10 @@
 
   .block-grid-rows{
     @apply grid grid-rows-2 grid-flow-col;
+  }
+
+  .box-float{
+    @apply bg-white absolute w-max p-2 rounded box-shadow text-gray-500;
   }
 }
 

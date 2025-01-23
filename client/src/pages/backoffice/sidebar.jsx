@@ -1,25 +1,14 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import LoadingCover from "../loadingCover";
-import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { signOut } from "../auth/components/signout";
 
 export default function SideBar() {
-    const nav = useNavigate();
-    const [isLoadingCoverPage, setIsLoadingCoverPage] = useState(false);
 
     const hdlSignout = () => {
-        // console.log('unload');
-        setIsLoadingCoverPage(true);
-        localStorage.removeItem('ecom-121167');
-        setTimeout(() => {
-            setIsLoadingCoverPage(false);
-            // window.location.reload();
-            nav('/');
-        }, 2000);
+        signOut({ isReload: true });
     };
 
     return (
         <div>
-            <LoadingCover title={'Signout..'} isLoading={isLoadingCoverPage} />
 
             <div className="min-w-max m-auto text-gray-400 font-bold">
 

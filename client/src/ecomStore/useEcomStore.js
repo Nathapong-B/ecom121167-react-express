@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { addCategory, callListCategories, callListCategoriesHome, changeStatusCategory, removeCategory, updateCategory } from "../api/categoryApi";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { addCategory, callListCategories, callListCategoriesHome, changeStatusCategory, removeCategory, updateCategory } from "../api/categoryApi";
 import { addProduct, changeStatusProduct, listInactiveProducts, listProducts, listProductsBy, removeProduct, updateProduct } from "../api/productApi";
 import { listOrdersAdmin, removeOrder, updateOrder } from "../api/orderApi";
 
@@ -244,7 +244,8 @@ const ecomStore = (set, get) => ({
                     sortBy = 'sold'
                     break;
                 default:
-                //else
+                    //else
+                    break;
             };
 
             const res = await listProductsBy(count, sortBy);
@@ -317,6 +318,7 @@ const ecomStore = (set, get) => ({
             return { error: { message: err.response.data.message } };
         }
     },
+
 });
 
 const usePersist = {

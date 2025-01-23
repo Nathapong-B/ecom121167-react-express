@@ -8,27 +8,19 @@ import Footer from "./components/footer";
 import BlockProducts from "./components/blockProducts";
 import ProductsNewArrival from "./components/pNewarrival";
 import ProductsBestSeller from "./components/pBestSeller";
+import { useCartStore } from "../../ecomStore/useCartStore";
+import { toast } from "react-toastify";
+import ProductRecommend from "./components/pRecommend";
 
 export default function MainPage() {
-    const { products, callListProduct } = useEcomStore(useShallow(s => ({
-        products: s.products,
-        callListProduct: s.actionCallListProduct,
-    })));
     const [scrollTopEl, setScrollTop] = useState();
     const [clientHeightEl, setClientHeight] = useState(1000);
     const headerRf = useRef();
 
-    let decimal = ((((clientHeightEl - scrollTopEl) * 100) / clientHeightEl) / 100).toFixed(2);
-
-    const callProducts = async () => {
-        const res = await callListProduct(6);
-        res.error ? alert(`${res.error.message}`) : '';
-    };
+    let decimal = ((((clientHeightEl - scrollTopEl) * 100) / clientHeightEl) / 100).toFixed(2); // toFixed() จำนวนตำแหน่งทศนิยม
 
     useEffect(() => {
-        if (!products) {
-            callProducts();
-        };
+        document.documentElement.scrollTop = 0;
 
         root.style.setProperty('--hscreen', `${clientHeightEl * 2}px`);
 
@@ -73,17 +65,15 @@ export default function MainPage() {
 
 
     const debug = () => {
-        //
+        // console.log(cart)
+        // if(!user) calluser()
     };
-
-    const arr = Array(25).fill(null);
-
-    // console.log(products)
 
     return (
         <div className="flex flex-wrap justify-center">
 
             <div className="sticky top-0 w-screen z-50">
+                {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
                 <NavBar />
             </div>
 
@@ -99,8 +89,7 @@ export default function MainPage() {
                 <div className="w-full md:w-9/12 h-max flex flex-col flex-wrap items-center md:items-end">
 
                     <div className="block-display">
-                        <div className="block-title">สินค้าแนะนำ</div>
-                        <BlockProducts products={products} />
+                        <ProductRecommend />
                     </div>
 
                     <div className="block-display">

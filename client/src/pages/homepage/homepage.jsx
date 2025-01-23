@@ -1,15 +1,29 @@
 import { Outlet } from "react-router-dom"
 import { tokenExpire, tokenValidateRole } from "../auth/components/jwtValidate"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomepageCover from "./homepageCover";
+import { useAuthStore } from "../../ecomStore/authStore";
+import { useShallow } from "zustand/react/shallow";
+import { useCartStore } from "../../ecomStore/useCartStore";
 
 export default function Homepage() {
+    const { uId } = useAuthStore(useShallow(s => ({
+        uId: s.user?.sub,
+    })));
     const path = window.location.pathname;
     const [homeCoverClose, setHomeCoverClose] = useState(false);
 
+    useEffect(() => {
+        const localName = useCartStore.persist.getOptions().name;
+
+        if (uId && !localName[localName.search(uId)]) {
+            window.location.reload();
+        }
+
+    }, []);
+
     const hdlCoverClose = (data) => {
         setHomeCoverClose(data);
-
     };
 
     const coverHidden = () => {
