@@ -33,3 +33,7 @@ export const removeProduct = async (id, token) => {
 export const listProductsBy = async (count, sort) => {
     return axios.get(config.productPath + '/' + count + '/' + sort);
 };
+
+export const callProductsByList = async (arrListId) => {
+    return axios.post(config.productPath + '/list-by-list', { arrListId });
+};

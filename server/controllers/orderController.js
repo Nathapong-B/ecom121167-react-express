@@ -1,8 +1,8 @@
 const { prisma } = require("../config/config");
-const { stripePayment } = require("../util/stripePayment");
+const { stripePayment, stripeRetrieve } = require("../util/stripePayment");
 const { orderCheckUpdate, createOrder, updateStatus } = require("../util/utilOrder");
 
-//*แก้ไข เพิ่ม customer
+
 exports.createOrder = async (req, res) => {
     try {
         const userId = req.decoded.sub;
@@ -256,4 +256,14 @@ exports.testPaydate = async (req, res) => {
     } catch (err) {
         console.log(err)
     }
+}
+
+exports.testStripeRetrieve = async (req, res) => {
+    const pId='pi_3QSFD9K9yWLzWzwq0UquIioY';
+    // const pId='pi_3QSFF0K9yWLzWzwq0kJmL4Ad';
+    // const accId='acct_1QR8tzK9yWLzWzwq';
+    const result = await stripeRetrieve(pId);
+    console.log(result)
+    // console.log('ok')
+    res.send(result)
 }

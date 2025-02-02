@@ -3,6 +3,7 @@ import { useEcomStore } from "../../../ecomStore/useEcomStore";
 import { useShallow } from "zustand/react/shallow";
 import BlockProducts from "./blockProducts";
 import { useCartStore } from "../../../ecomStore/useCartStore";
+import { toast } from "react-toastify";
 
 export default function ProductRecommend() {
     const { products, callListProduct } = useEcomStore(useShallow(s => ({
@@ -27,7 +28,9 @@ export default function ProductRecommend() {
     const hdlAddToCart = (data) => {
         const res = addToCart(data);
 
-        if (!res) toast.error('สต๊อกไม่เพียงพอ..!!');
+        if (res.error) toast.warning(res.error.message);
+
+        if (res.success) toast.success(res.success.message);
     };
 
     return (

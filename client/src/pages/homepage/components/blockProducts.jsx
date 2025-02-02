@@ -9,24 +9,22 @@ export default function BlockProducts(props) {
 
     return (
         <div>
-            <div className="block-grid-rows">
+            <div className="block-grid">
                 {products
                     ? products.map((e, i) => (
-                        <div key={i} className="min-w-max p-2">
+                        <div key={i} className="min-w-20 max-w-80 p-1 sm:p-2">
                             <Card style={"hover:card-box-shadow"}>
-                                <div className="max-w-full flex justify-center bg-white p-2 cursor-pointer">
-                                    <img src={e?.Image?.length > 0 ? `${e.Image[0].url}` : ''} className="w-32 h-32 object-contain" ></img>
+                                <div className="max-w-full flex justify-center bg-white py-2 sm:px-2 sm:py-4 cursor-pointer">
+                                    <img src={e?.Image?.length > 0 ? `${e.Image[0].url}` : ''} className="min-h-16 h-32 object-contain" ></img>
                                 </div>
-                                <div className="flex justify-between items-center pt-2">
-                                    <div className="card-title w-max">{e.product_name.toUpperCase()}</div>
+                                <div className="flex justify-between items-center pt-2 w-full">
+                                    <div className="card-title w-16 sm:w-full">{e.product_name.toUpperCase()}</div>
                                     <div className="cursor-pointer pe-2 text-green-500 font-bold" onClick={() => addToCart(e)}>+ADD</div>
                                 </div>
                                 <div className="card-body pb-2 w-full">
-                                    <div className="text-overflow h-6 text-sm">{e.description}</div>
+                                    <div className="text-overflow text-sm pe-2 w-full">{e.description}</div>
                                 </div>
-                                {/* <div className="card-footer py-1 flex justify-between text-sm bg-gray-300"> */}
                                 <div className="card-footer pt-2 pb-4 text-red-500 text-center text-xl font-bold">
-                                    {/* <div>Price</div> */}
                                     <div>{e.price.toLocaleString('th-TH')} .-</div>
                                 </div>
                             </Card>

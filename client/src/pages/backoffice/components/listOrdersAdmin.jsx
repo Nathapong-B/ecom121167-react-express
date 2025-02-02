@@ -23,7 +23,7 @@ export default function ListOrdersAdmin() {
     const [info, setInfo] = useState(false);
 
     const hdlCallListOrders = async () => {
-        const res = await callListOrder(6, token);
+        const res = await callListOrder(10, token);
 
         if (res.status === 200) {
             setListOrders(res.data.result);

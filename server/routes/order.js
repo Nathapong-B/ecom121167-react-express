@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { jwtValidate, adminValidate } = require('../middlewares/authService');
-const { createOrder, removeOrder, updateStatusOrder, confirmPayment, listOrders, listOrdersAdmin, updateOrder, testPaydate } = require('../controllers/orderController');
+const { createOrder, removeOrder, updateStatusOrder, confirmPayment, listOrders, listOrdersAdmin, updateOrder, testPaydate, testStripeRetrieve } = require('../controllers/orderController');
 
 router.post('/order/create', jwtValidate, createOrder);
 router.delete('/order/remove/:id', jwtValidate, removeOrder); // cancel order by user
@@ -15,5 +15,6 @@ router.put('/order/update/:id', adminValidate, updateOrder);
 
 //test
 // router.put('/test-paydate',testPaydate)
+router.get('/test-stripe',testStripeRetrieve)
 
 module.exports = router;

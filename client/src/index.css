@@ -4,7 +4,7 @@
 
 @layer components {
 
-  .bg-main{
+  .bg-main {
     @apply bg-gray-200;
   }
 
@@ -22,6 +22,10 @@
 
   .bo-btn-add {
     @apply cursor-pointer px-4 rounded font-bold text-gray-200 hover:text-gray-50 h-full;
+  }
+
+  .btn-disabled {
+    @apply disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none disabled:cursor-default;
   }
 
   .frm-input {
@@ -42,7 +46,7 @@
   }
 
   .bo-tb tbody tr td {
-    @apply text-ellipsis overflow-hidden border-2 p-2;
+    @apply whitespace-nowrap text-ellipsis overflow-hidden border-2 p-2;
   }
 
   .tb-tr-hover {
@@ -50,13 +54,21 @@
   }
 
   .tb-tr-hover td {
-    @apply text-ellipsis overflow-hidden;
+    @apply whitespace-nowrap text-ellipsis overflow-hidden;
   }
 
   /* table */
 
   .label-input-animate {
     @apply absolute cursor-text text-gray-500 left-2 transition-all duration-700;
+  }
+
+  .order-label-animate {
+    @apply h-max has-[:focus]:w-full relative border-b border-red-500 transition-all duration-500;
+  }
+
+  .order-label-animate input {
+    @apply min-w-max w-full absolute top-7 left-0 focus:bg-white focus:outline-none;
   }
 
   .img-list {
@@ -80,82 +92,101 @@
     box-shadow: 0 0 25px skyblue;
   }
 
-  .box-shadow-white{
+  .box-shadow-white {
     box-shadow: 0 0 3px rgb(0, 0, 0);
   }
-  .text-shadow{
+
+  .box-shadow-normal{
+    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+        0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  }
+
+  .text-shadow {
     text-shadow: 0 0 10px #000000;
   }
 
-  .navbar .text-nav{
+  .navbar .text-nav {
     @apply cursor-pointer hover:text-gray-50;
   }
 
-  .card{
+  .card {
     /* @apply bg-gray-200 border border-gray-300 rounded overflow-hidden; */
+    /* @apply bg-white rounded overflow-hidden max-w-48; */
     @apply bg-white rounded overflow-hidden;
   }
 
-  .card-title{
-    @apply font-bold px-2;
+  .card-title {
+    @apply font-bold px-2 whitespace-nowrap text-ellipsis overflow-hidden;
   }
 
-  .card-body{
-    @apply px-2 text-ellipsis overflow-hidden;
+  .card-body {
+    @apply px-2 whitespace-nowrap text-ellipsis overflow-hidden;
   }
 
-  .card-footer{
+  .card-footer {
     @apply px-2;
   }
 
-  .card-box-shadow{
+  .card-box-shadow {
     box-shadow: 0 0 5px #9ca3af;
   }
 
-  .text-overflow{
-    @apply text-ellipsis overflow-hidden;
+  .text-overflow {
+    @apply whitespace-nowrap text-ellipsis overflow-hidden;
   }
 
-  .block-display{
-    @apply w-full lg:w-11/12 ps-4 overflow-hidden;
+  .block-display {
+    @apply w-full lg:w-11/12 sm:ps-4 overflow-hidden;
   }
 
-  .block-title{
-    @apply w-40 ps-4 text-xl font-bold;
-  }
-  
-  .block-grid{
-    @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+  .block-title {
+    @apply min-w-20 ps-4 text-xl font-bold;
   }
 
-  .block-grid-rows{
+  .block-grid {
+    /* @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5; */
+    @apply grid grid-cols-2 sm:grid-cols-3;
+  }
+
+  .block-grid-rows {
     @apply grid grid-rows-2 grid-flow-col;
   }
 
-  .box-float{
+  .box-float {
     @apply bg-white absolute w-max p-2 rounded box-shadow text-gray-500;
   }
 }
 
 
 
-:root{
-  --percentVh:0;
-  --hscreen:0px;
-  --stickyTop:0px;
+:root {
+  --percentVh: 0;
+  --hscreen: 0px;
+  --stickyTop: 0px;
+  --iW: 0px;
+  --cLeft: 0px;
 }
 
-.opacity-header{
+.opacity-header {
   opacity: var(--percentVh);
 }
 
-.pt-hscreen{
+.pt-hscreen {
   padding-top: var(--hscreen);
 }
 
-.sticky-top{
+.sticky-top {
   padding-top: var(--stickyTop);
 }
+
+.items-Width {
+  width: var(--iW);
+}
+
+.containerLeft {
+  left: var(--cLeft);
+}
+
 
 
 /* :root {

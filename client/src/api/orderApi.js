@@ -15,3 +15,13 @@ export const removeOrder = async (id, token) => {
     const headers = configHeaders(token);
     return axios.delete(config.orderPath + '/remove/' + id, headers);
 };
+
+export const createOrder = async (data, token) => {
+    const headers = configHeaders(token);
+    return axios.post(config.orderPath + '/create', data, headers);
+};
+
+export const confirmPayment = async (data, token) => {
+    const headers = configHeaders(token);
+    return axios.put(config.orderPath + '/confirm-payment', data, headers);
+};

@@ -11,3 +11,10 @@ exports.stripePayment = async (amount) => {
         },
     });
 };
+
+// ร้องขอข้อมูลการชำระเงิน
+exports.stripeRetrieve = async (paymentId) => {
+    return await stripe.paymentIntents.retrieve(
+        paymentId, { expand: ['latest_charge'] },
+    );
+};

@@ -17,6 +17,10 @@ import Users from "./pages/backoffice/users"
 import Categories from "./pages/backoffice/categories"
 import Profile from "./pages/backoffice/profileAccount";
 import MainPage from "./pages/homepage/mainPage";
+import CartDetail from "./pages/homepage/cartDetail";
+import OrderDetail from "./pages/homepage/orderDetail";
+import Payments from "./pages/payments/payments";
+import CompletePage from "./pages/payments/completePage";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +28,10 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <MainPage /> },
             { path: 'main', element: <MainPage /> },
+            { path: 'main/cart', element: <CartDetail /> },
+            { path: 'main/order', element: <OrderDetail /> },
+            { path: 'payments', element: <Payments /> },
+            { path: 'payment-complete', element: <CompletePage /> }
         ]
     },
     {

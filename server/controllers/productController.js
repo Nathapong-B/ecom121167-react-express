@@ -260,6 +260,23 @@ exports.listProductBy = async (req, res) => {
     };
 };
 
+exports.callProductsByList = async (req, res) => {
+    try {
+        const { arrListId } = req.body;
+
+        const result = await prisma.product.findMany({
+            where: {
+                id: { in: arrListId },
+            }
+        });
+
+        res.send({ message: 'Call Products by list done', result })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ message: 'Internal Server Error' });
+    };
+};
+
 
 
 // test api

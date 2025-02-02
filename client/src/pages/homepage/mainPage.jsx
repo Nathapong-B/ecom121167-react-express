@@ -2,14 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import Header from "./components/header";
 import NavBar from "./navbar";
 import Card from "./components/card";
-import { useEcomStore } from "../../ecomStore/useEcomStore";
-import { useShallow } from "zustand/react/shallow";
 import Footer from "./components/footer";
-import BlockProducts from "./components/blockProducts";
 import ProductsNewArrival from "./components/pNewarrival";
 import ProductsBestSeller from "./components/pBestSeller";
-import { useCartStore } from "../../ecomStore/useCartStore";
-import { toast } from "react-toastify";
 import ProductRecommend from "./components/pRecommend";
 
 export default function MainPage() {
@@ -41,10 +36,10 @@ export default function MainPage() {
     const headersDisplayNone = () => {
         const hidden = headerRf.current?.classList.contains('hidden');
 
-        if (decimal < 0.5 && !hidden) {
+        if (decimal < 0.7 && !hidden) {
             root.style.setProperty('--hscreen', `${scrollTopEl * 1.5}px`);
             headerRf.current.classList.add('hidden');
-        } else if (headerRf.current && decimal > 0.5 && hidden) {
+        } else if (headerRf.current && decimal > 0.7 && hidden) {
             headerRf.current.classList.remove('hidden');
             root.style.setProperty('--hscreen', `${clientHeightEl * 2}px`);
         }
@@ -52,7 +47,7 @@ export default function MainPage() {
     };
 
     const stickyTop = () => {
-        const pt = (scrollTopEl - clientHeightEl) + 150;
+        const pt = (scrollTopEl - clientHeightEl) + 360;
         if (pt > 0) {
             return pt;
         }
@@ -72,10 +67,7 @@ export default function MainPage() {
     return (
         <div className="flex flex-wrap justify-center">
 
-            <div className="sticky top-0 w-screen z-50">
-                {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
-                <NavBar />
-            </div>
+            {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
 
             <div ref={headerRf} className={`bg-green-500 opacity-header w-full fixed top-0 z-40`}>
                 <Header />
@@ -83,10 +75,10 @@ export default function MainPage() {
 
 
             {/* main contents */}
-            <div id='main_contents' className="pt-hscreen pb-8 w-full h-auto flex flex-wrap justify-center transition-all ease-out duration-500">
+            <div id='main_contents' className="pt-hscreen pb-8 w-screen h-auto flex flex-wrap justify-center transition-all ease-out duration-500">
 
                 {/* contents */}
-                <div className="w-full md:w-9/12 h-max flex flex-col flex-wrap items-center md:items-end">
+                <div className="w-full pe-2 md:pe-0 md:w-9/12 h-max flex flex-col flex-wrap items-center md:items-end">
 
                     <div className="block-display">
                         <ProductRecommend />
@@ -138,9 +130,9 @@ export default function MainPage() {
             </div>
 
             {/* footer */}
-            <div className="w-full h-20 bg-gray-300">
+            {/* <div className="w-full h-20 bg-gray-300">
                 <Footer />
-            </div>
+            </div> */}
 
         </div>
     )

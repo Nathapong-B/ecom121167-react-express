@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function HomepageCover(props) {
@@ -26,6 +27,15 @@ export default function HomepageCover(props) {
             props.close(true);
         }, 1000);
     };
+
+    useEffect(() => {
+        if (props.onClose) {
+            setTimeout(() => {
+                onSlideCover();
+            }, 1000);
+        };
+    }, []);
+
 
     return (
         <div id="elCover" className="bg-gray-100 w-full h-full absolute top-0 left-0 z-50 flex flex-col justify-center items-center transition-all duration-1000 ease-out">

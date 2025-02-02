@@ -12,6 +12,7 @@ npm i body-parser
 npm install prisma
 npx prisma init
 npm install @prisma/client
+npm install --save stripe
 
 npx prisma migrate dev --name ""
 
@@ -72,6 +73,8 @@ npm i @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
 npm install pdfmake --save
 
 npm i dayjs
+
+npm install --save @stripe/react-stripe-js @stripe/stripe-js
 
 
 // ตัวอย่างการแปลง timestamp เป็นวันที่

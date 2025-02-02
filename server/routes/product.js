@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { listProducts, addProduct, updateProduct, changeStatusProduct, getEachProduct, searchProduct, listProductBy, removeProduct, testApi, listInactiveProducts } = require('../controllers/productController');
+const { listProducts, addProduct, updateProduct, changeStatusProduct, getEachProduct, searchProduct, listProductBy, removeProduct, testApi, listInactiveProducts, callProductsByList } = require('../controllers/productController');
 const { adminValidate } = require('../middlewares/authService');
 const { validate_Product_data, validate_Status, validate_Images, validate_Images_size } = require('../middlewares/pre-check-data');
 const { upload } = require('../config/multerConfig');
@@ -16,6 +16,7 @@ router.get('/product/:limit', listProducts);
 router.get('/product/each/:id', getEachProduct);
 router.post('/product/search', searchProduct);
 router.get('/product/:limit/:sort', listProductBy);
+router.post('/product/list-by-list', callProductsByList);
 
 
 
