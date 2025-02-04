@@ -25,3 +25,8 @@ export const confirmPayment = async (data, token) => {
     const headers = configHeaders(token);
     return axios.put(config.orderPath + '/confirm-payment', data, headers);
 };
+
+export const listMyPurchase = async (count, token) => {
+    const headers = configHeaders(token);
+    return axios.get(config.orderPath + '/list-orders/' + count, headers);
+};

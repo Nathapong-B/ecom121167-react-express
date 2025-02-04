@@ -160,12 +160,17 @@ exports.listOrders = async (req, res) => {
         const result = await prisma.order.findMany({
             where: { user_id: sub },
             take: parseInt(limit),
-            orderBy: { last_update: 'desc' },
+            orderBy: { create_date: 'desc' },
             include: {
                 StripePayment: true,
                 OrderDetail: {
                     include: {
-                        Product: true,
+                        // Product:true,
+                        Product: {
+                            include: {
+                                Image: true,
+                            },
+                        },
                     },
                 },
             },
@@ -259,7 +264,7 @@ exports.testPaydate = async (req, res) => {
 }
 
 exports.testStripeRetrieve = async (req, res) => {
-    const pId='pi_3QSFD9K9yWLzWzwq0UquIioY';
+    const pId = 'pi_3QSFD9K9yWLzWzwq0UquIioY';
     // const pId='pi_3QSFF0K9yWLzWzwq0kJmL4Ad';
     // const accId='acct_1QR8tzK9yWLzWzwq';
     const result = await stripeRetrieve(pId);

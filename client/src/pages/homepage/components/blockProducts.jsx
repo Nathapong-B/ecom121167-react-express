@@ -7,6 +7,10 @@ export default function BlockProducts(props) {
         props.returnData(item);
     };
 
+    const viewProductDetail = (item) => {
+        props.returnViewProduct(item);
+    };
+
     return (
         <div>
             <div className="block-grid">
@@ -14,7 +18,7 @@ export default function BlockProducts(props) {
                     ? products.map((e, i) => (
                         <div key={i} className="min-w-20 max-w-80 p-1 sm:p-2">
                             <Card style={"hover:card-box-shadow"}>
-                                <div className="max-w-full flex justify-center bg-white py-2 sm:px-2 sm:py-4 cursor-pointer">
+                                <div onClick={() => viewProductDetail(e)} className="max-w-full flex justify-center bg-white py-2 sm:px-2 sm:py-4 cursor-pointer">
                                     <img src={e?.Image?.length > 0 ? `${e.Image[0].url}` : ''} className="min-h-16 h-32 object-contain" ></img>
                                 </div>
                                 <div className="flex justify-between items-center pt-2 w-full">

@@ -21,6 +21,8 @@ import CartDetail from "./pages/homepage/cartDetail";
 import OrderDetail from "./pages/homepage/orderDetail";
 import Payments from "./pages/payments/payments";
 import CompletePage from "./pages/payments/completePage";
+import MyPurchase from "./pages/user/myPurchase";
+import ProductDetail from "./pages/homepage/productDetail";
 
 const router = createBrowserRouter([
     {
@@ -30,8 +32,10 @@ const router = createBrowserRouter([
             { path: 'main', element: <MainPage /> },
             { path: 'main/cart', element: <CartDetail /> },
             { path: 'main/order', element: <OrderDetail /> },
+            { path: 'main/product-detail', element: <ProductDetail /> },
             { path: 'payments', element: <Payments /> },
-            { path: 'payment-complete', element: <CompletePage /> }
+            { path: 'payment-complete', element: <CompletePage /> },
+            { path: 'profile/my-purchase', element: <MyPurchase /> },
         ]
     },
     {

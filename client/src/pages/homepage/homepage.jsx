@@ -9,9 +9,10 @@ import NavBar from "./navbar";
 import Footer from "./components/footer";
 
 export default function Homepage() {
-    const token = useAuthStore(s => s.token);
-    const { uId } = useAuthStore(useShallow(s => ({
+    // const token = useAuthStore(s => s.token);
+    const { uId, token } = useAuthStore(useShallow(s => ({
         uId: s.user?.sub,
+        token: s.token,
     })));
     const path = window.location.pathname;
     const [homeCoverClose, setHomeCoverClose] = useState(false);

@@ -37,3 +37,7 @@ export const listProductsBy = async (count, sort) => {
 export const callProductsByList = async (arrListId) => {
     return axios.post(config.productPath + '/list-by-list', { arrListId });
 };
+
+export const getEachProduct = async (id) => {
+    return axios.get(config.productPath + '/each/' + id);
+};

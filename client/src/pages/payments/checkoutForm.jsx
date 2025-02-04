@@ -40,23 +40,12 @@ export default function CheckoutForm() {
             setMessage(resultPayment.error.message);
             toast.error(resultPayment.error.message);
         } else if (resultPayment.paymentIntent.status === 'succeeded') {
-            console.log('succeeded');
-            console.log(resultPayment)
             // ส่งสถานะสำเร็จไปเซิร์ฟเวอร์ confirm-payment
-            // token , data
-            // {
-            //     "paymentIntent":{
-            //         "id":"pi_3Qd8KVK9yWLzWzwq173igLg0",
-            //         "created": "1735900931",
-            //         "status": "succeeded"
-            //     }
-            // }
-            // const { paymentIntent } = resultPayment;
             const res = await actionConfirmPayment(resultPayment, token);
 
             nav('/payment-complete'); // redirect to complete page
         } else {
-            console.log('Require Action : ', resultPayment);
+            // console.log('Require Action : ', resultPayment);
             toast.error(resultPayment.paymentIntent.status.toUpperCase());
         }
 
@@ -65,7 +54,7 @@ export default function CheckoutForm() {
 
     const paymentElementOptions = {
         layout: "accordion"
-    }
+    };
 
     return (
         <div>

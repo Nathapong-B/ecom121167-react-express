@@ -287,7 +287,7 @@ const ecomStore = (set, get) => ({
             const res = await updateOrder(id, data, token);
 
             if (res.status === 200) {
-                const resList = await listOrdersAdmin(count, token);
+                const resList = await listOrdersAdmin(10, token);
 
                 set({ orders: resList.data.result });
 
@@ -306,7 +306,7 @@ const ecomStore = (set, get) => ({
             const res = await removeOrder(id, token);
 
             if (res.status === 200) {
-                const resList = await listOrdersAdmin(count, token);
+                const resList = await listOrdersAdmin(10, token);
 
                 set({ orders: resList.data.result });
                 return res;

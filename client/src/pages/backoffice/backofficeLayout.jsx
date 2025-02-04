@@ -1,12 +1,27 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import SideBar from "./sidebar";
+import { useAuthStore } from "../../ecomStore/authStore";
+import { useShallow } from "zustand/react/shallow";
 
 export default function BackOfficeLayout() {
+    const { uId } = useAuthStore(useShallow(s => ({
+        uId: s.user?.sub,
+    })));
     const navigate = useNavigate();
 
     const hdlUnloadPage = () => {
         localStorage.removeItem('ecomStore-121167');
+    };
+
+    // checkMultiTab กรณีเปิดหลายแท็ป
+    const checkMultiTab = () => {
+        // ตรวจสอบไอดีในlocal กับใน state ถ้าไม่ตรงกันให้ reload เกิดขึ้นในกรณีที่ออกจากระบบหรือเข้าสู่ระบบจากแท็ปอื่น
+        const local = localStorage.getItem(useAuthStore.persist.getOptions().name);
+        const sub = JSON.parse(local)?.state.user.sub;
+        if (uId !== sub) {
+            return location.reload();
+        };
     };
 
     useEffect(() => {
@@ -16,10 +31,10 @@ export default function BackOfficeLayout() {
         // หาก pathname มีค่าเท่ากับ backoffice ให้ไปที่หน้า dashboard หากไม่ใช่ เมื่อทำการรีเฟรซ ให้อยู่ที่ path เดิม
         if (backoffice.includes(path)) navigate('dashboard');
 
-        window.addEventListener('beforeunload', hdlUnloadPage)
-    }, []);
+        window.addEventListener('focus', checkMultiTab);
 
-    // console.log('back office')
+        window.addEventListener('beforeunload', hdlUnloadPage);
+    }, []);
 
     return (
         <div className="flex bg-main gap-0">

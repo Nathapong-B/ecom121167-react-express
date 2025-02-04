@@ -2,13 +2,14 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { useAuthStore } from "./authStore";
 import { callProductsByList } from "../api/productApi";
-import { confirmPayment, createOrder } from "../api/orderApi";
+import { confirmPayment, createOrder, listMyPurchase, removeOrder } from "../api/orderApi";
 
 let userId = () => useAuthStore.getState().user?.sub;
 
 const cartStore = (set, get) => ({
     cart: [],
     order: [],
+    myPurchase: [],
 
     actionTest: async () => {
         const cart = get().cart;
@@ -141,6 +142,8 @@ const cartStore = (set, get) => ({
         return { success: { message: `Clear order successful` } };
     },
 
+
+    // order
     actionCreateOrder: async (data, token) => {
         try {
             const res = await createOrder(data, token);
@@ -157,12 +160,8 @@ const cartStore = (set, get) => ({
         };
     },
 
-    actionConfirmPayment:async(data,token)=>{
+    actionConfirmPayment: async (data, token) => {
         try {
-            console.log(data)
-            // return;
-            // paymentIntent
-
             const res = await confirmPayment(data, token);
 
             if (res.status === 200) {
@@ -175,6 +174,45 @@ const cartStore = (set, get) => ({
             if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
             return { error: { message: err.response.data.message } };
         };
+    },
+
+    actionListMyPurchase: async (count, token) => {
+        try {
+            const res = await listMyPurchase(count, token);
+
+            if (res.status === 200) {
+                set({ myPurchase: res.data.result });
+                return res;
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err);
+            if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
+            return { error: { message: err.response.data.message } };
+        };
+    },
+
+    actionClearMyPurchase: () => {
+        set({ myPurchase: [] });
+    },
+
+    actionRemoveOrder: async (id, token) => {
+        try {
+            const res = await removeOrder(id, token);
+
+            if (res.status === 200) {
+                const resList = await listMyPurchase(10, token);
+
+                set({ myPurchase: resList.data.result });
+                return res;
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err)
+            return { error: { message: err.response.data.message } };
+        }
     },
 });
 

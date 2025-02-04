@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import BlockProducts from "./blockProducts";
 import { useCartStore } from "../../../ecomStore/useCartStore";
 import { toast } from "react-toastify";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 export default function ProductsBestSeller() {
     const { pBestSeller, callListProductsBy } = useEcomStore(useShallow(s => ({
@@ -13,6 +14,7 @@ export default function ProductsBestSeller() {
     const { addToCart } = useCartStore(useShallow(s => ({
         addToCart: s.actionAddToCart,
     })));
+    const nav=useNavigate();
 
     useEffect(() => {
         if (!pBestSeller) {
@@ -28,10 +30,20 @@ export default function ProductsBestSeller() {
         if (res.success) toast.success(res.success.message);
     };
 
+    const viewProductDetail = (item) => {
+        const { id } = item;
+        const store = 'products';
+
+        nav({
+            pathname: '/main/product-detail',
+            search: createSearchParams({ pid: `${id}`, store }).toString()
+        });
+    };
+
     return (
         <div>
             <div className="block-title">สินค้าขายดี</div>
-            <BlockProducts products={pBestSeller} returnData={hdlAddToCart} />
+            <BlockProducts products={pBestSeller} returnData={hdlAddToCart} returnViewProduct={viewProductDetail} />
         </div>
     )
 };

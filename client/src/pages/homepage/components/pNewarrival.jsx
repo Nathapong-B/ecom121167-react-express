@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import BlockProducts from "./blockProducts";
 import { useCartStore } from "../../../ecomStore/useCartStore";
 import { toast } from "react-toastify";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 export default function ProductsNewArrival() {
     const { pNewArrival, callListProductsBy } = useEcomStore(useShallow(s => ({
@@ -13,6 +14,7 @@ export default function ProductsNewArrival() {
     const { addToCart } = useCartStore(useShallow(s => ({
         addToCart: s.actionAddToCart,
     })));
+    const nav = useNavigate();
 
     useEffect(() => {
         if (!pNewArrival) {
@@ -28,10 +30,20 @@ export default function ProductsNewArrival() {
         if (res.success) toast.success(res.success.message);
     };
 
+    const viewProductDetail = (item) => {
+        const { id } = item;
+        const store = 'products';
+
+        nav({
+            pathname: '/main/product-detail',
+            search: createSearchParams({ pid: `${id}`, store }).toString()
+        });
+    };
+
     return (
         <div>
             <div className="block-title">สินค้ามาใหม่</div>
-            <BlockProducts products={pNewArrival} returnData={hdlAddToCart} />
+            <BlockProducts products={pNewArrival} returnData={hdlAddToCart} returnViewProduct={viewProductDetail} />
         </div>
     )
 };
