@@ -11,31 +11,6 @@ const cartStore = (set, get) => ({
     order: [],
     myPurchase: [],
 
-    actionTest: async () => {
-        const cart = get().cart;
-        const arrListId = [...cart.map(e => (e.id))];
-        const res = await callProductsByList(arrListId);
-        const pChecker = res.data.result;
-
-        console.log('pChecker : ', pChecker);
-        // console.log('cart : ', cart);
-
-        // นำสต๊อกใน pChecker มาอัพเดท cart
-        const cartUpdate = cart.reduce((acc, cur) => {
-            for (let i of pChecker) {
-                if (cur.id === i.id) {
-                    cur.stock = i.stock;
-                    acc.push(cur);
-                    return acc;
-                }
-            }
-        }, []);
-
-        console.log(cartUpdate)
-        set({ cart: [...cartUpdate] });
-        return res;
-    },
-
     actionUpdateStock: async () => {
         const cart = get().cart;
         const arrListId = [...cart.map(e => (e.id))];
@@ -62,7 +37,7 @@ const cartStore = (set, get) => ({
 
         const product = { ...item };
         // delete product.Image;
-        product.Image = item.Image.find(e => e.position === 0).url;
+        // product.Image = item.Image.find(e => e.position === 0).url;
         const cart = get().cart;
 
         product.qty = 1;
@@ -76,7 +51,7 @@ const cartStore = (set, get) => ({
             if (product.stock < product.qty) return { error: { message: 'Stock not enough' } };
 
             set({ cart: [product, ...cart] });
-            return { status: { message: `${product.product_name.toUpperCase()} add to cart successful` } };
+            return { success: { message: `${product.product_name.toUpperCase()} add to cart successful` } };
         } else {
             // recheck stock
             if (product.stock < (unit.qty + 1)) return { error: { message: 'Stock not enough' } };

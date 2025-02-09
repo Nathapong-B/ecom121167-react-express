@@ -45,7 +45,7 @@ export default function AddCategory() {
                 <div className="absolute -top-4 start-2 font-medium bg-gray-200 px-2">Add New Category</div>
                 <div className="p-2 w-full text-center">
                     <input name="category_name" type="text" placeholder="Category name" className="frm-input w-1/2 me-2" onChange={e => hdlOnchange(e)} value={dataForm.category_name}></input>
-                    <button className="bo-btn-add">ADD</button>
+                    <button className="bo-btn-add bg-sky-500 py-1">ADD</button>
                 </div>
             </form>
         </>

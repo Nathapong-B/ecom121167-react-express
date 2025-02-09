@@ -9,16 +9,25 @@ const authStore = (set, get) => ({
     profile: null,
 
     actionSignin: async (payload) => {
-        const res = await userSignin(payload);
-        const decoded = jwtDecode(res.data.token);
+        try {
+            const res = await userSignin(payload);
+            const decoded = jwtDecode(res.data.token);
 
-        set({
-            token: res.data.token,
-            user: decoded,
-            profile: res.data.profile,
-        });
-
-        return res;
+            if (res.status === 200) {
+                set({
+                    token: res.data.token,
+                    user: decoded,
+                    profile: res.data.profile,
+                });
+                return { success: true, decoded };
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err);
+            if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
+            return { error: { message: err.response.data.message } };
+        };
     },
 
     actionListUsers: async (statusby, count, token) => {

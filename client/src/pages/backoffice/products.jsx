@@ -43,7 +43,7 @@ export default function Products() {
                         ?
                         <div>
                             <div className="text-end">
-                                <button name="btn-add" className="bo-btn-add" onClick={hdlClickAddNUpdateProduct}>ADD NEW PRODUCT</button>
+                                <button name="btn-add" className="bo-btn-add bg-sky-500 py-1" onClick={hdlClickAddNUpdateProduct}>+ ADD NEW PRODUCT</button>
                             </div>
 
                             <div className={showActivePage ? "mt-6 ps-2 flex gap-2 border-b-2 border-green-500" : "mt-6 ps-2 flex gap-2 border-b-2 border-gray-500"}>

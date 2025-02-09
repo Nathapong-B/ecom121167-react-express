@@ -6,7 +6,7 @@ import LandingPage from "./landingPage";
 export default function redirectPage() {
     const user = useAuthStore(state => state.user);
     const [count, setCount] = useState(0);
-    const numToRedirect = 5;
+    const numToRedirect = 3;
 
     // permission ส่งมาจาก adminGuard หากมีค่า จะเซ็ตค่า title ให้ LandingPage เป็น permission denied
     const [searchParmas] = useSearchParams();

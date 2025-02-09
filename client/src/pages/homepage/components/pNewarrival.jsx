@@ -32,7 +32,7 @@ export default function ProductsNewArrival() {
 
     const viewProductDetail = (item) => {
         const { id } = item;
-        const store = 'products';
+        const store = 'pNewArrival';
 
         nav({
             pathname: '/main/product-detail',

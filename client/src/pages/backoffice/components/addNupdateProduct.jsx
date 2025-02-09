@@ -93,7 +93,8 @@ export default function AddNUpdateProduct(props) {
         <div className="flex flex-col items-center">
 
             {/* loadingpage */}
-            <LoadingCover title={'Creating please wait.'} isLoading={isLoadingCoverPage} />
+            {/* <LoadingCover title={'Processing please wait.'} isLoading={true} /> */}
+            <LoadingCover title={'Processing please wait.'} isLoading={isLoadingCoverPage} />
 
             <div className="pb-4 font-medium">
                 {props.data ? <div>Update product</div> : <div>Add new product</div>}
@@ -108,7 +109,7 @@ export default function AddNUpdateProduct(props) {
             </div>
 
             <div className="w-2/3 text-end">
-                <button className="bo-btn-add me-2" onClick={() => hdlSubmit()}>Save</button>
+                <button className="bo-btn-add bg-sky-500 me-2" onClick={() => hdlSubmit()}>Save</button>
                 <button className="bo-btn-add bg-gray-500" onClick={hdlSuccess}>Cancel</button>
             </div>
         </div>

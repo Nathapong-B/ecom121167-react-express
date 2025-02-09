@@ -1,14 +1,10 @@
 import dayjs from "dayjs";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import { getImgPosition0 } from "../../util/utilProduct";
 
 export default function MyPurchaseTable(props) {
     const { data } = props;
     const nav = useNavigate();
-
-    const hdlGenImage = (items) => {
-        const arrimg = [...items];
-        return arrimg.filter(e => e.position === 0);
-    };
 
     const settingStatusColor = (status) => {
         if (status === 'pending') return 'bg-gradient-to-r from-white from-50% to-orange-500 to-80%';
@@ -86,7 +82,7 @@ export default function MyPurchaseTable(props) {
                                     <div key={inx} className="py-2">
                                         <div className="flex gap-4 pb-2">
                                             <div onClick={() => viewProductDetail(el)} className="cursor-pointer">
-                                                <img src={hdlGenImage(el.Product.Image)[0].url} className="object-contain h-16 w-16"></img>
+                                                <img src={getImgPosition0(el.Product.Image)[0].url} className="object-contain h-16 w-16"></img>
                                             </div>
 
                                             <div className="flex-1">

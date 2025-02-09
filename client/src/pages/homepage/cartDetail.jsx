@@ -2,7 +2,8 @@ import { useCartStore } from "../../ecomStore/useCartStore"
 import { useShallow } from "zustand/react/shallow";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { getImgPosition0 } from "../util/utilProduct";
 
 export default function CartDetail() {
     const { cart, actionIncrease, actionDecrease, actionUpdateStock, actionRemoveFromCart, actionAddToOrder } = useCartStore(useShallow(s => ({
@@ -91,6 +92,16 @@ export default function CartDetail() {
         nav('/main/order');
     };
 
+    const viewProductDetail = (item) => {
+        const { id } = item;
+        const store = 'cart';
+
+        nav({
+            pathname: '/main/product-detail',
+            search: createSearchParams({ pid: `${id}`, store }).toString()
+        });
+    };
+
     const debug = async () => {
         console.log('cart : ', cart)
         console.log('product : ', productChecked)
@@ -134,11 +145,15 @@ export default function CartDetail() {
                                                 <input name="check_box" type="checkbox" onChange={(el) => hdlProductChecked(el, e)}></input>
                                             </td>
                                             <td>
-                                                <div className="bg-white p-2 rounded flex items-center h-8 w-8 sm:h-16 sm:w-16 m-auto">
-                                                    <img src={e.Image} className="object-contain"></img>
+                                                <div onClick={() => viewProductDetail(e)} className="cursor-pointer bg-white p-2 rounded flex items-center h-8 w-8 sm:h-16 sm:w-16 m-auto">
+                                                    <img src={getImgPosition0(e.Image)[0].url} className="object-contain"></img>
                                                 </div>
                                             </td>
-                                            <td>{e.product_name}</td>
+                                            <td>
+                                                <div onClick={() => viewProductDetail(e)} className="cursor-pointer font-bold">
+                                                    {e.product_name.toUpperCase()}
+                                                </div>
+                                            </td>
                                             <td className="text-center">
                                                 <div className="flex justify-center">
                                                     <button onClick={() => hdlDecrease(e)} className="bo-btn-add text-red-500 hover:text-red-300 p-0">

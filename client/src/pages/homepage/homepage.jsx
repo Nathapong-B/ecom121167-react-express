@@ -15,9 +15,17 @@ export default function Homepage() {
         token: s.token,
     })));
     const path = window.location.pathname;
+    const scrollRestoration = history.scrollRestoration;
     const [homeCoverClose, setHomeCoverClose] = useState(false);
 
     useEffect(() => {
+        // ไม่ต้องให้คืนค่า scroll อัตโนมัติ เมื่อมีการรีโหลดหน้าเพจ เพื่อให้จัดการ scrollTop ด้วยตนเอง
+        if (scrollRestoration === "auto") {
+            history.scrollRestoration="manual";
+        };
+
+        window.document.documentElement.scrollTop = 0;
+
         syncUserCart();
 
         window.addEventListener('focus', checkMultiTab);
@@ -54,12 +62,10 @@ export default function Homepage() {
     return (
         <div className="relative w-full min-h-screen p-0 m-0 flex flex-col bg-main">
 
-            {path === '/'
-                ?
+            {path === '/' &&
                 <div className={`h-screen w-full fixed top-0 z-50 ${coverHidden()}`}>
                     <HomepageCover close={hdlCoverClose} onClose={token ? true : false} />
                 </div>
-                : <></>
             }
 
             <div className="sticky top-0 w-full z-40">

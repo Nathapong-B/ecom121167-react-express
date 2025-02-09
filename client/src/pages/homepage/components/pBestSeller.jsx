@@ -14,7 +14,7 @@ export default function ProductsBestSeller() {
     const { addToCart } = useCartStore(useShallow(s => ({
         addToCart: s.actionAddToCart,
     })));
-    const nav=useNavigate();
+    const nav = useNavigate();
 
     useEffect(() => {
         if (!pBestSeller) {
@@ -32,7 +32,7 @@ export default function ProductsBestSeller() {
 
     const viewProductDetail = (item) => {
         const { id } = item;
-        const store = 'products';
+        const store = 'pBestSeller';
 
         nav({
             pathname: '/main/product-detail',

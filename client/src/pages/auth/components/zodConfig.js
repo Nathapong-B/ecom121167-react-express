@@ -7,3 +7,8 @@ export const registerSchema = z
         confirmpassword: z.string()
     })
     .refine(data => data.password === data.confirmpassword, { message: 'Password is not match', path: ['confirmpassword'] });
+
+export const signinSchema = z.object({
+    email: z.string().nonempty({ message: 'Field is require' }),
+    password: z.string().nonempty({ message: 'Field is require' }),
+});

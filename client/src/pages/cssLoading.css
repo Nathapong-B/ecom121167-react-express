@@ -1,0 +1,54 @@
+.dot1,
+.dot2,
+.dot3 {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    top: 0%;
+}
+
+.dot1{
+    left: 5px;
+}
+
+.dot2{
+    left: 15px;
+}
+
+.dot3{
+    left: 25px;
+}
+
+.dot1 {
+    -webkit-animation: load 1s infinite alternate ease;
+    animation: load 1s infinite alternate ease;
+}
+
+.dot2 {
+    -webkit-animation: load 1s infinite alternate ease 0.3s;
+    animation: load 1s infinite alternate ease 0.3s;
+}
+
+.dot3 {
+    -webkit-animation: load 1s infinite alternate ease 0.6s;
+    animation: load 1s infinite alternate ease 0.6s;
+}
+
+@keyframes load {
+    0% {
+        top: 0%;
+    }
+
+    25% {
+    }
+
+    50% {
+        top: 70%;
+    }
+
+    100% {
+        top: 60%;
+    }
+}

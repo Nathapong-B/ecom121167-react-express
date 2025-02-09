@@ -59,7 +59,7 @@ exports.updateProduct = async (req, res) => {
 
         // #2 - อัพโหลดรูปใหม่ไปที่ cloud (fileImages, filesName, folderName)
         if (fileImages || fileImages.length > 0) {
-            const uploadToCloud = await uploadImagesToCloud(fileImages, Date.now(), 'TestUpload');
+            const uploadToCloud = await uploadImagesToCloud(fileImages, 'random', 'TestUpload');
             // uploadToCloud ข้อมูลที่รีเทิร์นจาก fn จะมีข้อมูลจาก cloudinary และชื่อ originalname จากนั้นนำมาเปรียบเทียบเพิ่มคีย์ position เพื่อเตรียมบันทึกลง db
             for (let i of uploadToCloud) {
                 const indexName = addImages.findIndex(el => el.image_name === i.originalname);

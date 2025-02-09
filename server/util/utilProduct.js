@@ -65,20 +65,29 @@ exports.uploadImagesToCloud = async (files, fileName, folderName) => {
         // multiple upload
         let result = [];
 
+        const settingOpt = (opt) => {
+            if (opt === 'random') {
+                return {
+                    public_id: `${Date.now()}`,
+                    resource_type: 'auto',
+                    folder: `${folderName}`,
+                }
+            } else {
+                return {
+                    public_id: `${fileName}`,
+                    resource_type: 'auto',
+                    folder: `${folderName}`,
+                }
+            };
+        }
+
         for (let el of files) {
             // แปลงข้อมูลใน buffer ที่ส่งมาจาก multer เป็น base64
             const b64 = Buffer.from(el.buffer).toString("base64");
             // จากนั้นเปลี่ยนเป็นข้อมูล URI
             const dataURI = "data:" + el.mimetype + ";base64," + b64;
 
-            const eachResult = await cloudinary.uploader.upload(dataURI, {
-                public_id: `${fileName}`,
-                resource_type: 'auto',
-                folder: `${folderName}`,
-                // public_id: `${Date.now()}`,
-                // resource_type: 'auto',
-                // folder: 'TestUpload',
-            });
+            const eachResult = await cloudinary.uploader.upload(dataURI, settingOpt(fileName));
 
             eachResult.originalname = el.originalname; // เพิ่มชื่อเดิมเข้าไปใน obj เพื่อใช้ในการตรวจสอบภายหลัง
             result.push(eachResult);

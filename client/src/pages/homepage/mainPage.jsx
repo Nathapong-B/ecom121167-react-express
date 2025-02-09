@@ -1,20 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import Header from "./components/header";
-import NavBar from "./navbar";
 import Card from "./components/card";
-import Footer from "./components/footer";
 import ProductsNewArrival from "./components/pNewarrival";
 import ProductsBestSeller from "./components/pBestSeller";
 import ProductRecommend from "./components/pRecommend";
 
 export default function MainPage() {
-    const [scrollTopEl, setScrollTop] = useState();
+    const [scrollTopEl, setScrollTop] = useState(0);
     const [clientHeightEl, setClientHeight] = useState(1000);
     const headerRf = useRef();
+    const scrollRestoration = history.scrollRestoration;
 
     let decimal = ((((clientHeightEl - scrollTopEl) * 100) / clientHeightEl) / 100).toFixed(2); // toFixed() จำนวนตำแหน่งทศนิยม
 
+    
     useEffect(() => {
+        // ไม่ต้องให้คืนค่า scroll อัตโนมัติ เมื่อมีการรีโหลดหน้าเพจ เพื่อให้จัดการ scrollTop ด้วยตนเอง
+        if (scrollRestoration === "auto") {
+            history.scrollRestoration="manual";
+        };
+
         document.documentElement.scrollTop = 0;
 
         root.style.setProperty('--hscreen', `${clientHeightEl * 2}px`);
@@ -22,13 +27,11 @@ export default function MainPage() {
         window.addEventListener('scroll', () => {
             const {
                 scrollTop,
-                // scrollHeight,
                 clientHeight
             } = document.documentElement;
 
-            setScrollTop(scrollTop)
-            // setScrollHeight(scrollHeight)
-            setClientHeight(clientHeight)
+            setScrollTop(() => scrollTop);
+            setClientHeight(() => clientHeight);
         });
 
     }, []);
@@ -58,7 +61,6 @@ export default function MainPage() {
     root.style.setProperty('--stickyTop', `${(stickyTop())}px`);
     headersDisplayNone();
 
-
     const debug = () => {
         // console.log(cart)
         // if(!user) calluser()
@@ -69,17 +71,15 @@ export default function MainPage() {
 
             {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
 
-            <div ref={headerRf} className={`bg-green-500 opacity-header w-full fixed top-0 z-40`}>
+            <div ref={headerRf} className={`bg-green-500 opacity-header w-full fixed top-0 z-10`}>
                 <Header />
             </div>
 
-
             {/* main contents */}
-            <div id='main_contents' className="pt-hscreen pb-8 w-screen h-auto flex flex-wrap justify-center transition-all ease-out duration-500">
+            <div id='main_contents' className="pt-hscreen pb-8 w-screen h-auto flex flex-wrap justify-center transition-all ease-out duration-500 z-50">
 
-                {/* contents */}
+                {/* main contents */}
                 <div className="w-full pe-2 md:pe-0 md:w-9/12 h-max flex flex-col flex-wrap items-center md:items-end">
-
                     <div className="block-display">
                         <ProductRecommend />
                     </div>
@@ -108,11 +108,9 @@ export default function MainPage() {
                         <div className="block-title w-max">ช้อปตามหมวดหมู่</div>
                         <div></div>
                     </div>
-
                 </div>
 
-
-                {/* right bar */}
+                {/* rigth box */}
                 <div className="z-30 hidden md:block md:w-3/12 mt-2">
                     <div className="sticky-top m-auto w-3/4 transition-all ease-out duration-1000">
                         <Card style={"bg-gray-100"}>
@@ -128,11 +126,6 @@ export default function MainPage() {
                 </div>
 
             </div>
-
-            {/* footer */}
-            {/* <div className="w-full h-20 bg-gray-300">
-                <Footer />
-            </div> */}
 
         </div>
     )

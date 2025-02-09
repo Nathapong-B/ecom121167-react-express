@@ -32,7 +32,7 @@ export default function HomepageCover(props) {
         if (props.onClose) {
             setTimeout(() => {
                 onSlideCover();
-            }, 1000);
+            }, 500);
         };
     }, []);
 

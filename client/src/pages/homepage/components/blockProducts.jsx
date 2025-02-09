@@ -23,7 +23,11 @@ export default function BlockProducts(props) {
                                 </div>
                                 <div className="flex justify-between items-center pt-2 w-full">
                                     <div className="card-title w-16 sm:w-full">{e.product_name.toUpperCase()}</div>
-                                    <div className="cursor-pointer pe-2 text-green-500 font-bold" onClick={() => addToCart(e)}>+ADD</div>
+                                    <div className="cursor-pointer pe-2 text-green-500 font-bold" onClick={() => addToCart(e)}>
+                                        <button className="bo-btn-add bg-sky-500">
+                                        +ADD
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="card-body pb-2 w-full">
                                     <div className="text-overflow text-sm pe-2 w-full">{e.description}</div>

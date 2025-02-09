@@ -16,9 +16,28 @@
     @apply hover:text-gray-50 p-2;
   }
 
+  /* text */
   .bo-title {
     @apply text-2xl font-bold mb-10;
   }
+
+  .text-shadow {
+    text-shadow: 0 0 10px #000000;
+  }
+
+  .text-8px {
+    font-size: 8px;
+  }
+
+  .text-10px {
+    font-size: 10px;
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1px #0ea5e9;
+    /* text-stroke: 2px red; */
+  }
+  /* text */
 
   .bo-btn-add {
     @apply cursor-pointer px-4 rounded font-bold text-gray-200 hover:text-gray-50 h-full;
@@ -75,19 +94,6 @@
     @apply w-16 h-auto object-contain rounded m-auto;
   }
 
-  .text-8px {
-    font-size: 8px;
-  }
-
-  .text-10px {
-    font-size: 10px;
-  }
-
-  .text-stroke {
-    -webkit-text-stroke: 1px #0ea5e9;
-    /* text-stroke: 2px red; */
-  }
-
   .box-shadow {
     box-shadow: 0 0 25px skyblue;
   }
@@ -96,17 +102,13 @@
     box-shadow: 0 0 3px rgb(0, 0, 0);
   }
 
-  .box-shadow-normal{
+  .box-shadow-normal {
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
-        0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
-  }
-
-  .text-shadow {
-    text-shadow: 0 0 10px #000000;
+      0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
   }
 
   .navbar .text-nav {
-    @apply cursor-pointer hover:text-gray-50;
+    @apply cursor-pointer hover:text-gray-900 hover:font-bold;
   }
 
   .card {
@@ -155,6 +157,14 @@
   .box-float {
     @apply bg-white absolute w-max p-2 rounded box-shadow text-gray-500;
   }
+
+  .btn-prev-next {
+    @apply bo-btn-add px-2 h-3/4 bg-gray-300/30 hover:bg-gray-300/80 text-gray-300 outline-0;
+  }
+
+  *{
+    @apply scroll-smooth;
+  }
 }
 
 
@@ -187,7 +197,34 @@
   left: var(--cLeft);
 }
 
+/* product detail - image list */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+.imgcontain::-webkit-scrollbar {
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  width: 10px;
+  /* box-shadow: inset 0 0 5px grey;  */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  background: rgb(192, 192, 192);
+  /* border-radius: 10px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #919191;
+}
+
+/* product detail - image list */
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

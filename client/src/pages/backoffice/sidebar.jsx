@@ -1,14 +1,24 @@
 import { Link, NavLink } from "react-router-dom";
 import { signOut } from "../auth/components/signout";
+import LoadingCover from "../loadingCover";
+import { useState } from "react";
 
 export default function SideBar() {
+    const [isLoadingCoverPage, setIsLoadingCoverPage] = useState(false);
 
     const hdlSignout = () => {
-        signOut({ isReload: true });
+        setIsLoadingCoverPage(true)
+        setTimeout(() => {
+            setIsLoadingCoverPage(false);
+            signOut({ isReload: true });
+        }, 2000);
     };
 
     return (
         <div>
+
+            {/* <LoadingCover title={'Processing please wait.'} isLoading={true} /> */}
+            <LoadingCover title={'Processing please wait.'} isLoading={isLoadingCoverPage} />
 
             <div className="min-w-max m-auto text-gray-400 font-bold">
 

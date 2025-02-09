@@ -7,8 +7,8 @@ export const cssSetting = {
 export const hdlClickInput = (e) => {
     e.preventDefault();
 
-    const { name, tagName } = e.target;
-    const el = document.getElementsByName(name);
+    const { name, tagName, id } = e.target;
+    const el = document.getElementsByName(name ?? id.replace('label_', ''));
 
     el[1].focus();
     el[0].classList.add(tagName === 'TEXTAREA' ? cssSetting.cssTopNagDes : cssSetting.cssTopNag, cssSetting.cssFontSky);

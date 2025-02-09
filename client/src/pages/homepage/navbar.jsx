@@ -38,16 +38,19 @@ export default function NavBar() {
 
 
     return (
-        <div className="navbar w-full px-6 h-10 bg-gradient-to-r from-gray-500 via-sky-200 to-gray-500 flex justify-center text-gray-200">
-            <div className="w-full max-w-6xl flex items-center justify-between">
+        <div className="navbar relative w-full px-6 h-10 bg-gradient-to-r from-gray-200/90 from-20% via-gray-200/50 to-gray-200/90 to-80% flex justify-center text-gray-500">
+
+            <div className="absolute bg-gray-200/10 w-full h-full backdrop-blur-sm z-10"></div>
+
+            <div className="w-full max-w-6xl flex items-center justify-between z-50">
                 <div className="flex gap-2">
-                    <div className="text-nav">
+                    <div className="text-nav w-16 max-w-16">
                         <Link to={'/main'}>
                             หน้าหลัก
                         </Link>
                     </div>
 
-                    <div className="relative">
+                    <div className="relative w-16 max-w-16">
                         <div className="text-nav" onMouseOver={() => setCategoriesBox(true)} onMouseOut={() => setCategoriesBox(false)}>หมวดหมู่</div>
                         {categoriesBox
                             ? <div onMouseOver={() => setCategoriesBox(true)} onMouseOut={() => setCategoriesBox(false)}>
@@ -64,7 +67,7 @@ export default function NavBar() {
                     <div>
                         {profile
                             ?
-                            <div className="relative">
+                            <div className="relative w-36 max-w-36">
                                 <div className="flex gap-2 items-center" onMouseOver={() => setProfileBox(true)} onMouseOut={() => setProfileBox(false)}>
                                     <div className="text-nav bg-white w-6 h-6 overflow-hidden rounded rounded-full">
                                         {profile.ProfileImage?.url
@@ -86,7 +89,7 @@ export default function NavBar() {
                                 }
 
                             </div>
-                            : <div className="text-nav">
+                            : <div className="text-nav w-16 max-w-16">
                                 <Link to={'/auth/signin'}>
                                     Sign in
                                 </Link>
@@ -94,12 +97,12 @@ export default function NavBar() {
                         }
                     </div>
 
-                    <div className="relative">
+                    <div className="relative w-32 max-w-32">
                         <div className="text-nav flex" onMouseOver={() => setBasketBox(true)} onMouseOut={() => setBasketBox(false)}>
                             <div>
                                 <Link to={'/main/cart'}>ตะกร้าสินค้า</Link>
                             </div>
-                            <div className="bg-red-500 rounded rounded-full text-xs h-max w-max px-1 flex justify-center items-center">
+                            <div className="bg-red-500 rounded rounded-full text-xs text-gray-200 h-max w-max px-1 flex justify-center items-center">
                                 <div>
                                     {cart.length}
                                 </div>
@@ -114,6 +117,7 @@ export default function NavBar() {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 };

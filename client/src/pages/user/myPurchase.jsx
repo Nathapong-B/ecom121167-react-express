@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 
 export default function MyPurchase() {
     const [searchParams] = useSearchParams();
-    const ms = searchParams.get('ms');
+    const ms = searchParams.get('ms'); // ms=message
 
     const { token } = useAuthStore(useShallow(s => ({ token: s.token })));
     const { myPurchase, actionListMyPurchase, actionClearMyPurchase, actionRemoveOrder } = useCartStore(useShallow(s => ({
@@ -18,7 +18,6 @@ export default function MyPurchase() {
         actionClearMyPurchase: s.actionClearMyPurchase,
         actionRemoveOrder: s.actionRemoveOrder,
     })));
-
 
     const callListMyPurchase = async () => {
         await actionListMyPurchase(10, token);
@@ -65,7 +64,7 @@ export default function MyPurchase() {
                     ?
                     <MyPurchaseTable data={myPurchase} returnRemoveOrder={hdlRemoveOrder} />
                     :
-                    <div></div>
+                    <div className="text-center font-bold text-2xl text-gray-500 italic py-6">- ยังไม่มีข้อมูลประวัติคำสั่งซื้อ -</div>
                 :
                 // 404 page
                 <PageNotFound />

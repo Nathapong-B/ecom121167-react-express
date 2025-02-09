@@ -23,6 +23,7 @@ import Payments from "./pages/payments/payments";
 import CompletePage from "./pages/payments/completePage";
 import MyPurchase from "./pages/user/myPurchase";
 import ProductDetail from "./pages/homepage/productDetail";
+import MyProfile from "./pages/user/myProfile";
 
 const router = createBrowserRouter([
     {
@@ -36,12 +37,14 @@ const router = createBrowserRouter([
             { path: 'payments', element: <Payments /> },
             { path: 'payment-complete', element: <CompletePage /> },
             { path: 'profile/my-purchase', element: <MyPurchase /> },
+            { path: 'profile/my-profile', element: <MyProfile /> }
         ]
     },
     {
         path: 'auth',
         element: <AuthLayout />,
         children: [
+            { index: true, element: <Signin /> },
             { path: 'signin', element: <Signin /> },
             { path: 'register', element: <Register /> }
         ]

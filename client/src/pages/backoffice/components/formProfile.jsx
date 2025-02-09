@@ -66,7 +66,7 @@ export default function FormProfile(props) {
 
     const hdlReset = () => {
         setOnChange(false);
-        return setData(() => (() => (props.data ? { ...props.data } : null)));
+        return setData(() => (props.data ? { ...props.data } : null));
     };
 
     const debug = (e) => {
@@ -75,52 +75,59 @@ export default function FormProfile(props) {
         console.log('props.data : ', props.data)
     }
 
-    return (
-        <div className="flex justify-center">
+    if (data) {
+        return (
+            <div className="flex justify-center">
 
-            {/* loadingpage */}
-            <LoadingCover title={'Updating please wait.'} isLoading={isLoadingCoverPage} />
+                {/* loadingpage */}
+                {/* <LoadingCover title={'Updating please wait.'} isLoading={true} /> */}
+                <LoadingCover title={'Updating please wait.'} isLoading={isLoadingCoverPage} />
 
-            <button className="bo-btn-add" onClick={debug}>debug</button>
-            <div className="w-1/3">
+                <button className="bo-btn-add" onClick={debug}>debug</button>
+                <div className="w-1/3">
 
-                <div className="font-bold text-center">Profile</div>
+                    <div className="font-bold text-center">Profile</div>
 
-                <div className="py-4">
-                    <UploadImageProfile data={data.ProfileImage} returnData={hdlImageReturnData} onReset={!onChange} />
-                </div>
-                <form className="my-4" onSubmit={hdlSubmit} onReset={hdlReset}>
-                    <div className="relative flex items-center py-4">
-                        <button name="first_name" className={data?.first_name ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>First name</button>
-                        <input name="first_name" className="frm-input w-full" value={data.first_name ?? ''} onChange={(e) => hdlInputChange(e)} onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
+                    <div className="py-4">
+                        <UploadImageProfile data={data?.ProfileImage} returnData={hdlImageReturnData} onReset={!onChange} />
                     </div>
-
-                    <div className="relative flex items-center py-4">
-                        <button name="last_name" className={data?.last_name ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Last name</button>
-                        <input name="last_name" className="frm-input w-full" value={data.last_name ?? ''} onChange={(e) => hdlInputChange(e)} onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
-                    </div>
-
-                    <div className="relative flex items-center py-4">
-                        <button name="phone" className={data?.phone ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Phone</button>
-                        <input name="phone" className="frm-input w-full" value={data.phone ?? ''} onChange={(e) => hdlInputChange(e)} onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
-                    </div>
-
-                    <div className="relative py-4">
-                        <button name="address" className={data?.address ? `label-input-animate ${cssTopNagDes}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Address</button>
-                        <textarea name="address" value={data?.address ?? ''} onChange={e => hdlInputChange(e)} className="frm-input w-full" onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)} rows={5} ></textarea>
-                    </div>
-
-                    {onChange
-                        ?
-                        <div className="text-end py-4">
-                            <button type="submit" className="bo-btn-add bg-sky-500 me-2">Save</button>
-                            <button type="reset" className="bo-btn-add bg-gray-500">Cancel</button>
+                    <form className="my-4" onSubmit={hdlSubmit} onReset={hdlReset}>
+                        <div className="relative flex items-center py-4">
+                            <button name="first_name" className={data?.first_name ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>First name</button>
+                            <input name="first_name" className="frm-input w-full" value={data.first_name ?? ''} onChange={(e) => hdlInputChange(e)} onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
                         </div>
-                        : <></>
-                    }
-                </form>
 
+                        <div className="relative flex items-center py-4">
+                            <button name="last_name" className={data?.last_name ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Last name</button>
+                            <input name="last_name" className="frm-input w-full" value={data.last_name ?? ''} onChange={(e) => hdlInputChange(e)} onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
+                        </div>
+
+                        <div className="relative flex items-center py-4">
+                            <button name="phone" className={data?.phone ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Phone</button>
+                            <input name="phone" className="frm-input w-full" value={data.phone ?? ''} onChange={(e) => hdlInputChange(e)} onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
+                        </div>
+
+                        <div className="relative py-4">
+                            <button name="address" className={data?.address ? `label-input-animate ${cssTopNagDes}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Address</button>
+                            <textarea name="address" value={data?.address ?? ''} onChange={e => hdlInputChange(e)} className="frm-input w-full" onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)} rows={5} ></textarea>
+                        </div>
+
+                        {/* {onChange
+                            ? */}
+                            <div className="text-end py-4">
+                                <button type="submit" className="bo-btn-add bg-sky-500 me-2 btn-disabled" disabled={!onChange}>Save</button>
+                                <button type="reset" className="bo-btn-add bg-red-500">Cancel</button>
+                            </div>
+                            {/* : <></>
+                        } */}
+                    </form>
+
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div>No data</div>
+        )
+    }
 };
