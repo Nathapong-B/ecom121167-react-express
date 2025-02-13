@@ -1,15 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 
 export default function UploadImageProfile(props) {
-    const { data, onReset } = props;
+    const { data } = props;
     const elInput = useRef();
     const [dataImage, setDataImage] = useState(data ?? null);
-
-    useEffect(() => {
-        if (onReset) {
-            setDataImage(data ?? null);
-        }
-    }, [onReset])
 
     const hdlClickInputFile = () => {
         elInput.current.click();

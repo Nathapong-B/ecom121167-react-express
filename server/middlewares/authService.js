@@ -8,6 +8,7 @@ exports.jwtGenerate = (data) => {
     const accToken = jwt.sign(
         { sub: id, user: email, role: role },
         secret,
+        // { expiresIn: '1m' },
         { expiresIn: '1D' },
     );
 

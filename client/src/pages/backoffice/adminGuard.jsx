@@ -6,7 +6,7 @@ export default function AdminGuard({ element }) {
     const token = useAuthStore(s => s.token);
 
     const jwtValidate = () => {
-        if (!token) return { permission: false, path: '/redirect', search: '?permission=false' };
+        if (!token) return { permission: false, path: '/redirect', search: '?permission=false&message=unauthorized', message: 'Unauthorized, Please sign-in' };
 
         const tokenExp = tokenExpire(token);
         const role = tokenValidateRole(token);
@@ -15,7 +15,7 @@ export default function AdminGuard({ element }) {
             return { permission: true };
         };
 
-        return { permission: false, path: '/redirect', search: '?permission=false' };
+        return { permission: false, path: '/redirect', search: '?permission=false&message=tokenexpire', message: 'Token expire' };
     };
 
     return jwtValidate().permission ? element : <Navigate to={{ pathname: jwtValidate().path, search: jwtValidate().search }} />;

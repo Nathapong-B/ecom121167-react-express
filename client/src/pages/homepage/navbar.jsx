@@ -62,12 +62,12 @@ export default function NavBar() {
 
                 </div>
 
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-4">
 
                     <div>
                         {profile
                             ?
-                            <div className="relative w-36 max-w-36">
+                            <div className="relative w-36 max-w-36 justify-items-end">
                                 <div className="flex gap-2 items-center" onMouseOver={() => setProfileBox(true)} onMouseOut={() => setProfileBox(false)}>
                                     <div className="text-nav bg-white w-6 h-6 overflow-hidden rounded rounded-full">
                                         {profile.ProfileImage?.url
@@ -89,7 +89,7 @@ export default function NavBar() {
                                 }
 
                             </div>
-                            : <div className="text-nav w-16 max-w-16">
+                            : <div className="text-nav w-16 max-w-16 justify-items-end">
                                 <Link to={'/auth/signin'}>
                                     Sign in
                                 </Link>
@@ -97,12 +97,12 @@ export default function NavBar() {
                         }
                     </div>
 
-                    <div className="relative w-32 max-w-32">
-                        <div className="text-nav flex" onMouseOver={() => setBasketBox(true)} onMouseOut={() => setBasketBox(false)}>
+                    <div className="relative w-28 max-w-28 justify-items-end">
+                        <div className="text-nav flex " onMouseOver={() => setBasketBox(true)} onMouseOut={() => setBasketBox(false)}>
                             <div>
-                                <Link to={'/main/cart'}>ตะกร้าสินค้า</Link>
+                                <Link to={'main/cart'}>ตะกร้าสินค้า</Link>
                             </div>
-                            <div className="bg-red-500 rounded rounded-full text-xs text-gray-200 h-max w-max px-1 flex justify-center items-center">
+                            <div className="bg-red-500 rounded rounded-full text-xs text-gray-200 h-4 w-4 flex justify-center items-center">
                                 <div>
                                     {cart.length}
                                 </div>

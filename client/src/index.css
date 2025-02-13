@@ -37,6 +37,10 @@
     -webkit-text-stroke: 1px #0ea5e9;
     /* text-stroke: 2px red; */
   }
+
+  .navbar .text-nav {
+    @apply cursor-pointer hover:text-gray-900 hover:font-medium;
+  }
   /* text */
 
   .bo-btn-add {
@@ -44,7 +48,7 @@
   }
 
   .btn-disabled {
-    @apply disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none disabled:cursor-default;
+    @apply disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none disabled:cursor-default hover:disabled:bg-gray-50 hover:disabled:text-gray-500;
   }
 
   .frm-input {
@@ -79,15 +83,15 @@
   /* table */
 
   .label-input-animate {
-    @apply absolute cursor-text text-gray-500 left-2 transition-all duration-700;
+    @apply absolute cursor-text text-sm text-gray-500 left-2 transition-all duration-300;
   }
 
   .order-label-animate {
-    @apply h-max has-[:focus]:w-full relative border-b border-red-500 transition-all duration-500;
+    @apply h-max has-[:focus]:w-full relative border-b border-red-500 text-sm transition-all duration-300;
   }
 
   .order-label-animate input {
-    @apply min-w-max w-full absolute top-7 left-0 focus:bg-white focus:outline-none;
+    @apply min-w-max w-full absolute top-6 left-0 text-base text-gray-500 focus:bg-white focus:outline-none;
   }
 
   .img-list {
@@ -105,10 +109,6 @@
   .box-shadow-normal {
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
       0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
-  }
-
-  .navbar .text-nav {
-    @apply cursor-pointer hover:text-gray-900 hover:font-bold;
   }
 
   .card {
@@ -165,6 +165,7 @@
   *{
     @apply scroll-smooth;
   }
+
 }
 
 

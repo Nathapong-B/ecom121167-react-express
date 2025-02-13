@@ -60,6 +60,9 @@ export default function Register() {
         setPwdScore(zxcvbn(pwd).score);
     };
 
+    console.log(errors)
+    console.log(watch())
+
     useEffect(() => {
         setScorePwd(watch().password);
     }, [watch().password]);
@@ -80,14 +83,14 @@ export default function Register() {
                     <div className="relative flex items-center py-4">
                         <label name="email" id="label_email" htmlFor="email" className={watch().email ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>E-mail</label>
 
-                        <input {...register("email")} className="frm-input w-full" id="email" name="email" placeholder='' onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
+                        <input {...register("email")} required={errors.email} className="frm-input w-full required:text-red-500 focus:required:ring-red-500" id="email" name="email" placeholder='' onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
                         {errors.email && (<p className="absolute bottom-0 text-red-500 text-xs">{errors.email.message}</p>)}
                     </div>
 
                     <div className="relative flex items-center py-4">
                         <label name="password" id="label_password" htmlFor="password" className={watch().password ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Password</label>
 
-                        <input {...register('password')} type="password" className="frm-input w-full" id="password" name="password" placeholder='' onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
+                        <input {...register('password')} type="password" required={errors.password} className="frm-input w-full required:text-red-500 focus:required:ring-red-500" id="password" name="password" placeholder='' onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
                         {pwdScore > 0
                             ? <div className="flex w-full absolute bottom-0">
                                 {showPwdScoreBar()}
@@ -99,7 +102,7 @@ export default function Register() {
                     <div className="relative flex items-center py-4">
                         <label name="confirmpassword" id="label_confirmpassword" htmlFor="confirmpassword" className={watch().confirmpassword ? `label-input-animate ${cssTopNag}` : `label-input-animate`} onClick={(e) => hdlClickInput(e)}>Confirm password</label>
 
-                        <input {...register('confirmpassword')} type="password" className="frm-input w-full" id="confirmpassword" name="confirmpassword" placeholder='' onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
+                        <input {...register('confirmpassword')} type="password" required={errors.confirmpassword} className="frm-input w-full required:text-red-500 focus:required:ring-red-500" id="confirmpassword" name="confirmpassword" placeholder='' onClick={(e) => hdlClickInput(e)} onBlur={e => hdlInputOnBlur(e)}></input>
                         {errors.confirmpassword && (<p className="absolute bottom-0 text-red-500 text-xs">{errors.confirmpassword.message}</p>)}
                     </div>
 

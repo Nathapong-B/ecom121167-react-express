@@ -89,7 +89,7 @@ export default function ListUsers(props) {
                                     <td className="ps-2">{e.role}</td>
                                     <td className="ps-2">{e.first_name ?? ''} {e.last_name ?? ''}</td>
                                     <td className="text-center">
-                                        <button className={e.status === 'active' ? "bo-btn-add" : "bo-btn-add bg-gray-500"} onClick={() => hdlChangeStatus(e)}>{e.status}</button>
+                                        <button className={e.status === 'active' ? "bo-btn-add bg-green-500" : "bo-btn-add bg-gray-500"} onClick={() => hdlChangeStatus(e)}>{e.status}</button>
                                     </td>
                                     <td className="text-center">
                                         <button className="bo-btn-add bg-sky-500" onClick={() => hdlUserInfo(e)}>Info</button>

@@ -18,5 +18,5 @@ export default function UserGuard({ element }) {
         return { permission: false, path: '/main', search: '?permission=false&message=tokenexpire', message: 'Token expire' };
     };
 
-    return jwtValidate().permission ? <element /> : <Navigate to={{ pathname: jwtValidate().path, search: jwtValidate().search }} />;
+    return jwtValidate().permission ? element : <Navigate to={{ pathname: jwtValidate().path, search: jwtValidate().search }} />;
 };

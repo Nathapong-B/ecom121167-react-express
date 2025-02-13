@@ -25,6 +25,7 @@ import MyPurchase from "./pages/user/myPurchase";
 import ProductDetail from "./pages/homepage/productDetail";
 import MyProfile from "./pages/user/myProfile";
 import UserGuard from "./pages/user/userGuard";
+import ViewByCate from "./pages/homepage/viewByCate";
 
 const router = createBrowserRouter([
     {
@@ -33,12 +34,13 @@ const router = createBrowserRouter([
             { index: true, element: <MainPage /> },
             { path: 'main', element: <MainPage /> },
             { path: 'main/product-detail', element: <ProductDetail /> },
+            { path: 'main/view-by-category', element: <ViewByCate /> },
             { path: 'main/cart', element: <UserGuard element={<CartDetail />} /> },
             { path: 'main/order', element: <UserGuard element={<OrderDetail />} /> },
             { path: 'payments', element: <UserGuard element={<Payments />} /> },
             { path: 'payment-complete', element: <UserGuard element={<CompletePage />} /> },
             { path: 'profile/my-purchase', element: <UserGuard element={<MyPurchase />} /> },
-            { path: 'profile/my-profile', element: <UserGuard element={<MyProfile />} /> }
+            { path: 'profile/my-profile', element: <UserGuard element={<MyProfile />} /> },
         ]
     },
     {

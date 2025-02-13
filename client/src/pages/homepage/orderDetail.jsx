@@ -1,10 +1,12 @@
 import { useShallow } from "zustand/react/shallow"
 import { useCartStore } from "../../ecomStore/useCartStore"
 import { useAuthStore } from "../../ecomStore/authStore";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingCover from "../loadingCover";
+import { getImgPosition0 } from "../util/utilProduct";
+import { profileSchema } from "../auth/components/zodConfig";
 
 export default function OrderDetail() {
     const { profile, token } = useAuthStore(useShallow(s => ({
@@ -21,6 +23,7 @@ export default function OrderDetail() {
     const [addressForOrder, setAddressForOrder] = useState();
     const [addressCheck, setAddressCheck] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const calSum = (items) => {
         const products = [...items];
@@ -43,8 +46,8 @@ export default function OrderDetail() {
         const userProfile = { ...userAddress };
 
         setAddressForOrder(() => ({
-            fname: userProfile.first_name,
-            lname: userProfile.last_name,
+            first_name: userProfile.first_name,
+            last_name: userProfile.last_name,
             phone: userProfile.phone,
             address: userProfile.address,
         }));
@@ -62,17 +65,39 @@ export default function OrderDetail() {
     const checkAddress = (item) => {
         const userAddress = { ...item };
 
-        if (!userAddress.fname || !userAddress.lname || !userAddress.phone || !userAddress.address) {
+        const { error } = profileSchema.safeParse(userAddress);
+
+        let err = {};
+        if (error) {
+            err = error.issues.reduce((acc, cur) => {
+                acc = {
+                    ...acc,
+                    [cur.path[0]]: cur.message
+                };
+
+                return acc;
+            }, {});
+        };
+
+        setErrors(() => ({ ...err }));
+
+        if(error){
             return setAddressCheck(false);
-        } else {
+        }else{
             return setAddressCheck(true);
         };
+
+        // if (!userAddress.first_name || !userAddress.last_name || !userAddress.phone || !userAddress.address) {
+        //     return setAddressCheck(false);
+        // } else {
+        //     return setAddressCheck(true);
+        // };
     };
 
     const prepareData = (dataOrder, dataCustomer, token) => {
         let order = [];
         const customerDetail = {
-            customer_name: dataCustomer.fname + ' ' + dataCustomer.lname,
+            customer_name: dataCustomer.first_name + ' ' + dataCustomer.last_name,
             customer_address: dataCustomer.address,
             customer_phone: dataCustomer.phone,
         };
@@ -135,14 +160,30 @@ export default function OrderDetail() {
             <div className="w-full sm:w-10/12 md:w-4/12 mt-16 px-2">
                 <div className="text-xs bg-green-500/30 border border-green-500 rounded p-2 mb-2">
                     <div className="text-center font-bold">ที่อยู่ปัจจุบัน</div>
-                    <div>คุณ {profile.first_name} {profile.last_name}</div>
-                    <div>โทร {profile.phone}</div>
-                    <div>{profile.address}</div>
+
+                    {profile.first_name
+                        ?
+                        <div>
+                            <div>คุณ {profile.first_name} {profile.last_name}</div>
+                            <div>โทร {profile.phone}</div>
+                            <div>{profile.address}</div>
+                        </div>
+                        :
+                        <div>
+                            <div>ยังไม่มีข้อมูลที่อยู่ในระบบ</div>
+                            <div>
+                                <Link to={'/profile/my-profile'} className="text-blue-500 hover:text-gray-50">
+                                    คลิกเพื่อกรอกข้อมูล
+                                </Link>
+                            </div>
+                        </div>
+                    }
                     <div className="text-end ">
-                        <button onClick={() => hdlApplyAddress(profile)} className="mt-1 bg-green-500/50 py-1 px-2 rounded border border-green-500 hover:text-white hover:bg-green-500">
+                        <button disabled={!profile.first_name} onClick={() => hdlApplyAddress(profile)} className="mt-1 bg-green-500/50 py-1 px-2 rounded border border-green-500 hover:text-white hover:bg-green-500 btn-disabled">
                             ใช้ที่อยู่นี้
                         </button>
                     </div>
+
                 </div>
 
                 <div className="w-full h-96 bg-white p-2 rounded">
@@ -150,27 +191,27 @@ export default function OrderDetail() {
 
                     <div>
                         <div className="pb-10">
-                            <div className="order-label-animate w-5">
-                                <label htmlFor="fname">ชื่อ</label>
-                                <input id="fname" placeholder="First Name" value={addressForOrder?.fname ?? ''} onChange={(e) => hdlOnAddressChange(e)}></input>
+                            <div className={errors.first_name?`order-label-animate w-5 text-red-500`:`order-label-animate w-5 text-green-500 border-green-500`}>
+                                <label htmlFor="first_name">ชื่อ</label>
+                                <input id="first_name" placeholder="First Name" value={addressForOrder?.first_name ?? ''} onChange={(e) => hdlOnAddressChange(e)}></input>
                             </div>
                         </div>
                         <div className="pb-10">
-                            <div className="order-label-animate w-14">
-                                <label htmlFor="lname">นามสกุล</label>
-                                <input id="lname" placeholder="Last Name" value={addressForOrder?.lname ?? ''} onChange={(e) => hdlOnAddressChange(e)}></input>
+                            <div className={errors.last_name?`order-label-animate w-14 text-red-500`:`order-label-animate w-14 text-green-500 border-green-500`}>
+                                <label htmlFor="last_name">นามสกุล</label>
+                                <input id="last_name" placeholder="Last Name" value={addressForOrder?.last_name ?? ''} onChange={(e) => hdlOnAddressChange(e)}></input>
                             </div>
                         </div>
                         <div className="pb-10">
-                            <div className="order-label-animate w-32">
+                            <div className={errors.phone?`order-label-animate w-28 text-red-500`:`order-label-animate w-28 text-green-500 border-green-500`}>
                                 <label htmlFor="phone">หมายเลขโทรศัพท์</label>
                                 <input id="phone" placeholder="Phone" value={addressForOrder?.phone ?? ''} onChange={(e) => hdlOnAddressChange(e)}></input>
                             </div>
                         </div>
                         <div>
-                            <div className="order-label-animate w-8">
+                            <div className={errors.address?`order-label-animate w-8 text-red-500`:`order-label-animate w-8 text-green-500 border-green-500`}>
                                 <label htmlFor="address">ที่อยู่</label>
-                                <textarea id="address" className="resize-none min-w-max w-full absolute top-7 left-0 focus:bg-white focus:outline-none" rows={5} placeholder="Address" value={addressForOrder?.address ?? ''} onChange={(e) => hdlOnAddressChange(e)}></textarea>
+                                <textarea id="address" className="resize-none min-w-max w-full absolute top-6 left-0 text-gray-500 text-base focus:bg-white focus:outline-none" rows={5} placeholder="Address" value={addressForOrder?.address ?? ''} onChange={(e) => hdlOnAddressChange(e)}></textarea>
                             </div>
                         </div>
                     </div>
@@ -189,12 +230,12 @@ export default function OrderDetail() {
                             order.map((e, i) => (
                                 <div key={i} className="flex p-4 mb-2 bg-white rounded">
                                     <div className="bg-white p-2 rounded flex items-center h-14 w-14 sm:h-24 sm:w-24 m-auto">
-                                        <img src={e.Image} className="object-contain"></img>
+                                        <img src={getImgPosition0(e.Image)[0].url} className="object-contain"></img>
                                     </div>
 
                                     <div className="flex-1 flex flex-col px-2">
                                         <div className="flex justify-between">
-                                            <div className="pe-2">{e.product_name.toUpperCase()}</div>
+                                            <div className="pe-2 font-bold">{e.product_name.toUpperCase()}</div>
                                             <div className="flex justify-center items-center w-5 h-5 text-10px text-gray-500 rounded rounded-full bg-gray-200">
                                                 <div>
                                                     {i + 1}
@@ -246,7 +287,7 @@ export default function OrderDetail() {
                         </div>
 
                         <div className="w-full text-center">
-                            <div className="text-red-500">**กรอก ชื่อ-ที่อยู่ ให้ครบถ้วน และตรวจสอบให้ถูกต้อง ก่อนทำการสั่งซื้อ</div>
+                            <div className="text-red-500 text-sm">**กรอก ชื่อ-ที่อยู่ ให้ครบถ้วน และตรวจสอบให้ถูกต้อง ก่อนทำการสั่งซื้อ</div>
                         </div>
                     </div>
 
