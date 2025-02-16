@@ -4,6 +4,7 @@ import Card from "./components/card";
 import ProductsNewArrival from "./components/pNewarrival";
 import ProductsBestSeller from "./components/pBestSeller";
 import ProductRecommend from "./components/pRecommend";
+import StickyBoxCart from "./components/stickyBoxCart";
 
 export default function MainPage() {
     const [scrollTopEl, setScrollTop] = useState(0);
@@ -113,7 +114,9 @@ export default function MainPage() {
                 {/* rigth box */}
                 <div className="z-30 hidden md:block md:w-3/12 mt-2">
                     <div className="sticky-top m-auto w-3/4 transition-all ease-out duration-1000">
-                        <Card style={"bg-gray-100"}>
+                       
+                       <StickyBoxCart/>
+                        {/* <Card style={"bg-gray-100"}>
                             <div className="card-title pt-2">สินค้าในตะกร้า</div>
                             <hr className="w-10/12 m-auto my-2 border-gray-400"></hr>
                             <div className="p-2">
@@ -121,7 +124,8 @@ export default function MainPage() {
                                 sdfsdfsdfsdfs
                                 sdfsdfsdfsdfsdfs
                             </div>
-                        </Card>
+                        </Card> */}
+
                     </div>
                 </div>
 

@@ -224,17 +224,43 @@ exports.searchProduct = async (req, res) => {
     try {
         const { product_name, price, category_id } = req.body;
 
-        let result = null;
+        // let result = null;
 
-        if (product_name) result = await searchName(product_name);
+        // if (product_name) {
+        //     result = await searchName(product_name);
+        // } else if (category_id) {
+        //     result = await searchCategory(category_id);
+        // } else if (price.length > 0) {
+        //     result = await searchPrice(price);
+        // };
 
-        if (category_id) result = await searchCategory(category_id);
+        const result = await prisma.product.findMany({
+            where: {
+                product_name: {
+                    contains: product_name ?? undefined,
+                },
 
-        if (price) result = await searchPrice(price);
+                category_id: category_id.length > 0
+                    ? { in: category_id.map(e => e) }
+                    : undefined,
+
+                price: price.length > 0
+                    ? {
+                        gte: parseInt(price[0]),
+                        lte: parseInt(price[1])
+                    }
+                    : undefined,
+
+                status: 'active',
+            },
+            include: {
+                Image: true,
+            },
+        });
 
         res.send({ message: 'Search product success', result });
     } catch (err) {
-        // console.log(err)
+        console.log(err)
         res.status(500).send({ message: 'Internal Server Error' });
     }
 };

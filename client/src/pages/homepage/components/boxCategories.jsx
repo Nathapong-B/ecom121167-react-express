@@ -5,12 +5,12 @@ export default function BoxCategories(props) {
     const nav = useNavigate();
 
     const hdlClick = (item) => {
-        const {id} = item;
-        console.log(item)
+        const { id } = item;
+        // console.log(item)
 
         nav({
-            pathname: 'main/view-by-category',
-            search: createSearchParams({ cateId: `${id}` }).toString()
+            pathname: 'main/view-by-group',
+            search: createSearchParams({ category_id: `${id}` }).toString()
         })
     };
 

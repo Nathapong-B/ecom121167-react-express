@@ -64,17 +64,13 @@ import zxcvbn from "zxcvbn"; //ใช้เพื่อดูค่าควา�
 npm i axios
 npm install zustand
 npm i jwt-decode
-
 npm install sweetalert2
 npm i react-toastify
-
 npm i @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
-
 npm install pdfmake --save
-
 npm i dayjs
-
 npm install --save @stripe/react-stripe-js @stripe/stripe-js
+npm install rc-slider --save
 
 
 // ตัวอย่างการแปลง timestamp เป็นวันที่

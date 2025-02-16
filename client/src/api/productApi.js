@@ -41,3 +41,7 @@ export const callProductsByList = async (arrListId) => {
 export const getEachProduct = async (id) => {
     return axios.get(config.productPath + '/each/' + id);
 };
+
+export const searchProduct = async (payload) => {
+    return axios.post(config.productPath + '/search', payload);
+};
