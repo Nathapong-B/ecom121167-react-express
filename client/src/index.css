@@ -33,6 +33,10 @@
     font-size: 10px;
   }
 
+  .text-11px {
+    font-size: 11px;
+  }
+
   .text-stroke {
     -webkit-text-stroke: 1px #0ea5e9;
     /* text-stroke: 2px red; */
@@ -41,6 +45,7 @@
   .navbar .text-nav {
     @apply cursor-pointer hover:text-gray-900 hover:font-medium;
   }
+
   /* text */
 
   .bo-btn-add {
@@ -162,7 +167,7 @@
     @apply bo-btn-add px-2 h-3/4 bg-gray-300/30 hover:bg-gray-300/80 text-gray-300 outline-0;
   }
 
-  *{
+  * {
     @apply scroll-smooth;
   }
 

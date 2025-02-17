@@ -7,6 +7,7 @@ import BoxProfileMenu from "./components/boxProfileMenu";
 import BoxCart from "./components/boxCart";
 import { Link } from "react-router-dom";
 import { useCartStore } from "../../ecomStore/useCartStore";
+import NavSearch from "./components/navSearch";
 
 export default function NavBar() {
     const { profile } = useAuthStore(useShallow(s => ({
@@ -43,14 +44,14 @@ export default function NavBar() {
             <div className="absolute bg-gray-200/10 w-full h-full backdrop-blur-sm z-10"></div>
 
             <div className="w-full max-w-6xl flex items-center justify-between z-50">
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                     <div className="text-nav w-16 max-w-16">
                         <Link to={'/main'}>
                             หน้าหลัก
                         </Link>
                     </div>
 
-                    <div className="relative w-16 max-w-16">
+                    <div className="relative w-16 max-w-16 z-20">
                         <div className="text-nav" onMouseOver={() => setCategoriesBox(true)} onMouseOut={() => setCategoriesBox(false)}>หมวดหมู่</div>
                         {categoriesBox
                             ? <div onMouseOver={() => setCategoriesBox(true)} onMouseOut={() => setCategoriesBox(false)}>
@@ -58,6 +59,10 @@ export default function NavBar() {
                             </div>
                             : <></>
                         }
+                    </div>
+
+                    <div>
+                        <NavSearch/>
                     </div>
 
                 </div>
@@ -78,7 +83,7 @@ export default function NavBar() {
                                             </div>
                                         }
                                     </div>
-                                    <div className="text-nav">{profile.email}</div>
+                                    <div className="text-nav w-28 truncate">{profile.email}</div>
                                 </div>
 
                                 {profileBox
@@ -97,7 +102,7 @@ export default function NavBar() {
                         }
                     </div>
 
-                    <div className="relative w-28 max-w-28 justify-items-end">
+                    <div className="relative w-24 max-w-28 justify-items-end">
                         <div className="text-nav flex " onMouseOver={() => setBasketBox(true)} onMouseOut={() => setBasketBox(false)}>
                             <div>
                                 <Link to={'main/cart'}>ตะกร้าสินค้า</Link>

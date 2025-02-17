@@ -24,16 +24,16 @@ export default function StickyBoxCart() {
             </div>
             <hr className="w-10/12 m-auto my-2 border-gray-400"></hr>
 
-            <div className="p-2 text-xs">
+            <div className="p-2 px-6 text-xs">
                 {product
                     ?
                     <div>
-                        <div >
+                        <div>
                             <img src={product.Image[0].url} className="cursor-pointer" onClick={() => viewProductDetail(product)} />
                         </div>
 
                         <div className="flex justify-between mt-2">
-                            <div className="font-bold truncate cursor-pointer" onClick={() => viewProductDetail(product)}>{product.product_name.toUpperCase()}</div>
+                            <div className="font-bold truncate pe-2 cursor-pointer" onClick={() => viewProductDetail(product)}>{product.product_name.toUpperCase()}</div>
                             <div className="text-red-500">&#3647;{product.price.toLocaleString('th-TH')}</div>
                         </div>
 

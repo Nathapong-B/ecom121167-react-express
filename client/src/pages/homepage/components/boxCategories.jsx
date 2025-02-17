@@ -11,7 +11,7 @@ export default function BoxCategories(props) {
         nav({
             pathname: 'main/view-by-group',
             search: createSearchParams({ category_id: `${id}` }).toString()
-        })
+        });
     };
 
     return (

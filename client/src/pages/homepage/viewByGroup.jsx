@@ -22,15 +22,9 @@ export default function ViewByGroup() {
 
     const fetchData = async () => {
         try {
-
             const price = (!price_s || !price_e) ? [] : [price_s, price_e];
-
             const payload = { category_id: category_id ? [category_id] : [], product_name, price };
-
-            // return;
-
             const res = await searchProduct(payload);
-            // console.log(res)
 
             if (res.status === 200) {
                 setData(res.data.result);
@@ -106,7 +100,10 @@ export default function ViewByGroup() {
                             }
 
                         </div>
-                        <BlockProducts products={data} />
+                        {data?.length > 0 
+                            ? <BlockProducts products={data} />
+                            : <div className="p-5">&#10007; ไม่พบข้อมูล</div>
+                        }
                     </div>
                 </div>
             </div>
