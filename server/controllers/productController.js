@@ -238,6 +238,7 @@ exports.searchProduct = async (req, res) => {
             where: {
                 product_name: {
                     contains: product_name ?? undefined,
+                    mode: 'insensitive', // ไม่สนใจตัวพิมพ์เล็กหรือใหญ่
                 },
 
                 category_id: category_id.length > 0
