@@ -17,8 +17,9 @@ export default function NavBar() {
         categoriesList: s.categories,
         callListCategories: s.actionCallListCategoriesOnHome,
     })));
-    const { cart } = useCartStore(useShallow(s => ({
+    const { cart,actionTest } = useCartStore(useShallow(s => ({
         cart: s.cart,
+        actionTest:s.actionTest,
     })));
     const [categoriesBox, setCategoriesBox] = useState(false);
     const [basketBox, setBasketBox] = useState(false);
@@ -34,8 +35,11 @@ export default function NavBar() {
         };
 
         window.addEventListener('focus', updateStore);
-
     }, []);
+
+    const debug=()=>{
+        console.log(actionTest())
+    }
 
 
     return (
@@ -64,6 +68,10 @@ export default function NavBar() {
                     <div>
                         <NavSearch/>
                     </div>
+
+                    {/* <div>
+                        <button className="bo-btn-add bg-red-500" onClick={debug}>debug</button>
+                    </div> */}
 
                 </div>
 

@@ -27,8 +27,7 @@ export const registerSchema = z
                 };
 
                 return true;
-            }, 'Must contain number,upper,lower,non-alphabet'),
-        // password: z.string().nonempty({ message: 'Field is require' }).min(8, { message: 'Password is weak, and should be at least 8 characters' }).regex(passwordValidate, 'Password must contain (0-9), uppercase, lowercase, less 1 non-alpha numeric number'),
+            }, 'Must contain number,upper,lower,non-alphabet').min(8, { message: 'Password should be at least 8 characters' }),
         confirmpassword: z.string().nonempty({ message: 'Field is require' }),
     })
     .refine(data => data.password === data.confirmpassword, { message: 'Password is not match', path: ['confirmpassword'] });
@@ -38,10 +37,9 @@ export const signinSchema = z.object({
     password: z.string().nonempty({ message: 'Field is require' }),
 });
 
-export const profileSchema = z
-    .object({
-        first_name: z.string().nonempty({ message: 'Field is require' }).regex(nameValidate, 'Invalid input'),
-        last_name: z.string().nonempty({ message: 'Field is require' }).regex(nameValidate, 'Invalid input'),
-        phone: z.string({ message: 'Input phone number' }).length(10, { message: 'Invalid phone number' }).nonempty({ message: 'Field is require' }).regex(phoneValidate, 'Invalid phone, Ex. 0123456789'),
-        address: z.string().nonempty({ message: 'Field is require' }),
-    });
+export const profileSchema = z.object({
+    first_name: z.string().nonempty({ message: 'Field is require' }).regex(nameValidate, 'Invalid input'),
+    last_name: z.string().nonempty({ message: 'Field is require' }).regex(nameValidate, 'Invalid input'),
+    phone: z.string({ message: 'Input phone number' }).length(10, { message: 'Invalid phone number' }).nonempty({ message: 'Field is require' }).regex(phoneValidate, 'Invalid phone, Ex. 0123456789'),
+    address: z.string().nonempty({ message: 'Field is require' }),
+});

@@ -11,6 +11,17 @@ const cartStore = (set, get) => ({
     order: [],
     myPurchase: [],
 
+    actionDataTest:()=>{
+        console.log('data test')
+        return 'data from data test';
+    },
+
+    actionTest:()=>{
+        const data=get().actionDataTest()
+        return data;
+
+    },
+
     actionUpdateStock: async () => {
         const cart = get().cart;
         const arrListId = [...cart.map(e => (e.id))];

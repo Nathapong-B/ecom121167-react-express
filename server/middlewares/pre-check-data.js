@@ -1,15 +1,52 @@
-exports.validate_Email_Pwd = (req, res, next) => {
-    const { email, password } = req.body;
+const { registerSchema, profileSchema } = require("../util/zodSchema");
 
-    if (!email || !password) return res.status(400).send({ message: "Email or Password is missing" });
+exports.validate_Email_Pwd = (req, res, next) => {
+    // const { email, password } = req.body;
+
+    // if (!email || !password) return res.status(400).send({ message: "Email or Password is missing" });
+
+    const { error } = registerSchema.safeParse(req.body);
+
+    let err = {};
+    if (error) {
+        error.issues.map((e) => err[e.path[0]] = e.message);
+
+        return res.status(400).send({ message: "Email or Password is invalid", error: err });
+    };
+
+    next();
+};
+
+exports.validate_Signin = (req, res, next) => {
+    const { error } = signinSchema.safeParse(req.body);
+
+    let err = {};
+    if (error) {
+        error.issues.map((e) => err[e.path[0]] = e.message);
+
+        return res.status(400).send({ message: "Email or Password is invalid", error: err });
+    };
 
     next();
 };
 
 exports.validate_Profile = (req, res, next) => {
-    const { first_name, last_name, address, phone } = req.body.data ? JSON.parse(req.body.data) : req.body;
+    // const { first_name, last_name, address, phone } = req.body.data ? JSON.parse(req.body.data) : req.body;
 
-    if (!first_name || !last_name || !address || !phone) return res.status(400).send({ message: "Incomplete data" });
+    // if (!first_name || !last_name || !address || !phone) return res.status(400).send({ message: "Incomplete data" });
+
+    // next();
+
+    const data = req.body.data ? JSON.parse(req.body.data) : req.body;
+
+    const { error } = profileSchema.safeParse(data);
+
+    let err = {};
+    if (error) {
+        error.issues.map((e) => err[e.path[0]] = e.message);
+
+        return res.status(400).send({ message: "Invalid input", error: err });
+    };
 
     next();
 };
