@@ -14,8 +14,9 @@ export default function MainPage() {
     let decimal = ((((clientHeightEl - scrollTopEl) * 100) / clientHeightEl) / 100).toFixed(2); // toFixed() จำนวนตำแหน่งทศนิยม
 
     const hdlMaincontentsHeight = () => {
+        console.log(mainRef)
         // const el = document.getElementById("main_contents");
-        const elH = el.clientHeight - clientHeightEl + 80;
+        const elH = mainRef.current.clientHeight - clientHeightEl + 80;
 
         root.style.setProperty('--containersHeight', `${elH}px`);
         // el.classList.add(`containers-height`);
