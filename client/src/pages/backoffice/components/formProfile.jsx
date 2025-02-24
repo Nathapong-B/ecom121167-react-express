@@ -85,7 +85,7 @@ export default function FormProfile(props) {
             {/* <LoadingCover title={'Updating please wait.'} isLoading={true} /> */}
             <LoadingCover title={'Updating please wait.'} isLoading={isLoadingCoverPage} />
 
-            <button className="bo-btn-add bg-green-500" onClick={debug}>debug</button>
+            {/* <button className="bo-btn-add bg-green-500" onClick={debug}>debug</button> */}
             <div className="w-1/3">
 
                 <div className="font-bold text-center">Profile</div>

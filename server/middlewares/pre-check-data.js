@@ -1,4 +1,4 @@
-const { registerSchema, profileSchema } = require("../util/zodSchema");
+const { registerSchema, profileSchema, signinSchema } = require("../util/zodSchema");
 
 exports.validate_Email_Pwd = (req, res, next) => {
     // const { email, password } = req.body;

@@ -11,8 +11,8 @@ const vExtra = new RegExp(/.*[^\w\d\s:]/);
 export const registerSchema = z
     .object({
         email: z.string().nonempty({ message: 'Field is require' }).email({ message: 'Invalid Email' }),
-        password: z.string().nonempty({ message: 'Field is require' })
-            .refine(value => {
+        password: z.string().nonempty({ message: 'Field is require' }).min(8, { message: 'Password should be at least 8 characters' })
+            .refine((value) => {
                 if (!vDigit.exec(value)) {
                     return false;
                 };
@@ -27,7 +27,7 @@ export const registerSchema = z
                 };
 
                 return true;
-            }, 'Must contain number,upper,lower,non-alphabet').min(8, { message: 'Password should be at least 8 characters' }),
+            }, 'Must contain number,upper,lower,non-alphabet'),
         confirmpassword: z.string().nonempty({ message: 'Field is require' }),
     })
     .refine(data => data.password === data.confirmpassword, { message: 'Password is not match', path: ['confirmpassword'] });
