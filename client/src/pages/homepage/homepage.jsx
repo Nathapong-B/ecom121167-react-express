@@ -77,7 +77,7 @@ export default function Homepage() {
             </div>
 
             {/* footer */}
-            <div className="w-full h-20 bg-gray-300">
+            <div className="w-full h-20 bg-gray-300 z-30">
                 <Footer />
             </div>
 

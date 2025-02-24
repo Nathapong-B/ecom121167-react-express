@@ -181,6 +181,11 @@
   --stickyTop: 0px;
   --iW: 0px;
   --cLeft: 0px;
+  --containersHeight:0px;
+}
+
+.containers-height{
+  height: var(--containersHeight);
 }
 
 .opacity-header {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "./components/header";
 import ProductsNewArrival from "./components/pNewarrival";
 import ProductsBestSeller from "./components/pBestSeller";
@@ -7,11 +7,20 @@ import StickyBoxCart from "./components/stickyBoxCart";
 
 export default function MainPage() {
     const [scrollTopEl, setScrollTop] = useState(0);
-    const [clientHeightEl, setClientHeight] = useState(0);
+    const [clientHeightEl, setClientHeight] = useState(document.documentElement.clientHeight);
     const scrollRestoration = history.scrollRestoration;
+    const mainRef=useRef();
 
     let decimal = ((((clientHeightEl - scrollTopEl) * 100) / clientHeightEl) / 100).toFixed(2); // toFixed() จำนวนตำแหน่งทศนิยม
 
+    const hdlMaincontentsHeight = () => {
+        // const el = document.getElementById("main_contents");
+        const elH = el.clientHeight - clientHeightEl + 80;
+
+        root.style.setProperty('--containersHeight', `${elH}px`);
+        // el.classList.add(`containers-height`);
+        mainRef.current.classList.add(`containers-height`);
+    };
 
     useEffect(() => {
         // ไม่ต้องให้คืนค่า scroll อัตโนมัติ เมื่อมีการรีโหลดหน้าเพจ เพื่อให้จัดการ scrollTop ด้วยตนเอง
@@ -21,7 +30,7 @@ export default function MainPage() {
 
         document.documentElement.scrollTop = 0;
 
-        root.style.setProperty('--hscreen', `${clientHeightEl}px`);
+        root.style.setProperty('--hscreen', `0px`);
 
         window.addEventListener('scroll', () => {
             const {
@@ -33,11 +42,12 @@ export default function MainPage() {
             setClientHeight(() => clientHeight);
         });
 
+        hdlMaincontentsHeight();
     }, []);
 
     const headersDisplayNone = () => {
         if (decimal < 0.9) {
-            root.style.setProperty('--hscreen', `-${clientHeightEl - 60}px`);
+            root.style.setProperty('--hscreen', `-${clientHeightEl - 80}px`);
         } else if (decimal > 0.9) {
             root.style.setProperty('--hscreen', `0px`);
         }
@@ -62,14 +72,14 @@ export default function MainPage() {
     };
 
     return (
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center relative h-max">
 
             {/* <button className="bo-btn-add" onClick={debug}>debug</button> */}
 
             {/* main contents */}
-            <div id='main_contents' className="relative t-hscreen pb-8 w-screen h-auto flex flex-wrap justify-center transition-all ease-[cubic-bezier(0,50,99,0)] duration-300 z-50">
+            <div ref={mainRef} id='main_contents' className="relative t-hscreen pb-8 w-full h-max flex flex-wrap justify-center transition-all ease-[cubic-bezier(0,50,99,0)] duration-300 z-50">
 
-                <div className="w-full bg-green-500 h-screen mb-[60px]">
+                <div className="w-full h-screen mb-[60px]">
                     <Header />
                 </div>
 
@@ -101,7 +111,7 @@ export default function MainPage() {
 
                     <div className="block-display">
                         <div className="block-title w-max">ช้อปตามหมวดหมู่</div>
-                        <div></div>
+                        <div className="w-96 h-96 bg-red-500">55</div>
                     </div>
                 </div>
 

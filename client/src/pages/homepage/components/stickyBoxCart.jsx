@@ -25,11 +25,12 @@ export default function StickyBoxCart() {
             <hr className="w-10/12 m-auto my-2 border-gray-400"></hr>
 
             <div className="p-2 px-6 text-xs">
+                <div className="text-xs text-gray-500 mb-1">เพิ่มล่าสุด</div>
                 {product
                     ?
                     <div>
                         <div>
-                            <img src={product.Image[0].url} className="cursor-pointer" onClick={() => viewProductDetail(product)} />
+                            <img src={product.Image[0].url} className="cursor-pointer rounded" onClick={() => viewProductDetail(product)} />
                         </div>
 
                         <div className="flex justify-between mt-2">
