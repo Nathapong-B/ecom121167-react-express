@@ -14,6 +14,8 @@ export default function Payments() {
     const clientSecret = searchParams.get('cs');
     const amount = searchParams.get('amount');
 
+    document.title = 'Payment';
+
     const appearance = {
         theme: 'stripe',
     };

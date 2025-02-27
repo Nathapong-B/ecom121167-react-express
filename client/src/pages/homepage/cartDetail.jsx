@@ -17,6 +17,8 @@ export default function CartDetail() {
     const [productChecked, setProductChecked] = useState([]);
     const nav = useNavigate();
 
+    document.title = 'Cart detail';
+
     const hdlIncrease = (item) => {
         const res = actionIncrease(item);
         if (res.error) return toast.warning(res.error.message);

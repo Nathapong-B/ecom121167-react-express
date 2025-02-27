@@ -1,5 +1,5 @@
 const { prisma, bcrypt } = require('../config/config');
-const { jwtGenerate } = require('../middlewares/authService');
+const { jwtGenerate, jwtRefreshGenerate } = require('../middlewares/authService');
 const { uploadImagesToCloud } = require('../util/utilProduct')
 
 exports.register = async (req, res) => {
@@ -60,10 +60,16 @@ exports.signin = async (req, res) => {
         if (!isMatch) return res.status(400).send({ message: 'E-mail or password is incorrect' });
 
         const token = jwtGenerate(user);
+        const refToken = jwtRefreshGenerate(user);
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { refresh_token: refToken },
+        });
 
         delete user.password;
 
-        res.send({ message: 'Signin Success', token, profile: user });
+        res.send({ message: 'Signin Success', token, refToken, profile: user });
     } catch (err) {
         console.log(err)
         res.status(500).send({ message: 'Internal Server Error' });

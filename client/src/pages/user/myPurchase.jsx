@@ -19,6 +19,8 @@ export default function MyPurchase() {
         actionRemoveOrder: s.actionRemoveOrder,
     })));
 
+    document.title = 'Purchase';
+
     const callListMyPurchase = async () => {
         await actionListMyPurchase(10, token);
 

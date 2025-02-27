@@ -17,6 +17,8 @@ export default function ViewByGroup() {
     const [data, setData] = useState();
     const nav = useNavigate();
 
+    document.title = 'Search';
+
     // console.log(price_s)
     // console.log(payload)
 

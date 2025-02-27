@@ -10,6 +10,8 @@ export default function BackOfficeLayout() {
     })));
     const navigate = useNavigate();
 
+    document.title = 'Back office';
+
     const hdlUnloadPage = () => {
         localStorage.removeItem('ecomStore-121167');
     };

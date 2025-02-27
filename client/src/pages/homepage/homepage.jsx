@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useOutlet } from "react-router-dom"
 import { tokenExpire, tokenValidateRole } from "../auth/components/jwtValidate"
 import { useEffect, useState } from "react";
 import HomepageCover from "./homepageCover";
@@ -7,21 +7,47 @@ import { useShallow } from "zustand/react/shallow";
 import { useCartStore } from "../../ecomStore/useCartStore";
 import NavBar from "./navbar";
 import Footer from "./components/footer";
+import { signOut } from "../auth/components/signout";
 
 export default function Homepage() {
-    // const token = useAuthStore(s => s.token);
-    const { uId, token } = useAuthStore(useShallow(s => ({
+    const { uId, token, actionRefreshToken } = useAuthStore(useShallow(s => ({
         uId: s.user?.sub,
         token: s.token,
+        actionRefreshToken: s.actionRefreshToken,
     })));
     const path = window.location.pathname;
     const scrollRestoration = history.scrollRestoration;
     const [homeCoverClose, setHomeCoverClose] = useState(false);
 
+    const hdlSignOut = () => {
+        signOut({ isReload: true });
+    };
+
+    const tokenValid = async () => {
+        if (!token) return;
+
+        const tokenExp = tokenExpire(token);
+
+        const min = Math.floor(tokenExp.expIn / 60);
+        const sec = tokenExp.expIn % 60;
+
+        if (min < 2) {
+            console.log('lower 50')
+            const res = await actionRefreshToken();
+
+            if (res.error) {
+                hdlSignOut();
+            };
+        };
+
+        // console.log()
+        // console.log(Object.keys(tokenExp)[1] + ':', min + 'min', sec + 'sec')
+    };
+
     useEffect(() => {
         // ไม่ต้องให้คืนค่า scroll อัตโนมัติ เมื่อมีการรีโหลดหน้าเพจ เพื่อให้จัดการ scrollTop ด้วยตนเอง
         if (scrollRestoration === "auto") {
-            history.scrollRestoration="manual";
+            history.scrollRestoration = "manual";
         };
 
         window.document.documentElement.scrollTop = 0;
@@ -29,6 +55,8 @@ export default function Homepage() {
         syncUserCart();
 
         window.addEventListener('focus', checkMultiTab);
+
+        onclick = () => tokenValid();
 
     }, []);
 
@@ -77,7 +105,7 @@ export default function Homepage() {
             </div>
 
             {/* footer */}
-            <div className="w-full h-20 bg-gray-300 z-30">
+            <div className="w-full h-20 bg-gray-300">
                 <Footer />
             </div>
 

@@ -35,7 +35,7 @@ export const getProductDetail = async (pid, store) => {
 
             if (pFound.length > 0) {
                 const { Product } = pFound[0];
-                return Product;
+                return [Product];
             };
         };
     };

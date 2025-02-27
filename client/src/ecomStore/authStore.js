@@ -2,11 +2,41 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { changeStatusUser, listUsers, updateProfile, userSignin } from '../api/userApi';
 import { jwtDecode } from 'jwt-decode';
+import { tokenExpire } from '../pages/auth/components/jwtValidate';
+import { refreshToken } from '../api/authApi';
 
 const authStore = (set, get) => ({
     token: null,
+    refToken: null,
     user: null,
     profile: null,
+
+    actionRefreshToken: async () => {
+        try {
+            const ref_Token = get().refToken;
+
+            const tokenExp = tokenExpire(ref_Token);
+            const min = Math.floor(tokenExp.expIn / 60);
+
+            if (min <= 0) return { error: { message: 'Please sign-in' } };
+
+            const res = await refreshToken(ref_Token);
+
+            if (res.status === 200) {
+                set({
+                    token: res.data.token,
+                    refToken: res.data.refToken,
+                });
+                return { success: true, decoded };
+            } else {
+                return { error: { message: 'Somthing wrong' } };
+            };
+        } catch (err) {
+            console.log(err);
+            if (err?.code === "ERR_NETWORK") return { error: { message: err.message } };
+            return { error: { message: err.response.data.message } };
+        };
+    },
 
     actionSignin: async (payload) => {
         try {
@@ -16,6 +46,7 @@ const authStore = (set, get) => ({
             if (res.status === 200) {
                 set({
                     token: res.data.token,
+                    refToken: res.data.refToken,
                     user: decoded,
                     profile: res.data.profile,
                 });

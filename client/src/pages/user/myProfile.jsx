@@ -10,6 +10,8 @@ export default function MyProfile() {
     })));
     const scrollRestoration = history.scrollRestoration;
 
+    document.title = 'Profile';
+
     useEffect(() => {
         // ไม่ต้องให้คืนค่า scroll อัตโนมัติ เมื่อมีการรีโหลดหน้าเพจ เพื่อให้จัดการ scrollTop ด้วยตนเอง
         if (scrollRestoration === "auto") {

@@ -1,5 +1,5 @@
 const { jwt } = require("../config/config");
-const jwtConstant = require("../config/constant");
+const { jwtConstant, jwtRefreshConstant } = require("../config/constant");
 
 exports.jwtGenerate = (data) => {
     const secret = jwtConstant.secret;
@@ -9,10 +9,24 @@ exports.jwtGenerate = (data) => {
         { sub: id, user: email, role: role },
         secret,
         // { expiresIn: '1m' },
-        { expiresIn: '1D' },
+        { expiresIn: '1h' },
     );
 
     return accToken;
+};
+
+exports.jwtRefreshGenerate = (data) => {
+    const secret = jwtRefreshConstant.secret;
+    const { id, email, role } = data;
+
+    const refToken = jwt.sign(
+        { sub: id, user: email, role: role },
+        secret,
+        // { expiresIn: '1m' },
+        { expiresIn: '1D' },
+    );
+
+    return refToken;
 };
 
 exports.jwtValidate = (req, res, next) => {
@@ -28,6 +42,29 @@ exports.jwtValidate = (req, res, next) => {
             if (err) throw new Error(`Unauthorization, ${err.message}`); // ถ้าโทเคนหมดอายุหรือไม่ถูกต้อง จะรีเทิร์น error ออกไป
 
             req.decoded = decoded;
+        });
+
+        next();
+
+    } catch (err) {
+        res.status(401).send({ message: err.message });
+    };
+};
+
+exports.jwtRefreshValidate = (req, res, next) => {
+    try {
+        const { authorization } = req.headers;
+        const secret = jwtRefreshConstant.secret;
+
+        if (!authorization) return res.status(401).send({ message: 'Unauthorization' });
+
+        const token = authorization.replace('Bearer ', '');
+
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) throw new Error(`Unauthorization, ${err.message}`); // ถ้าโทเคนหมดอายุหรือไม่ถูกต้อง จะรีเทิร์น error ออกไป
+
+            req.decoded = decoded;
+            req.token = token;
         });
 
         next();

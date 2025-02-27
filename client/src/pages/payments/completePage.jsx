@@ -2,6 +2,8 @@ import { createSearchParams, Link } from "react-router-dom";
 import ProductRecommend from "../homepage/components/pRecommend";
 
 export default function CompletePage() {
+    document.title = 'Completed';
+
     return (
         <div className="w-full max-w-4xl m-auto">
 

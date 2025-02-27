@@ -25,6 +25,8 @@ export default function OrderDetail() {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
+    document.title = 'Order detail';
+
     const calSum = (items) => {
         const products = [...items];
 

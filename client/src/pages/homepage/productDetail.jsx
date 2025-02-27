@@ -18,6 +18,8 @@ export default function ProductDetail() {
     const [data, setData] = useState();
     data?.Image.sort((a, b) => a.position - b.position); // sort image position
 
+    document.title = data?.product_name ? data.product_name.toUpperCase() : 'Product detail';
+
     const fetchData = async () => {
         const res = await getProductDetail(pid, store);
 
@@ -43,7 +45,7 @@ export default function ProductDetail() {
     useEffect(() => {
         // ไม่ต้องให้คืนค่า scroll อัตโนมัติ เมื่อมีการรีโหลดหน้าเพจ เพื่อให้จัดการ scrollTop ด้วยตนเอง
         if (scrollRestoration === "auto") {
-            history.scrollRestoration="manual";
+            history.scrollRestoration = "manual";
         };
 
         window.document.documentElement.scrollTop = 0;

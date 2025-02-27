@@ -71,6 +71,9 @@ export default function NavBar() {
 
                     {/* <div>
                         <button className="bo-btn-add bg-red-500" onClick={debug}>debug</button>
+                        <Link to={'/testpath'}>
+                        <button className="bo-btn-add bg-green-500">testpath</button>
+                        </Link>
                     </div> */}
 
                 </div>
