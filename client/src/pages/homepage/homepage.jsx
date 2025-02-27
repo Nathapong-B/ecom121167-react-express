@@ -23,6 +23,8 @@ export default function Homepage() {
         signOut({ isReload: true });
     };
 
+    // console.log(Math.floor(6 / 60))
+
     const tokenValid = async () => {
         if (!token) return;
 
@@ -31,8 +33,7 @@ export default function Homepage() {
         const min = Math.floor(tokenExp.expIn / 60);
         const sec = tokenExp.expIn % 60;
 
-        if (min < 2) {
-            console.log('lower 50')
+        if (min < 1) {
             const res = await actionRefreshToken();
 
             if (res.error) {
@@ -40,8 +41,7 @@ export default function Homepage() {
             };
         };
 
-        // console.log()
-        // console.log(Object.keys(tokenExp)[1] + ':', min + 'min', sec + 'sec')
+        // console.log('token 47 : ', token, Object.keys(tokenExp)[1] + ':', min + 'min', sec + 'sec')
     };
 
     useEffect(() => {
@@ -56,9 +56,10 @@ export default function Homepage() {
 
         window.addEventListener('focus', checkMultiTab);
 
-        onclick = () => tokenValid();
+        window.addEventListener('click', tokenValid);
 
-    }, []);
+        return () => window.removeEventListener('click', tokenValid);
+    }, [token]);
 
     const syncUserCart = () => {
         // ตรวจสอบไอดียูส กับตะกร้าต้องตรงกัน

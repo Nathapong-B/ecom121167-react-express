@@ -8,7 +8,7 @@ exports.jwtGenerate = (data) => {
     const accToken = jwt.sign(
         { sub: id, user: email, role: role },
         secret,
-        // { expiresIn: '1m' },
+        // { expiresIn: '3m' },
         { expiresIn: '1h' },
     );
 
@@ -55,6 +55,8 @@ exports.jwtRefreshValidate = (req, res, next) => {
     try {
         const { authorization } = req.headers;
         const secret = jwtRefreshConstant.secret;
+        // console.log(authorization)
+        // console.log(req.body)
 
         if (!authorization) return res.status(401).send({ message: 'Unauthorization' });
 

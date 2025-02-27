@@ -14,11 +14,16 @@ const authStore = (set, get) => ({
     actionRefreshToken: async () => {
         try {
             const ref_Token = get().refToken;
+            const tokenExp = tokenExpire(token);
+            const tmin = Math.floor(tokenExp.expIn / 60);
+            
+            if (tmin > 1) return { success: true };
+            
+            const token = get().token;
+            const refTokenExp = tokenExpire(ref_Token);
+            const rmin = Math.floor(refTokenExp.expIn / 60);
 
-            const tokenExp = tokenExpire(ref_Token);
-            const min = Math.floor(tokenExp.expIn / 60);
-
-            if (min <= 0) return { error: { message: 'Please sign-in' } };
+            if (rmin < 0) return { error: { message: 'Please sign-in' } };
 
             const res = await refreshToken(ref_Token);
 
@@ -27,7 +32,7 @@ const authStore = (set, get) => ({
                     token: res.data.token,
                     refToken: res.data.refToken,
                 });
-                return { success: true, decoded };
+                return { success: true };
             } else {
                 return { error: { message: 'Somthing wrong' } };
             };

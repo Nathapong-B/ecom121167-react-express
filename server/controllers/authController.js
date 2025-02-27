@@ -20,7 +20,7 @@ exports.refreshToken = async (req, res) => {
             },
         });
 
-        if (!userFound) res.status(401).send({ message: 'Refresh token unauthorization' });
+        if (!userFound) return res.status(401).send({ message: 'Refresh token unauthorization' });
 
         const token = jwtGenerate(userFound);
         const refToken = jwtRefreshGenerate(userFound);
