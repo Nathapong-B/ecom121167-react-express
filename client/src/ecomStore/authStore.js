@@ -13,13 +13,13 @@ const authStore = (set, get) => ({
 
     actionRefreshToken: async () => {
         try {
-            const ref_Token = get().refToken;
+            const token = get().token;
             const tokenExp = tokenExpire(token);
             const tmin = Math.floor(tokenExp.expIn / 60);
             
             if (tmin > 1) return { success: true };
             
-            const token = get().token;
+            const ref_Token = get().refToken;
             const refTokenExp = tokenExpire(ref_Token);
             const rmin = Math.floor(refTokenExp.expIn / 60);
 

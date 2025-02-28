@@ -9,7 +9,7 @@ exports.jwtGenerate = (data) => {
         { sub: id, user: email, role: role },
         secret,
         // { expiresIn: '3m' },
-        { expiresIn: '1h' },
+        { expiresIn: '1D' },
     );
 
     return accToken;
@@ -23,7 +23,7 @@ exports.jwtRefreshGenerate = (data) => {
         { sub: id, user: email, role: role },
         secret,
         // { expiresIn: '1m' },
-        { expiresIn: '1D' },
+        { expiresIn: '2D' },
     );
 
     return refToken;

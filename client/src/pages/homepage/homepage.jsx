@@ -31,17 +31,17 @@ export default function Homepage() {
         const tokenExp = tokenExpire(token);
 
         const min = Math.floor(tokenExp.expIn / 60);
-        const sec = tokenExp.expIn % 60;
-
+        
         if (min < 1) {
             const res = await actionRefreshToken();
-
+            
             if (res.error) {
                 hdlSignOut();
             };
         };
-
-        // console.log('token 47 : ', token, Object.keys(tokenExp)[1] + ':', min + 'min', sec + 'sec')
+        
+        const sec = tokenExp.expIn % 60;
+        console.log('token 47 : ', token,'\n', Object.keys(tokenExp)[1] + ':', min + 'min', sec + 'sec')
     };
 
     useEffect(() => {
