@@ -4,7 +4,7 @@ import { getImgPosition0 } from "../../util/utilProduct";
 export default function ImagesDisplay(props) {
     const { data } = props;
     const [indexImgShow, setIndexImgShow] = useState(0);
-    const [loaded, setLoaded] = useState(false);
+    // const [loaded, setLoaded] = useState(false);
     const listRef = useRef();
 
     const hdlShowImage = (index) => {
@@ -73,11 +73,6 @@ export default function ImagesDisplay(props) {
         };
 
     }, [indexImgShow, data]);
-
-    const debug = () => {
-        const imgListContainerEl = document.getElementById('imgListContainerEl').scrollLeft;
-        console.log(imgListContainerEl)
-    }
 
     return (
         <div className="">

@@ -6,7 +6,6 @@ export default function BoxCategories(props) {
 
     const hdlClick = (item) => {
         const { id } = item;
-        // console.log(item)
 
         nav({
             pathname: 'main/view-by-group',

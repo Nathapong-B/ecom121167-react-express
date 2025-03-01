@@ -53,20 +53,11 @@ export default function ProductDetail() {
         fetchData();
     }, [pid]);
 
-    const debug = async () => {
-        const st = 'myPurchase';
-        const res = await getProductDetail(pid, store)
-        console.log(res)
-
-    }
-
     return (
         <div className="w-full max-w-4xl m-auto px-2">
 
             {data &&
                 <div className="w-full min-h-max m-auto mt-6 flex flex-col gap-2 md:flex-row">
-
-                    {/* <button className="bo-btn-add bg-green-500" onClick={debug}>debug</button> */}
 
                     {/* image display */}
                     <div className="w-3/5 md:max-w-lg">

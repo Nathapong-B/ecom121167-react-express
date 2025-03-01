@@ -7,7 +7,6 @@ import { useEcomStore } from "../../ecomStore/useEcomStore";
 
 export default function ViewByGroup() {
     const [searchParams] = useSearchParams();
-    // const searchBy = searchParams.get('search_by');
     const category_id = searchParams.get('category_id');
     const product_name = searchParams.get('product_name');
     const price_s = searchParams.get('price_s');
@@ -18,9 +17,6 @@ export default function ViewByGroup() {
     const nav = useNavigate();
 
     document.title = 'Search';
-
-    // console.log(price_s)
-    // console.log(payload)
 
     const fetchData = async () => {
         try {

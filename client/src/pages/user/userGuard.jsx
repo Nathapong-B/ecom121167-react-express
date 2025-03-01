@@ -9,7 +9,6 @@ export default function UserGuard({ element }) {
         if (!token) return { permission: false, path: '/main', search: '?permission=false&message=unauthorized', message: 'Unauthorized, Please sign-in' };
 
         const tokenExp = tokenExpire(token);
-        // const role = tokenValidateRole(token);
 
         if (tokenExp.expIn > 0) {
             return { permission: true };

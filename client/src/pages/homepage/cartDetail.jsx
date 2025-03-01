@@ -104,21 +104,11 @@ export default function CartDetail() {
         });
     };
 
-    const debug = async () => {
-        console.log('cart : ', cart)
-        console.log('product : ', productChecked)
-    }
-    const debugclear = async () => {
-    }
-
     return (
         <div className="flex justify-center">
             <div className="w-full sm:w-10/12 md:w-9/12 xl:w-8/12 relative">
                 <div className="flex flex-col items-center px-2">
                     <div className="block-title my-4">รายการสินค้าในตะกร้า</div>
-
-                    {/* <button className="bo-btn-add bg-green-500" onClick={() => debug()}>debug</button> */}
-                    {/* <button className="bo-btn-add bg-green-500" onClick={() => debugclear()}>debugclear</button> */}
 
                     <div className="mb-32">
                         <table className="bo-tb">
@@ -213,14 +203,6 @@ export default function CartDetail() {
 
                 </div>
             </div>
-
-            {/* <div className="hidden md:block md:w-3/12 mt-16 pe-2">
-                <div className="w-full bg-gray-100 p-2">
-                    <div>รายการสั่งซื้อ</div>
-
-                    <div></div>
-                </div>
-            </div> */}
 
         </div>
     )

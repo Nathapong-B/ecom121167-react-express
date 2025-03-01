@@ -23,8 +23,6 @@ export default function Homepage() {
         signOut({ isReload: true });
     };
 
-    // console.log(Math.floor(6 / 60))
-
     const tokenValid = async () => {
         if (!token) return;
 
@@ -39,9 +37,6 @@ export default function Homepage() {
                 hdlSignOut();
             };
         };
-        
-        const sec = tokenExp.expIn % 60;
-        console.log('token 47 : ', token,'\n', Object.keys(tokenExp)[1] + ':', min + 'min', sec + 'sec')
     };
 
     useEffect(() => {

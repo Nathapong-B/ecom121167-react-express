@@ -5,22 +5,16 @@ export default function HomepageCover(props) {
 
     const onHover = () => {
         const el = document.querySelector('#elLine.top-full');
-        // el.classList.remove('top-full');
-        // el.classList.add('-top-full');
         el.classList.replace('top-full', '-top-full');
     };
 
     const onOut = () => {
         const el = document.querySelector('#elLine.-top-full');
-        // el.classList.remove('-top-full');
-        // el.classList.add('top-full');
         el.classList.replace('-top-full', 'top-full');
     };
 
     const onSlideCover = () => {
         const el = document.querySelector('#elCover.top-0');
-        // el.classList.remove('top-0');
-        // el.classList.add('-top-full');
         el.classList.replace('top-0', '-top-full');
 
         setTimeout(() => {
@@ -35,7 +29,6 @@ export default function HomepageCover(props) {
             }, 500);
         };
     }, []);
-
 
     return (
         <div id="elCover" className="bg-gray-100 w-full h-full absolute top-0 left-0 z-50 flex flex-col justify-center items-center transition-all duration-1000 ease-out">

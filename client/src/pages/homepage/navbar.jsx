@@ -37,11 +37,6 @@ export default function NavBar() {
         window.addEventListener('focus', updateStore);
     }, []);
 
-    const debug=()=>{
-        console.log(actionTest())
-    }
-
-
     return (
         <div className="navbar relative w-full px-6 h-10 bg-gradient-to-r from-gray-200/90 from-20% via-gray-200/50 to-gray-200/90 to-80% flex justify-center text-gray-500">
 
@@ -68,13 +63,6 @@ export default function NavBar() {
                     <div>
                         <NavSearch/>
                     </div>
-
-                    {/* <div>
-                        <button className="bo-btn-add bg-red-500" onClick={debug}>debug</button>
-                        <Link to={'/testpath'}>
-                        <button className="bo-btn-add bg-green-500">testpath</button>
-                        </Link>
-                    </div> */}
 
                 </div>
 

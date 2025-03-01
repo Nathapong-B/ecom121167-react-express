@@ -66,11 +66,6 @@ export default function MainPage() {
     root.style.setProperty('--stickyTop', `${(stickyTop())}px`);
     headersDisplayNone();
 
-    const debug = () => {
-        // console.log(cart)
-        // if(!user) calluser()
-    };
-
     return (
         <div className="flex flex-wrap justify-center relative h-max">
 

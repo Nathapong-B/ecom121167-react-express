@@ -84,18 +84,9 @@ export default function BoxSearch(props) {
         return props.returnData(returnData);
     };
 
-    const debug = (e) => {
-        console.log(priceRange[0] = priceRange[1])
-        // console.log('return : ', priceRange)
-        // setPriceRange(e)
-
-    }
     return (
         <div className="w-full max-w-[280px] min-w-max p-4 rounded bg-gray-300/50 ">
             <div className="mb-4 font-bold border-b border-sky-500">SEARCH</div>
-
-            {/* <div className="mb-2 "> Filter</div> */}
-            {/* <button className="bo-btn-add bg-green-500" onClick={debug}>debug</button> */}
 
             <div>
                 {/* product name */}

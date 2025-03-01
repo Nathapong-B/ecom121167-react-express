@@ -10,7 +10,6 @@ import BackOfficeLayout from "./pages/backoffice/backofficeLayout"
 import RedirectPage from "./pages/redirectPage"
 import Dashboard from "./pages/backoffice/dashboard"
 import AdminGuard from "./pages/backoffice/adminGuard"
-import TestPath from "./pages/testpath"
 import Products from "./pages/backoffice/products"
 import Orders from "./pages/backoffice/orders"
 import Users from "./pages/backoffice/users"
@@ -26,6 +25,7 @@ import ProductDetail from "./pages/homepage/productDetail";
 import MyProfile from "./pages/user/myProfile";
 import UserGuard from "./pages/user/userGuard";
 import ViewByGroup from "./pages/homepage/viewByGroup";
+// import TestPath from "./pages/testpath"
 
 const router = createBrowserRouter([
     {
@@ -65,53 +65,11 @@ const router = createBrowserRouter([
             { path: 'user', element: <Users /> },
             { path: 'profile', element: <Profile /> }
         ]
-    }, {
-        path: '/testpath', element: <TestPath />
-    }
+    },
+    // { path: '/testpath', element: <TestPath /> }
 ])
 
 export default function Routes() {
-
-    // let intervalId = 0;
-
-    // const showText = () => {
-    //     console.log('interval')
-    // }
-
-    // const runInterval = () => {
-    //     intervalId = setInterval(showText, 1000);
-    // }
-
-    // const clearIntervalAll = (id) => {
-    //     for (let i = id; i > 0; i--) {
-    //         clearInterval(i);
-    //     }
-    // }
-
-    // useEffect(() => {
-
-    //     runInterval()
-
-    //     window.onclick = (e) => {
-    //         clearIntervalAll(intervalId)
-
-
-    //         // runInterval()
-    //         console.log('onclick')
-    //     };
-    //     window.onscroll = () => {
-    //         clearIntervalAll(intervalId)
-
-    //         // runInterval()
-    //         console.log('onscroll')
-    //     };
-
-    //     window.onblur = () => {
-    //         console.log('onblue')
-    //         clearIntervalAll(intervalId)
-    //     };
-    // }, []);
-
     return (
         <>
             <ToastContainer />

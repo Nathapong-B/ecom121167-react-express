@@ -59,7 +59,6 @@ export default function MyPurchase() {
 
     return (
         <div className="w-full max-w-6xl m-auto">
-            {/* <div className="text-center bo-title">My Purchase</div> */}
 
             {token
                 ? myPurchase.length > 0

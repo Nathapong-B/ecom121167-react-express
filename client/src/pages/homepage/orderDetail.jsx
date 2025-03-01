@@ -116,9 +116,7 @@ export default function OrderDetail() {
 
     const hdlCreateOrder = async () => {
         setIsLoading(true);
-        //order , user , token
         const payload = prepareData(order, addressForOrder);
-
         const res = await actionCreateOrder(payload, token);
 
         if (res.error) return toast.error(res.error.message);
@@ -148,17 +146,11 @@ export default function OrderDetail() {
 
     }, [addressForOrder]);
 
-    const debug = () => {
-        console.log(addressForOrder)
-    }
-
     return (
         <div className="flex flex-col items-center md:flex-row md:items-start md:justify-center max-w-4xl lg:m-auto">
 
             <LoadingCover title="กำลังไปสู่หน้าต่างชำระเงิน" isLoading={isLoading}></LoadingCover>
-            {/* <button className="bo-btn-add bg-red-500" onClick={debug} disabled={false}>debug</button> */}
 
-            {/* <div className="hidden md:block md:w-4/12 mt-16 px-2"> */}
             <div className="w-full sm:w-10/12 md:w-4/12 mt-16 px-2">
                 <div className="text-xs bg-green-500/30 border border-green-500 rounded p-2 mb-2">
                     <div className="text-center font-bold">ที่อยู่ปัจจุบัน</div>
