@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import BoxSearch from "./components/boxSearch";
 import BlockProducts from "./components/blockProducts";
 import { useEcomStore } from "../../ecomStore/useEcomStore";
+import { useCartStore } from "../../ecomStore/useCartStore";
+import { useShallow } from "zustand/shallow";
+import { toast } from "react-toastify";
 
 export default function ViewByGroup() {
     const [searchParams] = useSearchParams();
@@ -12,6 +15,9 @@ export default function ViewByGroup() {
     const price_s = searchParams.get('price_s');
     const price_e = searchParams.get('price_e');
     const categories = useEcomStore(s => s.categories);
+    const { addToCart } = useCartStore(useShallow((s) => ({
+        addToCart: s.actionAddToCart,
+    })));
 
     const [data, setData] = useState();
     const nav = useNavigate();
@@ -74,6 +80,24 @@ export default function ViewByGroup() {
         fetchData()
     }, [searchParams]);
 
+    const hdlAddToCart = (data) => {
+        const res = addToCart(data);
+
+        if (res.error) toast.warning(res.error.message);
+
+        if (res.success) toast.success(res.success.message);
+    };
+
+    const viewProductDetail = (item) => {
+        const { id } = item;
+        // const store = 'products';
+
+        nav({
+            pathname: '/main/product-detail',
+            search: createSearchParams({ pid: `${id}` }).toString()
+        });
+    };
+
     return (
         <div className="w-full px-6">
             <div className="w-full max-w-6xl m-auto">
@@ -98,8 +122,8 @@ export default function ViewByGroup() {
                             }
 
                         </div>
-                        {data?.length > 0 
-                            ? <BlockProducts products={data} />
+                        {data?.length > 0
+                            ? <BlockProducts products={data} returnData={hdlAddToCart} returnViewProduct={viewProductDetail} />
                             : <div className="p-5">&#10007; ไม่พบข้อมูล</div>
                         }
                     </div>

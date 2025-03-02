@@ -90,3 +90,68 @@ npm install rc-slider --save
 **React รองรับ environment variables ตั้งแต่ react-scripts@0.5.0. ดังนั้นจึงไม่จำเป็นต้องติดตั้งแพ็คเกจอื่นเพิ่มเติม
 โปรเจค react ใช้ process.env.REACT_APP_SOMEKEY ในไฟล์ .env ต้องนำหน้าคีย์ด้วย REACT_APP_
 โปรเจค react ที่ติดตั้งด้วย vite ใช้ import.meta.env.VITE_API_SOMEKEY ในไฟล์ .env ต้องนำหน้าคีย์ด้วย VITE_
+
+---//--- Deploy ---//---
+Database ใช้ Supabase
+1. ที่ Supabase เมื่อเข้าสู่ระบบแล้ว คลิกเลือกหรือสร้างโปรเจค จากนั้นคลิก connect จะเห็นโค้ด Transaction pooler และ Session pooler
+2. .env
+        DATABASE_URL = "" // (ใช้โค้ด Transaction pooler จาก Supabase)
+        DIRECT_URL = "" // (ใช้โค้ด Session pooler จาก Supabase)
+// ควรเพิ่มโค้ดด้านล่างนี้ด้วย ในระหว่างการ dev
+DATABASE_URL : "?pgbouncer=true&connection_limit=1"
+3. schema.prisma
+        datasource db {
+        provider  = "postgresql"
+        url       = env("DATABASE_URL")
+        directUrl = env("DIRECT_URL")
+        }
+4. npx prisma db push
+
+---//--- Server --//---
+1. สร้างไฟล์ vercel.json ที่ root ของโปรเจค พิมพ์โค้ดด้านล่างลงไป
+{
+    "version": 2,
+    "name": "popdev",
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "server.js",
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    ]
+  }
+
+2. ที่ไฟล์ package.json เพิ่ม "postinstall": "prisma generate"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server",
+    "postinstall": "prisma generate" //เพิ่มบรรทัดนี้
+  },
+  
+3. Push ขึ้น github
+4. ที่เว็บ Vercel สร้างโปรเจคใหม่ขึ้นมา และทำการ import โปรเจคจาก github
+4.1 ที่ช่อง in build command พิมพ์ npx prisma generate
+4.2 เพิ่ม env ที่ต้องใช้
+
+---//--- Client ---//---
+1. สร้างไฟล์ vercel.json ที่ root ของโปรเจค พิมพ์โค้ดด้านล่างลงไป
+{
+    "routes":[
+        {
+            "src":"/[^.]+",
+            "dest":"/"
+        }
+    ]
+}
+
+2. Push ขึ้น github
+3. ที่เว็บ Vercel สร้างโปรเจคใหม่ขึ้นมา และ import โปรเจคจาก github
+4. เพิ่ม env ที่ต้องใช้
