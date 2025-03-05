@@ -106,7 +106,7 @@ export default function MainPage() {
 
                         <div className="block-display">
                             <div className="block-title w-max">ช้อปตามหมวดหมู่</div>
-                            <div className="w-96 h-96 bg-red-500/50">
+                            <div className="w-96 h-96 p-1 bg-red-500/50">
                                 <input type="text" list="data_program" placeholder="input your languages" className="frm-input"></input>
                                 <datalist id="data_program">
                                     <option>java</option>

@@ -7,7 +7,7 @@ exports.addProduct = async (req, res) => {
         const { addImages } = image[0];
 
         // upload images (files, fileName, folderName)
-        const resImages = await uploadImagesToCloud(req.files, Date.now(), 'TestUpload');
+        const resImages = await uploadImagesToCloud(req.files, 'random', 'TestUpload');
 
         // นำข้อมูลที่รีเทิร์นจาก cloud มาเพิ่มคีย์ position เพื่อเตรียมบันทึกลง db
         for (let i of resImages) {
