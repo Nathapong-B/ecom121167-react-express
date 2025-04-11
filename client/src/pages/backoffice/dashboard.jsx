@@ -1,8 +1,13 @@
+import Report from "./components/dashboard/report";
+
 export default function Dashboard() {
     return (
         <>
-            <div className="text-center">
-                <div className="text-2xl">Dashboard</div>
+            <div className="bo-title">Dashboard</div>
+
+
+            <div>
+                <Report />
             </div>
         </>
     )

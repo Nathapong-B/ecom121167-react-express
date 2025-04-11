@@ -71,6 +71,7 @@ npm install pdfmake --save
 npm i dayjs
 npm install --save @stripe/react-stripe-js @stripe/stripe-js
 npm install rc-slider --save
+npm install chart.js react-chartjs-2
 
 
 // ตัวอย่างการแปลง timestamp เป็นวันที่

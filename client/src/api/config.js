@@ -2,11 +2,12 @@
 const apiPath = import.meta.env.VITE_URL;
 
 export const config = {
-    authPath:apiPath+'/api',
+    authPath: apiPath + '/api',
     userPath: apiPath + '/api/user',
     categoryPath: apiPath + '/api/category',
     productPath: apiPath + '/api/product',
     orderPath: apiPath + '/api/order',
+    reportPath: apiPath + '/api/report',
 };
 
 export const configHeaders = (token) => {

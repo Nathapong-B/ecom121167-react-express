@@ -11,13 +11,13 @@ const cartStore = (set, get) => ({
     order: [],
     myPurchase: [],
 
-    actionDataTest:()=>{
+    actionDataTest: () => {
         console.log('data test')
         return 'data from data test';
     },
 
-    actionTest:()=>{
-        const data=get().actionDataTest()
+    actionTest: () => {
+        const data = get().actionDataTest()
         return data;
 
     },
