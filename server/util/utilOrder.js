@@ -68,7 +68,10 @@ exports.createOrder = async ({ userId, customerDetail, sumOrder, paymentIntent, 
 exports.updateStatus = async ({ id, status }) => {
     try {
         return await prisma.order.update({
-            where: { id },
+            where: { 
+                id,
+                status:'pending'
+             },
             data: {
                 status,
             },
@@ -78,6 +81,6 @@ exports.updateStatus = async ({ id, status }) => {
         });
     } catch (err) {
         console.log(err)
-        return { error: 'Something wrong in update' }
+        return { error: 'Something wrong in update',err }
     };
 };

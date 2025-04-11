@@ -164,9 +164,10 @@ exports.removeProduct = async (req, res) => {
 };
 
 exports.listProducts = async (req, res) => {
+    // console.log(req.headers['if-none-match'])
     try {
         const { limit } = req.params;
-
+        
         const result = await prisma.product.findMany({
             where: {
                 status: 'active',
@@ -175,7 +176,8 @@ exports.listProducts = async (req, res) => {
             orderBy: { last_update: 'desc' },
             include: { Image: true, },
         });
-
+        
+        console.log(res.headers)
         res.send({ message: 'Read products success', result });
     } catch (err) {
         console.log(err)

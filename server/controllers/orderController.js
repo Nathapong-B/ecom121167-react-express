@@ -59,7 +59,7 @@ exports.removeOrder = async (req, res) => {
         // #1 - เปลี่ยน status tb order เป็น canceled
         const status = 'canceled';
         const cancelOrder = await updateStatus({ id, status });
-        if (cancelOrder?.error) return res.status(500).send({ message: cancelOrder.error });
+        if (cancelOrder?.error) return res.status(500).send({ message: cancelOrder.error, err: cancelOrder.err });
 
         const { OrderDetail } = cancelOrder;
 
