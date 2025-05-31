@@ -113,7 +113,7 @@ exports.validate_datetime_format = (req, res, next) => {
     // ตรวจสอบว่ามี dayStart , dayEnd มาไหม
     const { dayStart, dayEnd } = req.body;
 
-    if(!dayStart || !dayEnd) return res.status(400).send({message:'Input data invalid, dayStart or dayEnd has missing'});
+    if (!dayStart || !dayEnd) return res.status(400).send({ message: 'Input data invalid, dayStart or dayEnd has missing' });
 
     const arrDate = [{ date: dayStart }, { date: dayEnd }];
 
@@ -162,4 +162,20 @@ exports.validate_date_duration = (req, res, next) => {
     if (!validateDayRanges(dayEnd)) return res.status(400).send({ message: 'Day end invalid' });
 
     next();
+};
+
+// test
+exports.test_mid = (req, res, next) => {
+    try {
+        const zVariable = "test"
+        throw new Error()
+        // next("error");
+    } catch (error) {
+        // console.log(err)
+        next(error);
+    }
+};
+
+exports.test_err = (err, req, res, next) => {
+    console.log("test error..!!",err)
 };

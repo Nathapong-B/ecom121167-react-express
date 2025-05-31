@@ -248,34 +248,9 @@ exports.listUsers = async (req, res) => {
 
 
 // test
-exports.testApi = async (req, res) => {
-    // const file = req.files[0] ? [req.files[0]] : [];
+exports.testApi = async (err, req, res) => {
 
-    const { first_name, last_name, address, phone } = req.body.data ? JSON.parse(req.body.data) : req.body;
-
-
-
-    // const data={ first_name, last_name, address, phone }
-    const data = first_name
-    // console.log('firstName : ', data)
-
-
-    const id = "73ec5bbf-2b27-413e-ba91-68222e9ffdff"; // admin
-    // const id = "09cc75cd-89fe-4d25-b872-17e497ed940b"; // user
-    const detail = "test img"
-    const detail2 = "test img 2"
-
-    // no data return null
-    const img_public_id = await prisma.profileImage.findFirst({
-        where: {
-            User: {
-                every: { id: id }
-            }
-        },
-        select: { public_id: true }
-    });
-
-    console.log(findImgUser)
+    console.log(err)
 
     res.send({ message: 'test api ok', })
 };

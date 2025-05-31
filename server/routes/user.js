@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { register, signin, updateProfile, changeStatusUser, changeRole, listUsers, testApi, callProfile } = require('../controllers/userController');
-const { validate_Email_Pwd, validate_Profile, validate_Status, validate_Role, validate_Images_size, validate_Signin } = require('../middlewares/pre-check-data');
+const { validate_Email_Pwd, validate_Profile, validate_Status, validate_Role, validate_Images_size, validate_Signin, test_mid } = require('../middlewares/pre-check-data');
 const { jwtValidate, adminValidate } = require('../middlewares/authService');
 const { upload } = require('../config/multerConfig');
 
@@ -18,6 +18,6 @@ router.put('/user/change-role/:id', adminValidate, validate_Role, changeRole);
 router.get('/user/list-users/:statusby/:limit', adminValidate, listUsers);
 
 // test
-// router.post('/testapi/', upload.array('image'), validate_Images_size, testApi);
+router.post('/testapi/', test_mid, testApi);
 
 module.exports = router;
